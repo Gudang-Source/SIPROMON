@@ -65,7 +65,15 @@ class ModelKegiatan extends CI_Model {
 		$this->db->join('employee','employee.id = roles.employee_id');
 
 		return $this->db->get();
-	}		
+	}
+
+	public function selectPaguById($id){
+		$this->db->select('pagu');
+		$this->db->from($this->tableName);
+		$this->db->where('id',$id);
+		
+		return $this->db->get()->result_array();
+	}
 
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
