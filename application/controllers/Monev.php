@@ -183,23 +183,26 @@ class Monev extends CI_Controller {
 				$this->data['actWeeks'][$act['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($act['id'],($i+1),"act");
 
 				if($this->data['actWeeks'][$act['id']][$i]->num_rows() != 0){
-					$this->data['actWeeks'][$act['id']][$i] = $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['persentase_real'];
+					$tempWeeks = array(
+						'persentase' => $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['persentase_real'],
+						'tingkat_kendala' => $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['tingkat_kendala'],
+						);
+					$this->data['actWeeks'][$act['id']][$i] = $tempWeeks;
+					// $this->data['actWeeks'][$act['id']][$i] = $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['tingkat_kendala'];
 				}else{
 					$this->data['actWeeks'][$act['id']][$i] = 0;
 				}
-				// $temp = array(
-				// 	array( $act['id'] => array(
-				// 			$i => $this->ModelMnvFisik->cekByWeeksRMP($act['id'],($i+1),"act"),
-				// 			) 
-				// 		)
-				// 	);
-				// array_push($this->data['actWeeks'],$temp);
 			}
 			foreach($this->data['allStages'] as $stage){
 				$this->data['stageWeeks'][$stage['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($stage['id'],($i+1),"stage");
-
+				
 				if($this->data['stageWeeks'][$stage['id']][$i]->num_rows() != 0){
-					$this->data['stageWeeks'][$stage['id']][$i] = $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['persentase_real'];
+					$tempWeeks = array(
+						'persentase' => $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['persentase_real'],
+						'tingkat_kendala' => $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['tingkat_kendala'],
+						);
+					$this->data['stageWeeks'][$stage['id']][$i] = $tempWeeks;
+					// $this->data['stageWeeks'][$stage['id']][$i]['tingkat_kendala'] = $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['tingkat_kendala'];
 				}else{
 					$this->data['stageWeeks'][$stage['id']][$i] = 0;
 				}
@@ -250,7 +253,6 @@ class Monev extends CI_Controller {
 			$jml = $this->ModelMnvKeuangan->insertMingguan($_POST['minggu'],$_POST['jml']);
 			$jml_kumulatif = $this->ModelMnvKeuanganTotal->jmlTotalByIdRMP($_POST['id_rmp'], $_POST['minggu'])[0]['jml_kumulatif'] + $jml;
 			$persentase = ($jml/$pagu[0]['pagu'])*100;
-			$persentase_kumulatif = ($jml_kumulatif/$pagu[0]['pagu'])*100;
 			
 
 			$data = array(
@@ -258,7 +260,6 @@ class Monev extends CI_Controller {
 				'jml' => $jml, 
 				'jml_kumulatif' => $jml_kumulatif, 
 				'persentase' => $persentase, 
-				'persentase_kumulatif' => $persentase_kumulatif, 
 				'id_rmp' => $_POST['id_rmp'], 
 				);
 			// print_r($data);
@@ -272,14 +273,12 @@ class Monev extends CI_Controller {
 			$pagu = $this->ModelKegiatan->selectPaguById($_POST['id_kegiatan']);
 			$jml_kumulatif = $this->ModelMnvKeuanganTotal->jmlTotalByIdRMP($_POST['id_rmp'], $_POST['minggu'])[0]['jml_kumulatif'] + $jml;
 			$persentase = ($jml/$pagu[0]['pagu'])*100;
-			$persentase_kumulatif = ($jml_kumulatif/$pagu[0]['pagu'])*100;
 			
 
 			$data = array(
 				'jml' => $jml, 
 				'jml_kumulatif' => $jml_kumulatif, 
 				'persentase' => $persentase, 
-				'persentase_kumulatif' => $persentase_kumulatif
 				);
 			
 			$kumulatif = $this->ModelMnvKeuanganTotal->updateByWeeksIdRMP($_POST['minggu'],$_POST['id_rmp'],$data);
@@ -299,11 +298,12 @@ class Monev extends CI_Controller {
 				'minggu' => $_POST['minggu'],
 				'persentase' => $_POST['persentase'],
 				'persentase_real' => $persentase_real,
-				'persentase_kumulatif' => $persentase_kumulatif,
 				'output' => $_POST['output'],
 				'deskripsi' => $_POST['deskripsi'],
 				'id_rmp' => $_POST['id_rmp'],
 				'id_refer' => $_POST['id_refer'],
+				'kendala' => $_POST['kendala'],
+				'tingkat_kendala' => $_POST['tingkat_kendala'],
 				'type' => $_POST['type'],
 				);
 			$id_new = $this->ModelMnvFisik->insert($data);
@@ -316,9 +316,10 @@ class Monev extends CI_Controller {
 			$data = array(
 				'persentase' => $_POST['persentaseF'],
 				'persentase_real' => $persentase_real,
-				'persentase_kumulatif' => $persentase_kumulatif,
 				'output' => $_POST['outputF'],
 				'deskripsi' => $_POST['deskripsiF'],
+				'kendala' => $_POST['kendala'],
+				'tingkat_kendala' => $_POST['tingkat_kendala'],
 				);
 			// echo '<pre>' . print_r($data) . '</pre>';
 			$result = $this->ModelMnvFisik->update($_POST['id_mnv_fisik'],$data);
