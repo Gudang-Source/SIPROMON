@@ -13,42 +13,23 @@
 			<div id="main-menu" class="main-menu collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<h3 class="menu-title">Dashboard Menu</h3><!-- /.menu-title -->
-					<?php if($this->session->userdata('position') != NULL){ ?>
-					<li class="active">
-						<a href="<?=base_url();?>Home/berandaka"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
-					</li>
 
-					<?php } ?>
-
-					<?php if($this->session->userdata('roles') == "Ketua"){ ?>
 					<li class="active">
-						<a href="<?=base_url();?>Home/beranda"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
-					</li>
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th-list"></i>Kegiatan</a>
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-angle-double-right"></i><a href="<?php echo base_url(); ?>Kegiatan">Semua Kegiatan</a></li>
-						</ul>
-					</li>
-					<?php } ?>
-
-					<?php if($this->session->userdata('roles') == "Admin"){ ?>
-					<li class="active">
-						<a href="<?=base_url();?>Home/beranda"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
+						<a href="<?=base_url();?>Admin/beranda"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
 					</li>
 					<li>
-						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Jabatan RMP</a>
+						<a href="<?=base_url();?>Admin/position"> <i class="menu-icon fa fa-sitemap"></i>Master Jabatan RMP</a>
 					</li>										
 					<li>
-						<a href="<?=base_url();?>User"> <i class="menu-icon fa fa-users"></i>User Ketua Tim</a>
+						<a href="<?=base_url();?>Admin/ketua"> <i class="menu-icon fa fa-users"></i>Master Ketua Tim</a>
 					</li>
 					<li>
-						<a href="<?=base_url();?>Pejabat"> <i class="menu-icon fa fa-user-circle-o"></i>List Pejabat</a>
+						<a href="<?=base_url();?>Admin/pejabat"> <i class="menu-icon fa fa-user-circle-o"></i>Master Pejabat</a>
 					</li>					
 					<li>
-						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Struktur Organisasi</a>
+						<a href="<?=base_url();?>Admin/struktur"> <i class="menu-icon fa fa-sitemap"></i>Struktur Organisasi</a>
 					</li>
-					<?php } ?>
+
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</nav>
