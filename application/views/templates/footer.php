@@ -267,6 +267,9 @@
            $('#deskripsiF').val(data[0]['deskripsi']);
            $('#outputF').val(data[0]['output']);
            $('#persentaseF').val(data[0]['persentase']);
+           $('#kendalaF').val(data[0]['kendala']);
+           $('input[name="tingkat_kendalaF"][value="'+data[0]['tingkat_kendala']+'"]').attr('checked','checked');
+           // $('#tingkat_kendalaF').val(data[0]['tingkat_kendala']).attr("checked");
             
             // $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
           }

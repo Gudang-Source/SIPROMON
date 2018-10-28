@@ -4,10 +4,41 @@
 								<div class="page-header float-left">
 										<div class="page-title">
 												<h1>Tabel Realisasi Kegiatan<br><?=$row['judul']; ?></h1>
+												<?php
+												$now = date("d");
+												$week = $now/7;
+												echo $week;
+												 ?>
 										</div>
 								</div>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-4">
+							<table>
+								<tr>
+									<th>|</th>
+									<th colspan=11 class='text-center'>Kendala yang terjadi dalam satu pekan</th>
+									<th>|</th>
+								</tr>
+								<tr>
+									<td>|</td>
+									<td class='text-center' bgcolor="#ffffff">Tidak Ada kendala</td>
+									<td>|</td>
+									<td class='text-center' bgcolor='#8cffef'>Sangat Rendah</td>
+									<td>|</td>
+									<td class='text-center' bgcolor='#00ffbf'>Rendah</td>
+									<td>|</td>
+									<td class='text-center' bgcolor='#fff200'>Sedang</td>
+									<td>|</td>
+									<td class='text-center' bgcolor='#ff7700'>Tinggi</td>
+									<td>|</td>
+									<td class='text-center' bgcolor='#ff0000'>Sangat Tinggi</td>
+									<td>|</td>
+
+													
+								</tr>
+							</table>
+						</div>
+						<div class="col-sm-4">
 								<div class="page-header float-right">
 										<div class="page-title">
 												<ol class="breadcrumb text-right">
@@ -128,7 +159,25 @@
 															echo "<td class='text-center'></td>";
 														
 														}else{
-															echo "<td class='text-center'>".$actWeeks[$act['id']][$i-1]."</td>";
+															if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 1){
+																echo "<td class='text-center' bgcolor='#8cffef>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 2){
+																echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 3){
+																echo "<td class='text-center' bgcolor='#fff200'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 4){
+																echo "<td class='text-center' bgcolor='#ff7700'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 5){
+																echo "<td class='text-center' bgcolor='#ff0000'>";
+
+															}else{
+																echo "<td class='text-center'>";
+															}
+															echo $actWeeks[$act['id']][$i-1]['persentase']."</td>";
 														}
 												 } ?>
 																				
@@ -148,7 +197,25 @@
 												if($stageWeeks[$stage['id']][$i-1] == 0){
 													echo "<td class='text-center'></td>";
 												}else{
-													echo "<td class='text-center'>".$stageWeeks[$stage['id']][$i-1]."</td>";
+													if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 1){
+														echo "<td class='text-center' bgcolor='#8cffef>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 2){
+														echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 3){
+														echo "<td class='text-center' bgcolor='#fff200'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 4){
+														echo "<td class='text-center' bgcolor='#ff7700'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 5){
+														echo "<td class='text-center' bgcolor='#ff0000'>";
+
+													}else{
+														echo "<td class='text-center'>";
+													}
+													echo $stageWeeks[$stage['id']][$i-1]['persentase']."</td>";
 												}
 											}
 											?>
@@ -193,7 +260,25 @@
 															echo "<td class='text-center'></td>";
 														
 														}else{
-															echo "<td class='text-center'>".$actWeeks[$act['id']][$i-1]."</td>";
+															if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 1){
+																echo "<td class='text-center' bgcolor='#8cffef>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 2){
+																echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 3){
+																echo "<td class='text-center' bgcolor='#fff200'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 4){
+																echo "<td class='text-center' bgcolor='#ff7700'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 5){
+																echo "<td class='text-center' bgcolor='#ff0000'>";
+
+															}else{
+																echo "<td class='text-center'>";
+															}
+															echo $actWeeks[$act['id']][$i-1]['persentase']."</td>";
 														}
 												 } ?>
 																				
@@ -214,7 +299,25 @@
 												if($stageWeeks[$stage['id']][$i-1] == 0){
 													echo "<td class='text-center'></td>";
 												}else{
-													echo "<td class='text-center'>".$stageWeeks[$stage['id']][$i-1]."</td>";
+													if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 1){
+														echo "<td class='text-center' bgcolor='#8cffef>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 2){
+														echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 3){
+														echo "<td class='text-center' bgcolor='#fff200'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 4){
+														echo "<td class='text-center' bgcolor='#ff7700'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 5){
+														echo "<td class='text-center' bgcolor='#ff0000'>";
+
+													}else{
+														echo "<td class='text-center'>";
+													}
+													echo $stageWeeks[$stage['id']][$i-1]['persentase']."</td>";
 												}
 											}
 											?>
@@ -259,7 +362,25 @@
 															echo "<td class='text-center'></td>";
 														
 														}else{
-															echo "<td class='text-center'>".$actWeeks[$act['id']][$i-1]."</td>";
+															if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 1){
+																echo "<td class='text-center' bgcolor='#8cffef>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 2){
+																echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 3){
+																echo "<td class='text-center' bgcolor='#fff200'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 4){
+																echo "<td class='text-center' bgcolor='#ff7700'>";
+
+															}else if($actWeeks[$act['id']][$i-1]['tingkat_kendala'] == 5){
+																echo "<td class='text-center' bgcolor='#ff0000'>";
+
+															}else{
+																echo "<td class='text-center'>";
+															}
+															echo $actWeeks[$act['id']][$i-1]['persentase']."</td>";
 														}
 												 } ?>
 																				
@@ -280,7 +401,25 @@
 												if($stageWeeks[$stage['id']][$i-1] == 0){
 													echo "<td class='text-center'></td>";
 												}else{
-													echo "<td class='text-center'>".$stageWeeks[$stage['id']][$i-1]."</td>";
+													if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 1){
+														echo "<td class='text-center' bgcolor='#8cffef>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 2){
+														echo "<td class='text-center' bgcolor='#00ffbf'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 3){
+														echo "<td class='text-center' bgcolor='#fff200'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 4){
+														echo "<td class='text-center' bgcolor='#ff7700'>";
+
+													}else if($stageWeeks[$stage['id']][$i-1]['tingkat_kendala'] == 5){
+														echo "<td class='text-center' bgcolor='#ff0000'>";
+
+													}else{
+														echo "<td class='text-center'>";
+													}
+													echo $stageWeeks[$stage['id']][$i-1]['persentase']."</td>";
 												}
 											}
 											?>
@@ -301,7 +440,7 @@
 										</tr>
 										
 										<tr style="background-color: #90a4ae;border-color: #90a4ae;color:#fff; font-weight: 400;">
-											<td colspan="5">Jumlah Realisasi Fisik Kumulatif</td>
+											<td colspan="5">Persentase Realisasi Fisik Kumulatif</td>
 											<?php for($i=0;$i<48;$i++){ 
 												if($fisikWeeksKumulatif[($i)] == 0){
 													echo "<td class='text-center'></td>";
@@ -323,7 +462,7 @@
 											 } ?>											
 										</tr>
 										<tr style="background-color: #999;border-color: #999;color:#fff; font-weight: 400;">
-											<td colspan="5">Presentase Realisasi Keuangan Kumulatif</td>
+											<td colspan="5">Persentase Realisasi Keuangan Kumulatif</td>
 											<?php for($i=0;$i<48;$i++){ 
 												if($moneysWeeksKumulatifP[($i)] == 0){
 													echo "<td class='text-center'></td>";

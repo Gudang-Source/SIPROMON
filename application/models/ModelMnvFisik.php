@@ -44,7 +44,7 @@ class ModelMnvFisik extends CI_Model {
 	}
 
 	public function getByWeeksRMP($id_refer,$minggu, $type){
-		$this->db->select('persentase_real');
+		$this->db->select('persentase_real, tingkat_kendala');
 		$this->db->from($this->tableName);
 		$this->db->where('id_refer = '.$id_refer.' AND minggu = '.$minggu.' AND type = "'.$type.'"');
 		

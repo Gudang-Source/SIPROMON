@@ -144,6 +144,9 @@
 													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<i class="fa fa-fw fa-exclamation"></i>
+													</a>
 												</td>
 													<?php }else if($ada==0){ ?>
 												<td class="text-center">
@@ -474,6 +477,24 @@
 													</div>
 													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
 												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Kendala</label>
+													<div class="input-group">
+														<textarea class="form-control" name="kendala" rows=7></textarea>
+													</div>
+													
+												</div>
+												<div class="form-group">
+													<div class="input-group" style="font-size:8pt;">
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=1>sangat rendah</input>
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
+													</div>
+													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
+												</div>
 											</div>
 										</div>
 								</div>
@@ -536,6 +557,24 @@
 														<textarea class="form-control" name="deskripsiF" id="deskripsiF" rows=10></textarea>
 													</div>
 													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Kendala</label>
+													<div class="input-group">
+														<textarea class="form-control" name="kendalaF" id="kendalaF" rows=7></textarea>
+													</div>
+													
+												</div>
+												<div class="form-group">
+													<div class="input-group" style="font-size:8pt;">
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=1>sangat rendah</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=5>sangat tinggi</input>
+													</div>
+													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
 												</div>
 											</div>
 										</div>
