@@ -66,6 +66,15 @@ class Monev extends CI_Controller {
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($idk)->row_array();
 		$this->data['id_kegiatan'] = $idk;
 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
+		$now = date("d");
+		$week = $now/7;
+		
+		
+		$month = (int)date("m");
+		
+		$this->data['this_weeks'] = (($month-1)*4)+$week;
+		
+												 
 		// $this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();	
 
 		$this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();	
@@ -79,29 +88,28 @@ class Monev extends CI_Controller {
 			$temp = $this->ModelMnvKeuanganTotal->cekByWeeksRMP($this->data['row']['id'],($i+1));
 			array_push($this->data['moneysWeeks'],$temp);
 			foreach($this->data['allAct'] as $act){
-				$this->data['actWeeks'][$act['id']][$i] = $this->ModelMnvFisik->cekByWeeksRMP($act['id'],($i+1),"act");
-				// $temp = array(
-				// 	array( $act['id'] => array(
-				// 			$i => $this->ModelMnvFisik->cekByWeeksRMP($act['id'],($i+1),"act"),
-				// 			) 
-				// 		)
-				// 	);
-				// array_push($this->data['actWeeks'],$temp);
+				$temp = $this->ModelMnvFisik->cekByWeeksRMP($act['id'],($i+1),"act");
+				if($temp->num_rows() != 0){
+					$this->data['actWeeks'][$act['id']][$i]['num'] = 1;
+					$this->data['actWeeks'][$act['id']][$i]['data'] = $temp->result_array();
+				}else{
+					$this->data['actWeeks'][$act['id']][$i]['num'] = 0;
+				}
+				
 			}
 			foreach($this->data['allStages'] as $stage){
-				$this->data['stageWeeks'][$stage['id']][$i] = $this->ModelMnvFisik->cekByWeeksRMP($stage['id'],($i+1),"stage");
-				// $temp = array(
-				// 	array( $stage['id'] => array(
-				// 			$i => $this->ModelMnvFisik->cekByWeeksRMP($stage['id'],($i+1),"act"),
-				// 			) 
-				// 		)
-				// 	);
-				// array_push($this->data['stageWeeks'],$temp);
+				$temp = $this->ModelMnvFisik->cekByWeeksRMP($stage['id'],($i+1),"stage");
+				if($temp->num_rows != 0){
+					$this->data['stageWeeks'][$stage['id']][$i]['num'] = 1;
+					$this->data['stageWeeks'][$stage['id']][$i]['data'] = $temp->result_array();
+
+				}else{
+					$this->data['stageWeeks'][$stage['id']][$i]['num'] = 0;
+				}
+				
 			}
 		}
-		// echo "<pre>";
-		// print_r($this->data['moneysWeeks']);
-		// echo "</pre>";
+		
 
 		/*Counting Total Every Step*/
 		$convert = array('A'=>0,'B'=>1,'C'=>2);
@@ -154,15 +162,14 @@ class Monev extends CI_Controller {
 			if($temp->num_rows() != 0){
 				$temp = $temp->result_array()[0]['persentase_real'];
 				if($temp != 0){
-
 					$fisik_kumulatif += $temp;
 					$temp2 = $fisik_kumulatif;
 				}
 			}else{
 				$temp = 0;
 			}
-			array_push($this->data['fisikWeeks'],round($temp,2));
-			array_push($this->data['fisikWeeksKumulatif'],round($temp2,2));
+			array_push($this->data['fisikWeeks'],round($temp,3));
+			array_push($this->data['fisikWeeksKumulatif'],round($temp2,3));
 			
 			$temp = $this->ModelMnvKeuanganTotal->getByWeeksRMP($this->data['row']['id'],($i+1));
 			$temp2 = 0;
@@ -178,14 +185,15 @@ class Monev extends CI_Controller {
 
 			array_push($this->data['moneysWeeks'],$temp);
 			array_push($this->data['moneysWeeksKumulatif'],$temp2);
-			array_push($this->data['moneysWeeksKumulatifP'],round($temp3,2));
+			array_push($this->data['moneysWeeksKumulatifP'],round($temp3,3));
 			foreach($this->data['allAct'] as $act){
 				$this->data['actWeeks'][$act['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($act['id'],($i+1),"act");
 
 				if($this->data['actWeeks'][$act['id']][$i]->num_rows() != 0){
+					$tempArr = $this->data['actWeeks'][$act['id']][$i]->result_array();
 					$tempWeeks = array(
-						'persentase' => $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['persentase_real'],
-						'tingkat_kendala' => $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['tingkat_kendala'],
+						'persentase' => $tempArr[0]['persentase_real'],
+						'tingkat_kendala' => $tempArr[0]['tingkat_kendala'],
 						);
 					$this->data['actWeeks'][$act['id']][$i] = $tempWeeks;
 					// $this->data['actWeeks'][$act['id']][$i] = $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['tingkat_kendala'];
@@ -197,9 +205,10 @@ class Monev extends CI_Controller {
 				$this->data['stageWeeks'][$stage['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($stage['id'],($i+1),"stage");
 				
 				if($this->data['stageWeeks'][$stage['id']][$i]->num_rows() != 0){
+					$tempArr = $this->data['stageWeeks'][$stage['id']][$i]->result_array();
 					$tempWeeks = array(
-						'persentase' => $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['persentase_real'],
-						'tingkat_kendala' => $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['tingkat_kendala'],
+						'persentase' => $tempArr[0]['persentase_real'],
+						'tingkat_kendala' => $tempArr[0]['tingkat_kendala'],
 						);
 					$this->data['stageWeeks'][$stage['id']][$i] = $tempWeeks;
 					// $this->data['stageWeeks'][$stage['id']][$i]['tingkat_kendala'] = $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['tingkat_kendala'];
@@ -293,33 +302,48 @@ class Monev extends CI_Controller {
 		if(isset($_POST['submit'])){
 			// echo '<pre>' . print_r($_POST, TRUE) . '</pre>';
 			$persentase_kumulatif = $_POST['fisik_real']*$_POST['persentase']/100;
-			$persentase_real = $persentase_kumulatif - round($this->ModelMnvFisik->jmlFisikByActRMP($_POST['id_rmp'],$_POST['id_refer'], $_POST['type'])[0]['persen_total'],2);
-			$data = array(
-				'minggu' => $_POST['minggu'],
-				'persentase' => $_POST['persentase'],
-				'persentase_real' => $persentase_real,
-				'output' => $_POST['output'],
-				'deskripsi' => $_POST['deskripsi'],
-				'id_rmp' => $_POST['id_rmp'],
-				'id_refer' => $_POST['id_refer'],
-				'kendala' => $_POST['kendala'],
-				'tingkat_kendala' => $_POST['tingkat_kendala'],
-				'type' => $_POST['type'],
-				);
+			$persentase_real = $persentase_kumulatif - $this->ModelMnvFisik->jmlFisikByActRMP($_POST['id_rmp'],$_POST['id_refer'], $_POST['type'],$_POST['minggu'])[0]['persen_total'];
+			
+			if(isset($_POST['kendala'])){
+
+				$data = array(
+					'minggu' => $_POST['minggu'],
+					'persentase' => $_POST['persentase'],
+					'persentase_real' => $persentase_real,
+					'output' => $_POST['output'],
+					'deskripsi' => $_POST['deskripsi'],
+					'id_rmp' => $_POST['id_rmp'],
+					'id_refer' => $_POST['id_refer'],
+					'kendala' => $_POST['kendala'],
+					'tingkat_kendala' => $_POST['tingkat_kendala'],
+					'type' => $_POST['type'],
+					);
+			}else{
+				$data = array(
+					'minggu' => $_POST['minggu'],
+					'persentase' => $_POST['persentase'],
+					'persentase_real' => $persentase_real,
+					'output' => $_POST['output'],
+					'deskripsi' => $_POST['deskripsi'],
+					'id_rmp' => $_POST['id_rmp'],
+					'id_refer' => $_POST['id_refer'],
+					'type' => $_POST['type'],
+					);
+			}
 			$id_new = $this->ModelMnvFisik->insert($data);
 			$this->tabel_progres($_POST['id_kegiatan']);
 			// echo '<pre>' . print_r($data) . '</pre>';
 			// echo '<pre>' . $id_new. '</pre>';
 		}else if(isset($_POST['update'])){
 			$persentase_kumulatif = $_POST['fisik_realF']*$_POST['persentaseF']/100;
-			$persentase_real = $persentase_kumulatif - round($this->ModelMnvFisik->jmlFisikByActRMP($_POST['id_rmp'],$_POST['id_referF'], $_POST['typeF'])[0]['persen_total'],2);
+			$persentase_real = $persentase_kumulatif - $this->ModelMnvFisik->jmlFisikByActRMP($_POST['id_rmp'],$_POST['id_referF'], $_POST['typeF'],$_POST['minggu'])[0]['persen_total'];
 			$data = array(
 				'persentase' => $_POST['persentaseF'],
 				'persentase_real' => $persentase_real,
 				'output' => $_POST['outputF'],
 				'deskripsi' => $_POST['deskripsiF'],
-				'kendala' => $_POST['kendala'],
-				'tingkat_kendala' => $_POST['tingkat_kendala'],
+				'kendala' => $_POST['kendalaF'],
+				'tingkat_kendala' => $_POST['tingkat_kendalaF'],
 				);
 			// echo '<pre>' . print_r($data) . '</pre>';
 			$result = $this->ModelMnvFisik->update($_POST['id_mnv_fisik'],$data);
