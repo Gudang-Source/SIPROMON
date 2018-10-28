@@ -37,9 +37,6 @@
 						<a href="<?=base_url();?>Home/beranda"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
 					</li>
 					<li>
-						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Jabatan RMP</a>
-					</li>										
-					<li>
 						<a href="<?=base_url();?>User"> <i class="menu-icon fa fa-users"></i>User Ketua Tim</a>
 					</li>
 					<li>
@@ -47,7 +44,7 @@
 					</li>					
 					<li>
 						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Struktur Organisasi</a>
-					</li>
+					</li>					
 					<?php } ?>
 				</ul>
 			</div><!-- /.navbar-collapse -->

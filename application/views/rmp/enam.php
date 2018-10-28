@@ -69,7 +69,13 @@
 										<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#strukturorg" role="tab" aria-controls="latar" aria-selected="true">Kelola Tugas</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
-										</div>
+<!-- 											<button type="submit" class="btn btn-success">
+		<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
+</button> -->
+											<!-- <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#previewfoto">
+													<span class=""><i class="fa fa-fw fa-eye"></i></span> Preview
+											</button>
+										 --></div>
 									</div>
 									<div class="col-md-9">
 										<div class="tab-content" id="v-pills-tabContent">

@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('ModelRMPPosition','ModelMnvFisik','ModelMnvKeuanganTotal','ModelMnvKeuangan','ModelKegiatan','ModelRMP','ModelUser','ModelRMPRoles','ModelRMPSDM','ModelRMPSDK','ModelSatker','ModelRMPAct','ModelRMPStages','ModelRMPDocument','ModelRMPRec','ModelRMPBib','ModelRoles','ModelEmployee','ModelRMPSDKTitle','ModelRMPSDKList','ModelRMPActExe','ModelRMPStagesExe','ModelRMPSDKPlanAct','ModelRMPSDKPlanStage');
+$autoload['model'] = array('ModelMnvFisik','ModelMnvKeuanganTotal','ModelMnvKeuangan','ModelKegiatan','ModelRMP','ModelUser','ModelRMPRoles','ModelRMPSDM','ModelRMPSDK','ModelSatker','ModelRMPAct','ModelRMPStages','ModelRMPDocument','ModelRMPRec','ModelRMPBib','ModelRoles','ModelEmployee','ModelRMPSDKTitle','ModelRMPSDKList','ModelRMPActExe','ModelRMPStagesExe','ModelRMPSDKPlanAct','ModelRMPSDKPlanStage');

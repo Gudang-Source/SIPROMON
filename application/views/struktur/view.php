@@ -10,7 +10,7 @@
 				<div class="page-header float-right">
 					<div class="page-title">
 						<ol class="breadcrumb text-right">
-							<li><a href="" title="">Admin</a></li>
+							<li><a href="" title="">Halaman Utama</a></li>
 							<li class="active">Struktur Organisasi</li>
 						</ol>
 					</div>
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<?php } ?>
-      <?php echo form_open('Admin/saveStruktur'); ?>
+      <?php echo form_open('Struktur/save'); ?>
 			<div class="col-sm-12 mb-4">
         <div class="ui styled accordion">
       	<div class="title active">

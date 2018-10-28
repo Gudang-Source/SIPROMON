@@ -43,7 +43,7 @@ class Kegiatan extends CI_Controller {
 		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('kegiatan/detail_old',$this->data);
+		$this->load->view('kegiatan/detail',$this->data);
 		$this->load->view('templates/footer',$this->foot);
 	}
 }

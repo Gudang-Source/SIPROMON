@@ -167,7 +167,7 @@
       closeOnConfirm: false
     },
     function(){
-       window.location = url+loc+"/"+id+"/";
+       window.location = url+loc+id+"/";
     });
   }  
   
