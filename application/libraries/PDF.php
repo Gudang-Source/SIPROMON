@@ -1,0 +1,30 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+class PDF {
+    
+    function m_pdf()
+    {
+        $CI = & get_instance();
+        log_message('Debug', 'mPDF class is loaded.');
+    }
+ 
+    function load($param=NULL)
+    {
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML('<h1>Hello world!</h1>');
+        $mpdf->Output();      
+        include_once APPPATH.'/third_party/mpdf60/mpdf.php';
+         
+        if ($params == NULL)
+        {
+            $param = '"en-GB-x","A4","","",10,10,10,10,6,3';          
+        }
+         
+        return new mPDF($param);
+    }
+    function test(){
+      $mpdf = new \Mpdf\Mpdf();
+      $mpdf->WriteHTML('<h1>Hello world!</h1>');
+      $mpdf->Output();
+    }
+}
