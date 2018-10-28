@@ -18,11 +18,6 @@
 								</div>
 						</div>
 				</div>
-				<?php
-					$ddate = date("Y-m-d");
-					$date = new DateTime($ddate);
-					$week = $date->format("W");
-				?>
 				<div class="content mt-3" style="background-color: white;">
 							<div class="table-responsive">
 								<table class="table table-sm table-bordered table-hover" style="background-color: white; border-color: white; font-size:13px;">	
@@ -136,23 +131,37 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($actWeeks[$act['id']][$i-1] == 0){
+														if($actWeeks[$act['id']][$i-1]['num'] == 0){
 
 															if($i>=$bln && $i <=$end){
 																	?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
+													
+												<?php
+																if($i < $this_weeks){
+												?>
 													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 														<i class="fa fa-fw fa-exclamation"></i>
 													</a>
+
+													<?php
+																}else{
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+													<?php
+																}
+													?>
 												</td>
 													<?php }else if($ada==0){ ?>
 												<td class="text-center">
+													
+													
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													
 												</td>
 												<?php 
 															}else{
@@ -162,9 +171,22 @@
 														}else{
 															?>
 												<td class="text-center">
+													<?php
+													// print_r($actWeeks[$act['id']][$i-1]['data']);
+														if($actWeeks[$act['id']][$i-1]['data'][0]['tingkat_kendala'] == 0){
+													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+														}else{
+															?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+															<?php
+														}
+														?>
 												</td>
 															<?php
 														}
@@ -183,13 +205,27 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($stageWeeks[$stage['id']][$i-1] == 0){
+												if($stageWeeks[$stage['id']][$i-1]['num'] == 0){
 													if($i>=$bln && $i <= $end){
 														?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+															if($i < $this_weeks){
+												?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														
+														<?php
+
+													}
+														?>
 												</td>
 												<?php }else{ ?>
 												<td class="text-center">
@@ -202,9 +238,24 @@
 												}else{
 												?>
 												<td class="text-center">
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+															if($i < $this_weeks){
+												?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+													
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+
+													}
+														?>
+													
 												</td>
 													<?php
 												}
@@ -247,20 +298,37 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($actWeeks[$act['id']][$i-1] == 0){
+														if($actWeeks[$act['id']][$i-1]['num'] == 0){
 
 															if($i>=$bln && $i <=$end){
 																	?>
 												<td class="text-center">
+													
+												<?php
+																if($i < $this_weeks){
+												?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<i class="fa fa-fw fa-exclamation"></i>
+													</a>
+
+													<?php
+																}else{
+													?>
 													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													<?php
+																}
+													?>
 												</td>
 													<?php }else if($ada==0){ ?>
 												<td class="text-center">
+													
+													
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													
 												</td>
 												<?php 
 															}else{
@@ -270,9 +338,22 @@
 														}else{
 															?>
 												<td class="text-center">
+													<?php
+													// print_r($actWeeks[$act['id']][$i-1]['data']);
+														if($actWeeks[$act['id']][$i-1]['data'][0]['tingkat_kendala'] == 0){
+													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+														}else{
+															?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+															<?php
+														}
+														?>
 												</td>
 															<?php
 														}
@@ -292,13 +373,27 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($stageWeeks[$stage['id']][$i-1] == 0){
+												if($stageWeeks[$stage['id']][$i-1]['num'] == 0){
 													if($i>=$bln && $i <= $end){
 														?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+												<?php
+															if($i < $this_weeks){
+												?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														
+														<?php
+
+													}
+														?>
 												</td>
 												<?php }else{ ?>
 												<td class="text-center">
@@ -311,9 +406,24 @@
 												}else{
 												?>
 												<td class="text-center">
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+															if($i < $this_weeks){
+												?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+													
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+
+													}
+														?>
+													
 												</td>
 													<?php
 												}
@@ -356,20 +466,37 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($actWeeks[$act['id']][$i-1] == 0){
+														if($actWeeks[$act['id']][$i-1]['num'] == 0){
 
 															if($i>=$bln && $i <=$end){
 																	?>
 												<td class="text-center">
+													
+												<?php
+																if($i < $this_weeks){
+												?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<i class="fa fa-fw fa-exclamation"></i>
+													</a>
+
+													<?php
+																}else{
+													?>
 													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													<?php
+																}
+													?>
 												</td>
 													<?php }else if($ada==0){ ?>
 												<td class="text-center">
+													
+													
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+													
 												</td>
 												<?php 
 															}else{
@@ -379,9 +506,22 @@
 														}else{
 															?>
 												<td class="text-center">
+													<?php
+													// print_r($actWeeks[$act['id']][$i-1]['data']);
+														if($actWeeks[$act['id']][$i-1]['data'][0]['tingkat_kendala'] == 0){
+													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+														}else{
+															?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+															<?php
+														}
+														?>
 												</td>
 															<?php
 														}
@@ -401,13 +541,27 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($stageWeeks[$stage['id']][$i-1] == 0){
+												if($stageWeeks[$stage['id']][$i-1]['num'] == 0){
 													if($i>=$bln && $i <= $end){
 														?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+															if($i < $this_weeks){
+												?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														
+														<?php
+
+													}
+														?>
 												</td>
 												<?php }else{ ?>
 												<td class="text-center">
@@ -419,10 +573,25 @@
 													}
 												}else{
 												?>
-												<td class='text-center'>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+												<td class="text-center">
+													<?php
+															if($i < $this_weeks){
+												?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+															<i class="fa fa-fw fa-exclamation"></i>
+														</a>
+													
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+
+													}
+														?>
+													
 												</td>
 													<?php
 												}
@@ -459,7 +628,70 @@
 												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="persentase" type="number" class="form-control" placeholder="100">
+														<input name="persentase" type="number" class="form-control" placeholder="50">
+													</div>
+													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Keluaran</label>
+													<div class="input-group">
+														<input name="output" type="text" class="form-control">
+													</div>
+													<small class="form-text text-muted">Output merupakan luaran dari tahapan</small>
+												</div>												
+												<div class="form-group">
+													<label class=" form-control-label">Deskripsi</label>
+													<div class="input-group">
+														<textarea class="form-control" name="deskripsi" rows=10></textarea>
+													</div>
+													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
+												</div>
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
+										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
+										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
+										<input type="hidden" name="minggu" id="minggu" value="0">
+										<input type="hidden" name="type" id="type" value="0">
+										<input type="hidden" name="id_refer" id="id_refer" value="0">
+										<input type="hidden" name="fisik_real" id="fisik_real" value="0">
+										<input type="hidden" name="submit" value="0"/>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
+										</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+
+				</div>
+
+				<div class="modal fade" id="addKendala" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title text-center" id="largeModalLabel">Rincian Perkembangan</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<?php echo form_open('Monev/submit_fisik'); ?>
+										<div class="row">
+											<div class="col-sm-8">
+												<h5>Bulan: <b><i id="bulanItemK" style="font-style: normal;"> </i></b></h5>
+											</div>
+											<div class="col-sm-4">
+												<h5>Minggu ke-<i id="mingguItemK" style="font-style: normal;"> </i></b></h5>
+											</div>
+											<div class="col-md-12" style="margin-top: 20px;">
+												<div class="form-group">
+													<label class=" form-control-label">Presentase Fisik</label>
+													<div class="input-group">
+														<input name="persentase" type="number" class="form-control" placeholder="50">
 													</div>
 													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
 												</div>
@@ -480,18 +712,18 @@
 												<div class="form-group">
 													<label class=" form-control-label">Kendala</label>
 													<div class="input-group">
-														<textarea class="form-control" name="kendala" rows=7></textarea>
+														<textarea class="form-control" name="kendala" rows=7 required></textarea>
 													</div>
 													
 												</div>
 												<div class="form-group">
 													<div class="input-group" style="font-size:8pt;">
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=1>sangat rendah</input>
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
-														<input name="tingkat_kendala" id="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
+														<!-- <input name="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input> -->
+														<input name="tingkat_kendala" type="radio" class="form-control" value=1 required>sangat rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
 													</div>
 													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
 												</div>
@@ -503,10 +735,10 @@
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
 										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
-										<input type="hidden" name="minggu" id="minggu" value="0">
-										<input type="hidden" name="type" id="type" value="0">
-										<input type="hidden" name="id_refer" id="id_refer" value="0">
-										<input type="hidden" name="fisik_real" id="fisik_real" value="0">
+										<input type="hidden" id="mingguK" name="minggu" value="0">
+										<input type="hidden" id="typeK" name="type" value="0">
+										<input type="hidden" id="id_referK" name="id_refer" value="0">
+										<input type="hidden" id="fisik_realK" name="fisik_real" value="0">
 										<input type="hidden" name="submit" value="0"/>
 										<button type="submit" class="btn btn-primary"
 											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
@@ -540,7 +772,7 @@
 												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="persentaseF" id="persentaseF" type="number" class="form-control" placeholder="100">
+														<input name="persentaseF" id="persentaseF" type="number" class="form-control" placeholder="50">
 													</div>
 													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
 												</div>
@@ -558,24 +790,6 @@
 													</div>
 													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
 												</div>
-												<div class="form-group">
-													<label class=" form-control-label">Kendala</label>
-													<div class="input-group">
-														<textarea class="form-control" name="kendalaF" id="kendalaF" rows=7></textarea>
-													</div>
-													
-												</div>
-												<div class="form-group">
-													<div class="input-group" style="font-size:8pt;">
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=1>sangat rendah</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=2>rendah</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=3>sedang</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=4>tinggi</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaF" type="radio" class="form-control" value=5>sangat tinggi</input>
-													</div>
-													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
-												</div>
 											</div>
 										</div>
 								</div>
@@ -590,6 +804,89 @@
 										
 										<input type="hidden" name="id_mnv_fisik" id="id_mnv_fisik" value="0">
 										<input type="hidden" name="fisik_realF" id="fisik_realF" value="0">
+										<input type="hidden" name="update" value="0"/>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
+										</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+
+				</div>
+
+				<div class="modal fade" id="updateKendala" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title text-center" id="largeModalLabel">Rincian Perkembangan</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<?php echo form_open('Monev/submit_fisik'); ?>
+										<div class="row">
+											<div class="col-sm-8">
+												<h5>Bulan: <b><i id="bulanItemKk" style="font-style: normal;"> </i></b></h5>
+											</div>
+											<div class="col-sm-4">
+												<h5>Minggu ke-<i id="mingguItemKk" style="font-style: normal;"> </i></b></h5>
+											</div>
+											<div class="col-md-12" style="margin-top: 20px;">
+												<div class="form-group">
+													<label class=" form-control-label">Presentase Fisik</label>
+													<div class="input-group">
+														<input name="persentaseF" id="persentaseKk" type="number" class="form-control" placeholder="50">
+													</div>
+													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Keluaran</label>
+													<div class="input-group">
+														<input name="outputF" type="text" id="outputKk" class="form-control">
+													</div>
+													<small class="form-text text-muted">Output merupakan luaran dari tahapan</small>
+												</div>												
+												<div class="form-group">
+													<label class=" form-control-label">Deskripsi</label>
+													<div class="input-group">
+														<textarea class="form-control" name="deskripsiF" id="deskripsiKk" rows=10></textarea>
+													</div>
+													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Kendala</label>
+													<div class="input-group">
+														<textarea class="form-control" name="kendalaF" id="kendalaKk" rows=7></textarea>
+													</div>
+													
+												</div>
+												<div class="form-group">
+													<div class="input-group" style="font-size:8pt;">
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=1>sangat rendah</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=5>sangat tinggi</input>
+													</div>
+													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
+												</div>
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
+										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
+										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
+										<input type="hidden" name="minggu" id="mingguKk" value="0">
+										<input type="hidden" name="typeF" id="typeKk" value="0">
+										<input type="hidden" name="id_referF" id="id_referKk" value="0">
+										
+										<input type="hidden" name="id_mnv_fisik" id="id_mnv_fisikKk" value="0">
+										<input type="hidden" name="fisik_realF" id="fisik_realKk" value="0">
 										<input type="hidden" name="update" value="0"/>
 										<button type="submit" class="btn btn-primary"
 											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
