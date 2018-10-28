@@ -156,6 +156,15 @@ class Monev extends CI_Controller {
 		$this->data['fisikWeeksKumulatif'] = array();
 		$this->data['stageWeeks'] = array();
 		$fisik_kumulatif = 0;
+
+		$now = date("d");
+		$week = $now/7;
+		
+		
+		$month = (int)date("m");
+		
+		$this->data['this_weeks'] = (($month-1)*4)+$week;
+		
 		for ($i=0; $i < 48; $i++) {
 			$temp2 = 0;
 			$temp = $this->ModelMnvFisik->getByWeeksRMPKumulatif($this->data['row']['id'],($i+1));

@@ -153,7 +153,7 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0){
+														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0 && $i < $this_weeks){
 															echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
 
 														}else if($actWeeks[$act['id']][$i-1] == 0){
@@ -196,7 +196,7 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0){
+												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0 && $i < $this_weeks){
 													echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
 
 												}else if($stageWeeks[$stage['id']][$i-1] == 0){
@@ -261,8 +261,10 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0){
+														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0 && $i < $this_weeks){
 															echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
+
+														}else if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0){
 
 														}else if($actWeeks[$act['id']][$i-1] == 0){
 															echo "<td class='text-center'></td>";
@@ -304,7 +306,7 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0){
+												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0 && $i < $this_weeks){
 													echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
 
 												}else if($stageWeeks[$stage['id']][$i-1] == 0){
@@ -369,7 +371,7 @@
 													$end=$mg[1];
 													for($i=1;$i<=48;$i++){
 
-														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0){
+														if($i>=$bln && $i <=$end && $actWeeks[$act['id']][$i-1] == 0 && $i < $this_weeks){
 															echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
 
 														}else if($actWeeks[$act['id']][$i-1] == 0){
@@ -412,7 +414,7 @@
 											$bln=$mg[0];
 											$end=$mg[1];
 											for($i=1;$i<=48;$i++){ 
-												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0){
+												if($i>=$bln && $i <=$end && $stageWeeks[$stage['id']][$i-1] == 0 && $i < $this_weeks){
 													echo "<td class='text-center' bgcolor='#8c9199'>?</td>";
 
 												}else if($stageWeeks[$stage['id']][$i-1] == 0){
