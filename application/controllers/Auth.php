@@ -21,40 +21,58 @@ class Auth extends CI_Controller {
 	}
 	public function login(){
 		$post = $this->input->post();
-		$pejabat = $this->ModelEmployee->check($post['username'],md5($post['password']))->row_array();
-		if(isset($pejabat)){
-			/**
-			 * Pejabat
-			 */
-			/*Employee Session Data*/
-			$userdata = array(
-				'id' => $pejabat['id'],
-				'nip' => $pejabat['nip'],
-				'username'  => $pejabat['username'],
-				'fullname'  => $pejabat['name'],
-				'position'  => $pejabat['position'],
-				'logged_in' => TRUE
-			);
-			$this->session->set_userdata($userdata);
-			redirect('Home/berandaka');			
-		}
+		// $pejabat = $this->ModelEmployee->check($post['username'],md5($post['password']))->row_array();
+		// if(isset($pejabat)){
+		// 	/**
+		// 	 * Pejabat
+		// 	 */
+		// 	/*Employee Session Data*/
+		// 	$userdata = array(
+		// 		'id' => $pejabat['id'],
+		// 		'nip' => $pejabat['nip'],
+		// 		'username'  => $pejabat['username'],
+		// 		'fullname'  => $pejabat['name'],
+		// 		'position'  => $pejabat['position'],
+		// 		'logged_in' => TRUE
+		// 	);
+		// 	$this->session->set_userdata($userdata);
+		// 	redirect('Home/berandaka');			
+		// }
 
 		$data = $this->ModelUser->check($post['username'],md5($post['password']))->row_array();
 		if(isset($data)){
-			/**
-			 * Ketua Tim
-			 */
-			/*User Session Data*/
-			$userdata = array(
-				'id' => $data['id'],
-				'username'  => $data['username'],
-				'fullname'  => $data['fullname'],
-				'roles'  => $data['roles'],
-				'log'  => $data['last_login'],
-				'logged_in' => TRUE
-			);
-			$this->session->set_userdata($userdata);
-			redirect('Home/beranda');			
+			if($data['username'] == "admin" || $data['username'] == "suadmin"){
+				/**
+				 * Ketua Tim
+				 */
+				/*User Session Data*/
+				$userdata = array(
+					'id' => $data['id'],
+					'username'  => $data['username'],
+					'fullname'  => $data['fullname'],
+					'roles'  => $data['roles'],
+					'log'  => $data['last_login'],
+					'logged_in' => TRUE
+				);
+				$this->session->set_userdata($userdata);
+				redirect('Admin/beranda');			
+			}else{
+				/**
+				 * Ketua Tim
+				 */
+				/*User Session Data*/
+				$userdata = array(
+					'id' => $data['id'],
+					'username'  => $data['username'],
+					'fullname'  => $data['fullname'],
+					'roles'  => $data['roles'],
+					'log'  => $data['last_login'],
+					'logged_in' => TRUE
+				);
+				$this->session->set_userdata($userdata);
+				redirect('Home/beranda');			
+			}
+
 		}else{
 			$this->session->set_flashdata('msg', 'wrong');
 			redirect('Auth');

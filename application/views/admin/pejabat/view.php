@@ -10,7 +10,7 @@
 								<div class="page-header float-right">
 										<div class="page-title">
 												<ol class="breadcrumb text-right">
-														<li><a href="#">Pejabat</a></li>
+														<li><a href="#">Admin</a></li>
 														<li class="active">Semua Pejabat</li>
 												</ol>
 										</div>
@@ -70,8 +70,8 @@
 																<td><?=$row['name'];?></td>
 																<td><?=$row['username'];?></td>
 																<td>
-																	<a class="text-primary" href="<?=base_url(); ?>Pejabat/form/<?=$row['id']; ?>" title="Perbarui Pejabat" data-toggle="tooltip" data-placement="bottom"><span class="fa fa-fw fa-pencil"></span></a> 
-																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Pejabat/del');" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Pejabat"><span class="fa fa-fw fa-trash"></span></a>
+																	<a class="text-primary" href="<?=base_url(); ?>Admin/formPejabat/<?=$row['id']; ?>" title="Perbarui Pejabat" data-toggle="tooltip" data-placement="bottom"><span class="fa fa-fw fa-pencil"></span></a> 
+																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Admin/delPejabat');" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Pejabat"><span class="fa fa-fw fa-trash"></span></a>
 																</td>
 															</tr>
 															<?php }}else{ ?>
@@ -104,7 +104,7 @@
 										</button>
 								</div>
 								<div class="modal-body">
-										<?php echo form_open('Pejabat/addPejabat'); ?>
+										<?php echo form_open('Admin/addPejabat'); ?>
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
@@ -122,13 +122,13 @@
 												<div class="form-group">
 													<label class=" form-control-label">Username</label>
 													<div class="input-group">
-															<input name="username" class="form-control" required="">
+															<input name="username" class="form-control" required="" autocomplete="false">
 													</div>
 												</div>
 												<div class="form-group">
 													<label class=" form-control-label">Password</label>
 													<div class="input-group">
-															<input name="password" type="password" class="form-control" required="">
+															<input name="password" type="password" class="form-control" required="" autocomplete="false">
 													</div>
 												</div>
 												<div class="form-group">

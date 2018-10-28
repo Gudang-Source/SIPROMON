@@ -34,7 +34,14 @@ class ModelUser extends CI_Model {
 
 		return $this->db->get();
 	}
+	public function selectById2($id){
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+		$this->db->join('satker','user.satker_id = satker.id');
+		$this->db->where('user.id',$id);
 
+		return $this->db->get();
+	}
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 

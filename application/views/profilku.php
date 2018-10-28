@@ -23,7 +23,7 @@
 			<?php if($this->session->flashdata('msg') == 'ok'){ ?>
 			<div class="col-sm-12">
 				<div class="alert alert-success alert-dismissible fade show col-9" role="alert">
-					<span class="badge badge-pill badge-success">Berhasil</span> Profil anda telah diperbaharui!
+					<span class="badge badge-pill badge-success">Berhasil</span> Profil anda telah diperbaharui! <a href="<?=base_url(); ?>Home/beranda">Kembali ke Menu</a>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -65,19 +65,19 @@
 					<div class="form-group row">
 				    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama Lengkap dan Gelar</label>
 				    <div class="col-6">
-					    <input type="text" class="form-control <?php if(is_null($row['fullname'])) echo "is-valid"; ?>" type="text" name="fullname" value="<?=$row['fullname']; ?>" required>
+					    <input type="text" class="form-control <?php if(is_null($row['fullname'])) echo "is-invalid"; ?>" type="text" name="fullname" value="<?=$row['fullname']; ?>" required>
 				    </div>
 				  </div>
 					<div class="form-group row">
 				    <label for="inputEmail3" class="col-sm-3 col-form-label">No Telepon</label>
 				    <div class="col-6">
-					    <input type="text" class="form-control <?php if(is_null($row['hp'])) echo "is-valid"; ?>" type="text" name="hp" value="<?=$row['hp']; ?>" required>
+					    <input type="text" class="form-control <?php if(is_null($row['hp'])) echo "is-invalid"; ?>" type="text" name="hp" value="<?=$row['hp']; ?>" required>
 				    </div>
 				  </div>				  
 					<div class="form-group row">
 				    <label for="inputEmail3" class="col-sm-3 col-form-label">Satuan Kerja</label>
 				    <div class="col-6">
-				      <select name="satker_id" class="form-control <?php if(is_null($row['satker_id'])) echo "is-valid"; ?>" required>
+				      <select name="satker_id" class="form-control <?php if(is_null($row['satker_id'])) echo "is-invalid"; ?>" required>
 								<option disabled selected>--Pilih Satuan Kerja--</option>
 				      	<?php foreach($satkers as $satker){ ?>
 				      	<option value="<?=$satker['id']; ?>" <?php if($row['satker_id'] == $satker['id']) echo "selected"; ?>><?=$satker['name']; ?></option>
@@ -88,7 +88,7 @@
 					<div class="form-group row">
 				    <label for="inputEmail3" class="col-sm-3 col-form-label">Atasan Langsung</label>
 				    <div class="col-6">
-				      <select name="roles_id" class="form-control <?php if(is_null($row['roles_id'])) echo "is-valid"; ?>" required>
+				      <select name="roles_id" class="form-control <?php if(is_null($row['roles_id'])) echo "is-invalid"; ?>" required>
 								<option disabled selected>--Pilih Atasan Langsung--</option>
 				      	<?php foreach($roles as $role){ ?>
 				      	<option value="<?=$role['id']; ?>" <?php if($row['roles_id'] == $role['id']) echo "selected"; ?>><?=$role['position']; ?>( <?=$role['name']; ?> )</option>

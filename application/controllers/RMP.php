@@ -164,7 +164,7 @@ class RMP extends CI_Controller {
 			foreach($this->data['allsdk'] as $money){
 				$pagu+=(int) $money['biaya'];
 			}
-			$this->data['satker'] = $this->ModelUser->selectById($this->session->userdata('id'))->row_array();
+			$this->data['satker'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
 			// var_dump($this->session->all_userdata());
 			// var_dump($this->data['satker']);
 			$this->ModelKegiatan->update($id,['pagu'=>$pagu]);

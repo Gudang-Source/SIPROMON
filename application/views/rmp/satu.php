@@ -88,7 +88,7 @@
 											<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu"){ ?>
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#formulasi" role="tab" aria-controls="v-pills-settings" aria-selected="false">Formulasi Kegiatan dan Hipotesis</a>
 											<?php } ?>
-											<?php if($row['jenis'] == "Pilot Project" || $row['jenis'] == "Teknologi dan Terapan Terpadu" || $row['jenis'] == "Layanan Teknis"){ ?>											
+											<?php if($row['jenis'] == "Pilot Project" || $row['jenis'] == "Teknologi dan Terapan Terpadu" ){ ?>											
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#manfaat" role="tab" aria-controls="v-pills-settings" aria-selected="false">Penerima Manfaat</a>
 											<?php } ?>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
