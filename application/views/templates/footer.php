@@ -1,5 +1,5 @@
 
-  <script src="<?=base_url();?>assets/js/vendor/jquery-2.1.4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="<?=base_url();?>assets/js/accordion.min.js"></script>  
   <script src="<?=base_url();?>assets/js/jqClock.min.js"></script>  
   <script src="<?=base_url();?>assets/js/sweetalert.min.js"></script>  
