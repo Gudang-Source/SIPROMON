@@ -242,77 +242,7 @@
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   });
-
-  $('#addKendala').on('show.bs.modal', function(e) {
-      var $modal = $(this),
-        type = $(e.relatedTarget).attr("data-type"),
-        id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
-
-
-        bulan = [
-          "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
-          "Feb",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
-          "Apr",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
-          "Jun",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
-          "Agu",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
-          "Okt",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
-          "Des"
-        ];
-
-        $('#bulanItemK').text(bulan[month]);
-        $('#mingguItemK').text(month+1);
-        $('#mingguK').val(month+1);
-        $('#typeK').val(type);
-        $('#id_referK').val(id_refer);
-        $('#fisik_realK').val(fisik_real);
-      // $('#actkeustage').val(actkeu);
-      // $('#monthkeustage').val(month);
-      // $('#fisikstage').text(''+fisik+',-');
-  });
-
+  
   $('#updateLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),
         type = $(e.relatedTarget).attr("data-type"),
@@ -337,6 +267,8 @@
            $('#deskripsiF').val(data[0]['deskripsi']);
            $('#outputF').val(data[0]['output']);
            $('#persentaseF').val(data[0]['persentase']);
+           $('#kendalaF').val(data[0]['kendala']);
+           $('input[name="tingkat_kendalaF"][value="'+data[0]['tingkat_kendala']+'"]').attr('checked','checked');
            // $('#tingkat_kendalaF').val(data[0]['tingkat_kendala']).attr("checked");
             
             // $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
@@ -396,96 +328,6 @@
 
         $('#bulanItemF').text(bulan[month]);
         $('#mingguItemF').text(month+1);
-      // $('#actkeustage').val(actkeu);
-      // $('#monthkeustage').val(month);
-      // $('#fisikstage').text(''+fisik+',-');
-  });
-
-  $('#updateKendala').on('show.bs.modal', function(e) {
-      var $modal = $(this),
-        type = $(e.relatedTarget).attr("data-type"),
-        id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
-
-        $('#mingguKk').val(month+1);
-        $('#typeKk').val(type);
-        $('#id_referKk').val(id_refer);
-        $('#fisik_realKk').val(fisik_real);
-        console.log(fisik_real);
-        $.ajax({
-          type:"POST",
-          url:"<?=site_url('Monev/getFisikDetail/')?>"+id_refer+"/"+(month+1)+"/"+type,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success:function(data)
-          {
-            console.log(data[0]);
-           $('#id_mnv_fisikKk').val(data[0]['id_mnv_fisik']);
-           $('#deskripsiKk').val(data[0]['deskripsi']);
-           $('#outputKk').val(data[0]['output']);
-           $('#persentaseKk').val(data[0]['persentase']);
-           $('#kendalaKk').val(data[0]['kendala']);
-           $('input[id="tingkat_kendalaKk"][value="'+data[0]['tingkat_kendala']+'"]').attr('checked','checked');
-           // $('#tingkat_kendalaF').val(data[0]['tingkat_kendala']).attr("checked");
-            
-            // $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
-          }
-        });
-
-        bulan = [
-          "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
-          "Feb",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
-          "Apr",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
-          "Jun",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
-          "Agu",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
-          "Okt",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
-          "Des"
-        ];
-
-        $('#bulanItemKk').text(bulan[month]);
-        $('#mingguItemKk').text(month+1);
       // $('#actkeustage').val(actkeu);
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');

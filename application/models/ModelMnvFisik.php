@@ -40,7 +40,7 @@ class ModelMnvFisik extends CI_Model {
 		$this->db->from($this->tableName);
 		$this->db->where('id_refer = '.$id_refer.' AND minggu = '.$minggu.' AND type = "'.$type.'"');
 		
-		return $this->db->get();
+		return $this->db->get()->num_rows();
 	}
 
 	public function getByWeeksRMP($id_refer,$minggu, $type){
@@ -59,10 +59,10 @@ class ModelMnvFisik extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function jmlFisikByActRMP($id_rmp,$id_refer, $type, $minggu){
+	public function jmlFisikByActRMP($id_rmp,$id_refer, $type){
 		$this->db->select('SUM(persentase_real) as persen_total');
 		$this->db->from($this->tableName);
-		$this->db->where('id_rmp ='.$id_rmp.' AND id_refer='.$id_refer.' AND type="'.$type.'" AND minggu < '.$minggu);
+		$this->db->where('id_rmp ='.$id_rmp.' AND id_refer='.$id_refer.' AND type="'.$type.'"');
 		
 		return $this->db->get()->result_array();
 	}
