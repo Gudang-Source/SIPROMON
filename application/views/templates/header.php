@@ -89,4 +89,4 @@
 	<script src="<?=base_url();?>assets/js/highcharts/modules/export-data.js"></script>
 
 </head>
-<body style="font-family: 'Source Sans Pro',Calibri,Candara,Arial" <?php 	if($this->uri->segment(2) == "att2" || $this->uri->segment(2) == "att3") echo 'class="open"'; ?>>
+<body style="font-family: 'Source Sans Pro',Calibri,Candara,Arial" <?php 	if($this->uri->segment(2) == "att2" || $this->uri->segment(2) == "att3" || $this->uri->segment(1) == "Monev") echo 'class="open"'; ?>>

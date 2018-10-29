@@ -82,7 +82,7 @@
 										<div class="tab-content" id="v-pills-tabContent">
 											<div class="tab-pane fade show active" id="kegiatan" role="tabpanel">
 												<div class="card-title">
-													<h3 class="text-center">Kelola Kegiatan</h3>
+													<h3 class="text-center">Bagan Alir Pelaksanaan Kegiatan</h3>
 													<hr>
 														<div class="text-right" style="margin-bottom: 15px;">
 <!-- 															<button type="button" class=" btn-sm btn-labeled btn-success" data-toggle="modal" data-target="#tambahAct">

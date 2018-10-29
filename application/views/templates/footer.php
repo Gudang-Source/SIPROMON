@@ -27,8 +27,9 @@
   CKEDITOR.replace( 'ta3', {
       height: 200
   } );
-  <?php }else if($this->uri->segment(2) == "tujuh"){
+  <?php }else if($this->uri->segment(4) != NULL){
    ?>
+
    var x = <?=$this->uri->segment(4); ?>;
    
    $(document).ready(function(){

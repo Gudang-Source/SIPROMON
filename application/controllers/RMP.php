@@ -191,7 +191,7 @@ class RMP extends CI_Controller {
 	}
 	public function deleteSDK($deleted,$idk){
 		$this->ModelRMPSDK->delete($deleted);
-		redirect('RMP/tujuh/'.$idk);
+		redirect('RMP/tujuh/'.$idk.'/sdk');
 	}
 	public function addAct($idk){
 		$post = $this->input->post();

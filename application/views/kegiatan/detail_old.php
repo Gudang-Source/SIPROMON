@@ -94,41 +94,39 @@
 													</div>
 												</td>
 											</tr>
-											<tr class="">
-												<td class="left"><a href="#" title="">Monitoring Pelaksanaan Kegiatan</a></td>
-												<td>
-														<a href="<?=base_url();?>Monev/realisasiAkun/<?=$row['id']; ?>" class="btn btn-labeled btn-info btn-sm" >
-																<span class="btn-label"><i class="fa fa-angle-double-right fa-fw"></i></span> Realisasi Per Akun
-														</a>&nbsp;&nbsp;&nbsp;
-														<a href="<?=base_url();?>RMP/satu/<?=$row['id']; ?>" class="btn btn-labeled btn-primary btn-sm" >
-																<span class="btn-label"><i class="fa fa-plus fa-fw"></i></span> Progress Realisasi
-														</a>														
-														<br>
-													<table class="table table-sm">
-
-														<thead>
-															<tr align="center" style="background-color: #99ccff;">
-																<th>Pagu</th>
-																<th>Target Keuangan</th>
-																<th>Realisasi Keuangan</th>
-																<th>Target Fisik</th>
-																<th>Realisasi Fisik</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr align="center">
-																<td align="right"><?=number_format($row['pagu'],0,',','.'); ?></td>
-																<td>100%</td>
-																<td class="text-danger">0%</td>
-																<td>100%</td>
-																<td class="text-danger">0%</td>
-															</tr>
-														</tbody>
-													</table>
-												</td>
-											</tr>	
 										</tbody>
 									</table>
+<!-- 									<a href="<?=base_url();?>Monev/realisasiAkun/<?=$row['id']; ?>" class="btn btn-labeled btn-info btn-sm" >
+											<span class="btn-label"><i class="fa fa-angle-double-right fa-fw"></i></span> Realisasi Per Akun
+									</a>&nbsp;&nbsp;&nbsp; -->
+									<a href="<?=base_url();?>Monev/tabel_progres/<?=$row['id']; ?>" class="btn btn-labeled btn-primary btn-sm" >
+											<span class="btn-label"><i class="fa fa-plus fa-fw"></i></span> Progress Realisasi
+									</a>														
+									<br>
+								<table class="table table-sm table-bordered" style="background-color: white" >
+									<thead>
+										<tr align="center" style="background-color: #99ccff;">
+											<th>No</th>
+											<th>Kegiatan</th>
+											<th>Pagu</th>
+											<th>Target Keuangan s.d. Akhir Bulan ini</th>
+											<th>Realisasi Keuangan</th>
+											<th>Target Fisik s.d. Akhir Bulan ini</th>
+											<th>Realisasi Fisik</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr align="center">
+											<td>1</td>
+											<td><a href="<?=base_url();?>Monev/view_progres/<?=$row['id']; ?>"><?=$row['judul']; ?></a></td>
+											<td align="right"><?=number_format($row['pagu'],0,',','.'); ?></td>
+											<td>100%</td>
+											<td class="text-danger">0%</td>
+											<td>100%</td>
+											<td class="text-danger">0%</td>
+										</tr>
+									</tbody>
+								</table>
 									<br>
 									<br>
 									<br><br>
