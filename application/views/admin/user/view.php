@@ -29,9 +29,9 @@
 												</div>
 												<div class="card-body">													
 													<div class="text-right" style="margin-bottom: 15px;">
-														<button type="button" class="btn btn-labeled btn-success" data-toggle="modal" data-target="#largeModal">
+														<!-- <button type="button" class="btn btn-labeled btn-success" data-toggle="modal" data-target="#largeModal">
 																<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah User
-														</button>
+														</button> -->
 													</div>
 													<table class="table table table-striped table-bordered">
 														<thead>
@@ -55,9 +55,9 @@
 																<td><?=$row['satker'];?></td>
 																<td><?=$row['roles'];?></td>
 																<td>
-																	<a class="text-info" href="#" title="Lihat Detail User" data-toggle="tooltip"><span class="fa fa-fw fa-eye"></span></a> 
+																	<!-- <a class="text-info" href="#" title="Lihat Detail User" data-toggle="tooltip"><span class="fa fa-fw fa-eye"></span></a> 
 																	<a class="text-primary" href="#" title="Perbarui User" data-toggle="tooltip"><span class="fa fa-fw fa-pencil"></span></a> 
-																	<a class="text-danger" href="#" title="Hapus User" data-toggle="tooltip" data-confirm="Apa Anda yakin untuk menghapus User: giar? SEMUA data Uji Profisiensi yang menggunakan User ini AKAN DIHAPUS PERMANEN!!" data-method="post"><span class="fa fa-fw fa-trash"></span></a>
+																	<a class="text-danger" href="#" title="Hapus User" data-toggle="tooltip" data-confirm="Apa Anda yakin untuk menghapus User: giar? SEMUA data Uji Profisiensi yang menggunakan User ini AKAN DIHAPUS PERMANEN!!" data-method="post"><span class="fa fa-fw fa-trash"></span></a> -->
 																</td>
 															</tr>
 															<?php }}else{ ?>
