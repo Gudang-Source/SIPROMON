@@ -23,7 +23,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div>
-											<center><h2><?=$row['judul'] ?></h2>Bab I (Umum)</center>
+											<center><h2><?=$row['judul'] ?></h2>Bab I (Pendahuluan)</center>
 										</div>
 										<div>
 											<div class="form-group col-md-2">
@@ -33,23 +33,10 @@
 									        <option value="dua">Bab II</option>
 									        <option value="tiga">Bab III</option>
 									        <option value="empat">Bab IV</option>
-									        <option value="lima">Bab V</option>
-									        <option value="enam">Bab VI</option>
-									        <option value="tujuh">Bab VII</option>
-									        <option value="delapan">Bab VIII</option>
-									        <option value="sembilan">Bab IX-XII</option>
-									        <option value="tigabelas">Bab XIII</option>
-									        <option value="empatbelas">Bab XIV</option>
-									        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu" || $row['jenis'] == "Pilot Project"){  ?>
-									        <option value="limabelas">Bab XV</option>
-									        <?php } ?>
+									        <option value="limabelas">Daftar Pustaka</option>
 									        <option value="att1">Lampiran 1</option>
 									        <option value="att2">Lampiran 2</option>
 									        <option value="att3">Lampiran 3</option>
-									        <option value="att4">Lampiran 4-5</option>
-									        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu"){  ?>
-									        <option value="att6">Lampiran 6</option>
-									        <?php } ?>									        
 									      </select>
 									    </div>											
 											<div class="pull-right" style="margin-bottom: 15px;">
@@ -72,25 +59,16 @@
 									<div class="col-md-3">
 										<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#latar" role="tab" aria-controls="latar" aria-selected="true">Latar Belakang</a>
-											<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu" || $row['jenis'] == "Rekomtek"){ ?>
+											<?php if($row['jenis'] == "Litbang"){ ?>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#masalah" role="tab" aria-controls="masalah" aria-selected="false">Identifikasi Masalah</a>
 											<?php } ?>
-											<?php if($row['jenis'] == "Rekomtek" || $row['jenis'] == "Teknologi dan Terapan Terpadu"){ ?>
-											<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#batasan" role="tab" aria-controls="batasan" aria-selected="false">Batasan Masalah</a>
-											<?php } ?>
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#tujuan" role="tab" aria-controls="tujuan" aria-selected="false">Tujuan Kegiatan</a>
-											<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu" || $row['jenis'] == "Rekomtek"){ ?>
-											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#tinjauan" role="tab" aria-controls="v-pills-settings" aria-selected="false">Tinjauan Pustaka</a>
+											<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#sasarankeluaran" role="tab" aria-controls="sasarankeluaran" aria-selected="false">Sasaran Keluaran (Output)</a>
+											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#sasaranmutu" role="tab" aria-controls="sasaranmutu" aria-selected="false">Sasaran Mutu</a>
+											<?php if($row['jenis'] == "Litbang"){ ?>
+											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#lokasi" role="tab" aria-controls="lokasi" aria-selected="false">Lokasi Kegiatan</a>
 											<?php } ?>
-											<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu"){ ?>
-											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#kerangka" role="tab" aria-controls="v-pills-settings" aria-selected="false">Kerangka Pemikiran</a>
-											<?php } ?>
-											<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu"){ ?>
-											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#formulasi" role="tab" aria-controls="v-pills-settings" aria-selected="false">Formulasi Kegiatan dan Hipotesis</a>
-											<?php } ?>
-											<?php if($row['jenis'] == "Pilot Project" || $row['jenis'] == "Teknologi dan Terapan Terpadu" ){ ?>											
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#manfaat" role="tab" aria-controls="v-pills-settings" aria-selected="false">Penerima Manfaat</a>
-											<?php } ?>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
 											<button type="submit" class="btn btn-success">
 													<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
@@ -119,13 +97,7 @@
 													<textarea class="ckeditor" name="masalah" ><?=$row['masalah'];?></textarea>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="batasan" role="tabpanel">
-												<div class="card-title">
-													<h3 class="text-center">Batasan Masalah</h3>
-													<hr>
-													<textarea class="ckeditor" name="batasan" ><?=$row['batasan'];?></textarea>
-												</div>
-											</div>
+
 											<div class="tab-pane fade" id="tujuan" role="tabpanel">
 												<div class="card-title">
 													<h3 class="text-center">Tujuan Kegiatan</h3>
@@ -133,27 +105,27 @@
 													<textarea id="tujuan" class="ckeditor" name="tujuan" ><?=$row['tujuan'];?></textarea>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="tinjauan" role="tabpanel">
+											<div class="tab-pane fade" id="sasarankeluaran" role="tabpanel">
 												<div class="card-title">
-													<h3 class="text-center">Tinjauan Pustaka</h3>
+													<h3 class="text-center">Sasaran Keluaran (Output)</h3>
 													<hr>
-													<textarea class="ckeditor" name="tinjauan" ><?=$row['tinjauan'];?></textarea>
+													<textarea class="ckeditor" name="sasarankeluaran" ><?=$row['sasarankeluaran'];?></textarea>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="kerangka" role="tabpanel">
+											<div class="tab-pane fade" id="sasaranmutu" role="tabpanel">
 												<div class="card-title">
-													<h3 class="text-center">Kerangka Pemikiran</h3>
+													<h3 class="text-center">Sasaran Mutu</h3>
 													<hr>
-													<textarea class="ckeditor" name="kerangka" ><?=$row['kerangka'];?></textarea>
+													<textarea class="ckeditor" name="sasaranmutu" ><?=$row['sasaranmutu'];?></textarea>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="formulasi" role="tabpanel">
+											<div class="tab-pane fade" id="lokasi" role="tabpanel">
 												<div class="card-title">
-													<h3 class="text-center">Formulasi Kegiatan dan Hipotesis</h3>
+													<h3 class="text-center">Lokasi Kegiatan</h3>
 													<hr>
-													<textarea class="ckeditor" name="formulasi" ><?=$row['formulasi'];?></textarea>
+													<textarea class="ckeditor" name="lokasi" ><?=$row['lokasi'];?></textarea>
 												</div>
-											</div>
+											</div>											
 											<div class="tab-pane fade" id="manfaat" role="tabpanel">
 												<div class="card-title">
 													<h3 class="text-center">Penerima Manfaat</h3>

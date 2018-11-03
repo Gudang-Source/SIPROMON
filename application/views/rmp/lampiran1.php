@@ -33,23 +33,10 @@
 									        <option value="dua">Bab II</option>
 									        <option value="tiga">Bab III</option>
 									        <option value="empat">Bab IV</option>
-									        <option value="lima">Bab V</option>
-									        <option value="enam">Bab VI</option>
-									        <option value="tujuh">Bab VII</option>
-									        <option value="delapan">Bab VIII</option>
-									        <option value="sembilan">Bab IX-XII</option>
-									        <option value="tigabelas">Bab XIII</option>
-									        <option value="empatbelas">Bab XIV</option>
-									        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu" || $row['jenis'] == "Pilot Project"){  ?>
-									        <option value="limabelas">Bab XV</option>
-									        <?php } ?>
+									        <option value="limabelas">Daftar Pustaka</option>
 									        <option value="att1">Lampiran 1</option>
 									        <option value="att2">Lampiran 2</option>
 									        <option value="att3">Lampiran 3</option>
-									        <option value="att4">Lampiran 4-5</option>
-									        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu"){  ?>
-									        <option value="att6">Lampiran 6</option>
-									        <?php } ?>									        
 									      </select>
 									    </div>																						
 											<div class="pull-right">

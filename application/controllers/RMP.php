@@ -74,10 +74,32 @@ class RMP extends CI_Controller {
 			$post = $this->input->post();
 			$idr = $post['id'];
 			unset($post['id']);
-			$this->ModelRMP->update($idr,$post);
-			redirect('RMP/tiga/'.$id);
+
+			//Upload file bagan alir
+			$config['upload_path']		= './assets/uploads/baganalir';
+			$config['allowed_types']	= 'jpg|jpeg|png';
+			$config['max_size']			= 0;				
+			date_default_timezone_set("Asia/Bangkok");
+			$config['file_name']		= "baganalir_".time();
+			$this->load->library('upload', $config);
+			if(!$this->upload->do_upload('baganalir')){
+				/*Jika Gagal Upload*/
+				$this->ModelRMP->update($idr,$post);
+				redirect('RMP/tiga/'.$id);
+			} else{
+				$post['baganalir'] = $config['file_name'].$this->upload->data('file_ext');
+				$this->ModelRMP->update($idr,$post);
+				redirect('RMP/tiga/'.$id);
+			}			
+			
+			// $this->ModelRMP->update($idr,$post);
+			// redirect('RMP/tiga/'.$id);
 		}else{
 			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+			$this->data['documents'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['records'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();
 			// var_dump($this->data['row']);
 			$this->load->view('templates/header',$this->head);
 			$this->load->view('templates/sidebar',$this->side);
@@ -90,56 +112,79 @@ class RMP extends CI_Controller {
 			$post = $this->input->post();
 			$idr = $post['id'];
 			unset($post['id']);
-			$this->ModelRMP->update($idr,$post);
-			redirect('RMP/empat/'.$id);
+			//Upload file struktur
+			$config['upload_path']		= './assets/uploads/strukturorg';
+			$config['allowed_types']	= 'jpg|jpeg|png';
+			$config['max_size']			= 0;				
+			date_default_timezone_set("Asia/Bangkok");
+			$config['file_name']		= "strukturorg_".time();
+			$this->load->library('upload', $config);
+			if(!$this->upload->do_upload('strukturorg')){
+				/*Jika Gagal Upload*/
+				$this->ModelRMP->update($idr,$post);
+				redirect('RMP/empat/'.$id);
+			} else{
+				$post['strukturorg'] = $config['file_name'].$this->upload->data('file_ext');
+				$this->ModelRMP->update($idr,$post);
+				redirect('RMP/empat/'.$id);
+			}			
 		}else{
 			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			// var_dump($this->data['row']);
+			$this->data['allsdm'] = $this->ModelRMPSDM->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['allsdk'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
+			$pagu = 0;
+			foreach($this->data['allsdk'] as $money){
+				$pagu+=(int) $money['biaya'];
+			}
+
+			$this->data['satker'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
+			$this->ModelKegiatan->update($id,['pagu'=>$pagu]);
+			$this->data['pagu'] = $pagu;
 			$this->load->view('templates/header',$this->head);
 			$this->load->view('templates/sidebar',$this->side);
 			$this->load->view('rmp/empat',$this->data);
 			$this->load->view('templates/footer',$this->foot);
 		}
 	}
-	public function lima($id = NULL){
-		if($this->input->post() != NULL){
-			$post = $this->input->post();
-			$idr = $post['id'];
-			unset($post['id']);
+	// public function lima($id = NULL){
+	// 	if($this->input->post() != NULL){
+	// 		$post = $this->input->post();
+	// 		$idr = $post['id'];
+	// 		unset($post['id']);
 
-			//Upload file struktur
-			$config['upload_path']		= './assets/uploads/strukturorg';
-			$config['allowed_types']	= 'jpg|png|gif';
-			$config['max_size']			= 0;				
-			date_default_timezone_set("Asia/Bangkok");
-			$config['file_name']		= "Strukturorg_".time();
-			$this->load->library('upload', $config);
-			if(!$this->upload->do_upload('strukturorg')){
-				/*Jika Gagal Upload*/
-				$error = array('error' => $this->upload->display_errors());
-				var_dump($error);
-			} else{
-				$post['strukturorg'] = $config['file_name'].$this->upload->data('file_ext');
-				$this->ModelRMP->update($idr,$post);
-				redirect('RMP/lima/'.$id);
-			}			
-		}else{
-			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			// var_dump($this->data['row']);
-			$this->load->view('templates/header',$this->head);
-			$this->load->view('templates/sidebar',$this->side);
-			$this->load->view('rmp/lima',$this->data);
-			$this->load->view('templates/footer',$this->foot);
-		}
-	}	
-	public function enam($id = NULL){
-		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-		$this->data['all'] = $this->ModelRMPRoles->selectByIdRMP($this->data['row']['id'])->result_array();
-		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('rmp/enam',$this->data);
-		$this->load->view('templates/footer',$this->foot);
-	}
+	// 		//Upload file struktur
+	// 		$config['upload_path']		= './assets/uploads/strukturorg';
+	// 		$config['allowed_types']	= 'jpg|png|gif';
+	// 		$config['max_size']			= 0;				
+	// 		date_default_timezone_set("Asia/Bangkok");
+	// 		$config['file_name']		= "Strukturorg_".time();
+	// 		$this->load->library('upload', $config);
+	// 		if(!$this->upload->do_upload('strukturorg')){
+	// 			/*Jika Gagal Upload*/
+	// 			$error = array('error' => $this->upload->display_errors());
+	// 			var_dump($error);
+	// 		} else{
+	// 			$post['strukturorg'] = $config['file_name'].$this->upload->data('file_ext');
+	// 			$this->ModelRMP->update($idr,$post);
+	// 			redirect('RMP/lima/'.$id);
+	// 		}			
+	// 	}else{
+	// 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 		// var_dump($this->data['row']);
+	// 		$this->load->view('templates/header',$this->head);
+	// 		$this->load->view('templates/sidebar',$this->side);
+	// 		$this->load->view('rmp/lima',$this->data);
+	// 		$this->load->view('templates/footer',$this->foot);
+	// 	}
+	// }	
+	// public function enam($id = NULL){
+	// 	$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 	$this->data['all'] = $this->ModelRMPRoles->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 	$this->load->view('templates/header',$this->head);
+	// 	$this->load->view('templates/sidebar',$this->side);
+	// 	$this->load->view('rmp/enam',$this->data);
+	// 	$this->load->view('templates/footer',$this->foot);
+	// }
 	public function addRole($idk){
 		$post = $this->input->post();
 		$this->ModelRMPRoles->insert($post);
@@ -149,161 +194,195 @@ class RMP extends CI_Controller {
 		$this->ModelRMPRoles->delete($deleted);
 		redirect('RMP/enam/'.$idk);
 	}
-	public function tujuh($id = NULL){
-		if($this->input->post() != NULL){
-			$post = $this->input->post();
-			$idr = $post['id'];
-			unset($post['id']);
-			$this->ModelRMP->update($idr,$post);
-			redirect('RMP/tujuh/'.$id);
-		}else{
-			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			$this->data['allsdm'] = $this->ModelRMPSDM->selectByIdRMP($this->data['row']['id'])->result_array();
-			$this->data['allsdk'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
-			$pagu = 0;
-			foreach($this->data['allsdk'] as $money){
-				$pagu+=(int) $money['biaya'];
-			}
-			$this->data['satker'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
-			// var_dump($this->session->all_userdata());
-			// var_dump($this->data['satker']);
-			$this->ModelKegiatan->update($id,['pagu'=>$pagu]);
-			$this->data['pagu'] = $pagu;
-			$this->load->view('templates/header',$this->head);
-			$this->load->view('templates/sidebar',$this->side);
-			$this->load->view('rmp/tujuh',$this->data);
-			$this->load->view('templates/footer',$this->foot);
-		}
-	}
+	// public function tujuh($id = NULL){
+	// 	if($this->input->post() != NULL){
+	// 		$post = $this->input->post();
+	// 		$idr = $post['id'];
+	// 		unset($post['id']);
+	// 		$this->ModelRMP->update($idr,$post);
+	// 		redirect('RMP/tujuh/'.$id);
+	// 	}else{
+	// 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 		$this->data['allsdm'] = $this->ModelRMPSDM->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 		$this->data['allsdk'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 		$pagu = 0;
+	// 		foreach($this->data['allsdk'] as $money){
+	// 			$pagu+=(int) $money['biaya'];
+	// 		}
+	// 		$this->data['satker'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
+	// 		// var_dump($this->session->all_userdata());
+	// 		// var_dump($this->data['satker']);
+	// 		$this->ModelKegiatan->update($id,['pagu'=>$pagu]);
+	// 		$this->data['pagu'] = $pagu;
+	// 		$this->load->view('templates/header',$this->head);
+	// 		$this->load->view('templates/sidebar',$this->side);
+	// 		$this->load->view('rmp/tujuh',$this->data);
+	// 		$this->load->view('templates/footer',$this->foot);
+	// 	}
+	// }
 	public function addSDM($idk){
 		$post = $this->input->post();
 		$this->ModelRMPSDM->insert($post);
-		redirect('RMP/tujuh/'.$idk);
+		redirect('RMP/empat/'.$idk);
 	}
 	public function deleteSDM($deleted,$idk){
 		$this->ModelRMPSDM->delete($deleted);
-		redirect('RMP/tujuh/'.$idk);
+		redirect('RMP/empat/'.$idk);
 	}	
 	public function addSDK($idk){
 		$post = $this->input->post();
-		$this->ModelRMPSDK->insert($post);
-		redirect('RMP/tujuh/'.$idk.'/sdk');
+		if($post['sdk_id'] != ""){
+			$id = $post['sdk_id'];
+			unset($post['sdk_id']);
+			$this->ModelRMPSDK->update($id,$post);
+		}else{
+			unset($post['sdk_id']);
+			$this->ModelRMPSDK->insert($post);
+		}
+		redirect('RMP/empat/'.$idk.'/sdk');
 	}
 	public function deleteSDK($deleted,$idk){
 		$this->ModelRMPSDK->delete($deleted);
-		redirect('RMP/tujuh/'.$idk.'/sdk');
+		redirect('RMP/empat/'.$idk.'/sdk');
 	}
 	public function addAct($idk){
 		$post = $this->input->post();
-		$this->ModelRMPAct->insert($post);
-		redirect('RMP/delapan/'.$idk);
+		if($post['act_id'] != ""){
+			$id = $post['act_id'];
+			unset($post['act_id']);
+			$this->ModelRMPAct->update($id,$post);
+		}else{
+			unset($post['act_id']);
+			$this->ModelRMPAct->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk.'/keg');
 	}
 	public function deleteAct($deleted,$idk){
 		$this->ModelRMPAct->delete($deleted);
-		redirect('RMP/delapan/'.$idk);
+		redirect('RMP/tiga/'.$idk.'/keg');
 	}			
-	public function delapan($id = NULL){
-		if($this->input->post() != NULL){
-			$post = $this->input->post();
-			$idr = $post['id'];
-			unset($post['id']);
+	// public function delapan($id = NULL){
+	// 	if($this->input->post() != NULL){
+	// 		$post = $this->input->post();
+	// 		$idr = $post['id'];
+	// 		unset($post['id']);
 
-			//Upload file struktur
-			$config['upload_path']		= './assets/uploads/baganalir';
-			$config['allowed_types']	= 'jpg|png|gif';
-			$config['max_size']			= 0;				
-			date_default_timezone_set("Asia/Bangkok");
-			$config['file_name']		= "baganalir_".time();
-			$this->load->library('upload', $config);
-			if(!$this->upload->do_upload('baganalir')){
-				/*Jika Gagal Upload*/
-				$error = array('error' => $this->upload->display_errors());
-				var_dump($error);
-			} else{
-				$post['baganalir'] = $config['file_name'].$this->upload->data('file_ext');
-				$this->ModelRMP->update($idr,$post);
-				redirect('RMP/delapan/'.$id);
-			}			
-		}else{
-			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
-			$this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();
+	// 		//Upload file struktur
+	// 		$config['upload_path']		= './assets/uploads/baganalir';
+	// 		$config['allowed_types']	= 'jpg|png|gif';
+	// 		$config['max_size']			= 0;				
+	// 		date_default_timezone_set("Asia/Bangkok");
+	// 		$config['file_name']		= "baganalir_".time();
+	// 		$this->load->library('upload', $config);
+	// 		if(!$this->upload->do_upload('baganalir')){
+	// 			/*Jika Gagal Upload*/
+	// 			$error = array('error' => $this->upload->display_errors());
+	// 			var_dump($error);
+	// 		} else{
+	// 			$post['baganalir'] = $config['file_name'].$this->upload->data('file_ext');
+	// 			$this->ModelRMP->update($idr,$post);
+	// 			redirect('RMP/delapan/'.$id);
+	// 		}			
+	// 	}else{
+	// 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 		$this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();
 
-			// var_dump($this->data['row']);
-			$this->load->view('templates/header',$this->head);
-			$this->load->view('templates/sidebar',$this->side);
-			$this->load->view('rmp/delapan',$this->data);
-			$this->load->view('templates/footer',$this->foot);
-		}
-	}
+	// 		// var_dump($this->data['row']);
+	// 		$this->load->view('templates/header',$this->head);
+	// 		$this->load->view('templates/sidebar',$this->side);
+	// 		$this->load->view('rmp/delapan',$this->data);
+	// 		$this->load->view('templates/footer',$this->foot);
+	// 	}
+	// }
 	public function addStages($idk){
 		$post = $this->input->post();
-		$this->ModelRMPStages->insert($post);
-		redirect('RMP/delapan/'.$idk);
+		// var_dump($post);
+		if($post['stages_id'] != ""){
+			$id = $post['stages_id'];
+			unset($post['stages_id']);
+			$this->ModelRMPStages->update($id,$post);
+		}else{
+			unset($post['stages_id']);
+			$this->ModelRMPStages->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk.'/keg');
 	}
 	public function deleteStages($deleted,$idk){
 		$this->ModelRMPStages->delete($deleted);
-		redirect('RMP/delapan/'.$idk);
+		redirect('RMP/tiga/'.$idk.'/keg');
 	}
-	public function sembilan($id = NULL){
-		if($this->input->post() != NULL){
-			$post = $this->input->post();
-			$idr = $post['id'];
-			unset($post['id']);
-			$this->ModelRMP->update($idr,$post);
-			redirect('RMP/sembilan/'.$id);
-		}else{
-			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			$this->load->view('templates/header',$this->head);
-			$this->load->view('templates/sidebar',$this->side);
-			$this->load->view('rmp/sembilan',$this->data);
-			$this->load->view('templates/footer',$this->foot);
-		}		
-	}
-	public function tigabelas($id= NULL){
-		if($this->input->post() != NULL){
-			$post = $this->input->post();
-			$idr = $post['id'];
-			unset($post['id']);
-			$this->ModelRMP->update($idr,$post);
-			redirect('RMP/sembilan/'.$id);
-		}else{
-			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			$this->data['documents'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
-			// var_dump($this->data['documents']);
-			$this->load->view('templates/header',$this->head);
-			$this->load->view('templates/sidebar',$this->side);
-			$this->load->view('rmp/tigabelas',$this->data);
-			$this->load->view('templates/footer',$this->foot);
-		}		
-	}
+	// public function sembilan($id = NULL){
+	// 	if($this->input->post() != NULL){
+	// 		$post = $this->input->post();
+	// 		$idr = $post['id'];
+	// 		unset($post['id']);
+	// 		$this->ModelRMP->update($idr,$post);
+	// 		redirect('RMP/sembilan/'.$id);
+	// 	}else{
+	// 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 		$this->load->view('templates/header',$this->head);
+	// 		$this->load->view('templates/sidebar',$this->side);
+	// 		$this->load->view('rmp/sembilan',$this->data);
+	// 		$this->load->view('templates/footer',$this->foot);
+	// 	}		
+	// }
+	// public function tigabelas($id= NULL){
+	// 	if($this->input->post() != NULL){
+	// 		$post = $this->input->post();
+	// 		$idr = $post['id'];
+	// 		unset($post['id']);
+	// 		$this->ModelRMP->update($idr,$post);
+	// 		redirect('RMP/sembilan/'.$id);
+	// 	}else{
+	// 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 		$this->data['documents'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 		// var_dump($this->data['documents']);
+	// 		$this->load->view('templates/header',$this->head);
+	// 		$this->load->view('templates/sidebar',$this->side);
+	// 		$this->load->view('rmp/tigabelas',$this->data);
+	// 		$this->load->view('templates/footer',$this->foot);
+	// 	}		
+	// }
 	public function addDocument($idk){
 		$post = $this->input->post();
-		$this->ModelRMPDocument->insert($post);
-		redirect('RMP/tigabelas/'.$idk);
+		if($post['document_id'] != ""){
+			$id = $post['document_id'];
+			unset($post['document_id']);
+			$this->ModelRMPDocument->update($id,$post);
+		}else{
+			unset($post['document_id']);
+			$this->ModelRMPDocument->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk);
 	}
 	public function deleteDocument($deleted,$idk){
 		$this->ModelRMPDocument->delete($deleted);
-		redirect('RMP/tigabelas/'.$idk);
+		redirect('RMP/tiga/'.$idk.'/doc');
 	}		
-	public function empatbelas($id= NULL){
-		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-		$this->data['records'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
-		// var_dump($this->data['documents']);
-		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('rmp/empatbelas',$this->data);
-		$this->load->view('templates/footer',$this->foot);		
-	}
+	// public function empatbelas($id= NULL){
+	// 	$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+	// 	$this->data['records'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
+	// 	// var_dump($this->data['documents']);
+	// 	$this->load->view('templates/header',$this->head);
+	// 	$this->load->view('templates/sidebar',$this->side);
+	// 	$this->load->view('rmp/empatbelas',$this->data);
+	// 	$this->load->view('templates/footer',$this->foot);		
+	// }
 	public function addRecord($idk){
 		$temppost = $this->input->post();
-		var_dump($temppost);
 		$post['record_name'] = $temppost['record_name'];
 		$post['location'] = "Lemari No ".$temppost['lemari']."<br/>".$temppost['pj'];
 		$post['period']	= "Aktif : ".$temppost['aktif']." Tahun<br/>Inaktif : ".$temppost['inaktif']." Tahun";
 		$post['rmp_id'] = $temppost['rmp_id'];	
-		$this->ModelRMPRec->insert($post);
-		redirect('RMP/empatbelas/'.$idk);
+		if($temppost['record_id'] != ""){
+			$id = $temppost['record_id'];
+			// unset($temppost['document_id']);
+			$this->ModelRMPRec->update($id,$post);
+		}else{
+			$this->ModelRMPRec->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk.'/rec');
 	}
 	public function deleteRecord($deleted,$idk){
 		$this->ModelRMPRec->delete($deleted);

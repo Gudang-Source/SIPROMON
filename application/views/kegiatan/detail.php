@@ -77,17 +77,11 @@
 																	<i class="fa fa-fw fa-file-pdf-o"></i>Rancangan Anggaran Biaya
 																</a>
 																<a target="_blank" href="<?=base_url();?>Report/printAtt2/<?=$row['id']; ?>" class="dropdown-item">
-																	<i class="fa fa-fw fa-file-pdf-o"></i>Rancangan Kerja
+																	<i class="fa fa-fw fa-file-pdf-o"></i>Rancangan Kerja Kegiatan
 																</a>
 																<a href="#" class="dropdown-item text-danger">
-																	<i class="fa fa-fw fa-file-pdf-o"></i>Rencana Fisik dan Keuangan
+																	<i class="fa fa-fw fa-file-pdf-o"></i>Rencana Pelaksanaan Fisik dan Keuangan
 																</a>																																
-																<a target="_blank" href="<?php if($row['att4'] != NULL){ echo base_url().'assets/attachment/'.$row['att4']; }else{ echo "#"; }?>" class="dropdown-item">
-																	<i class="fa fa-fw fa-file-pdf-o"></i>Jadwal Personil
-																</a>																																
-																<a target="_blank" href="<?php if($row['att5'] != NULL) echo base_url().'assets/attachment/'.$row['att5']; else echo "#"; ?>" class="dropdown-item">
-																	<i class="fa fa-fw fa-file-pdf-o"></i>Jadwal Prasarana dan Sarana
-																</a>																																																																
 														  </div>
 														</div>
 

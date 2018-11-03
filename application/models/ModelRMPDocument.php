@@ -50,13 +50,11 @@ class ModelRMPDocument extends CI_Model {
 	}
 	public function preDocument($rmp_id){
 		$documents = array(
-			array('document_name'=>'Manual Sistem Manajemen Puslitbang SDA','document_num'=>'DSM/PUSAIR/MM/01','rmp_id'=>$rmp_id),
-			array('document_name'=>'Pengendalian Dokumen Sistem Manajemen Mutu','document_num'=>'DSM/PUSAIR/PR/01','rmp_id'=>$rmp_id),
-			array('document_name'=>'Pengendalian Rekaman','document_num'=>'DSM/PUSAIR/PR/02','rmp_id'=>$rmp_id),
-			array('document_name'=>'Audit Mutu Internal','document_num'=>'DSM/PUSAIR/PR/03','rmp_id'=>$rmp_id),
-			array('document_name'=>'Pengendalian Hasil Pekerjaan yang Tidak Sesuai (HPTS)','document_num'=>'DSM/PUSAIR/PR/04','rmp_id'=>$rmp_id),
-			array('document_name'=>'Tindakan Korektif dan Tindakan Pencegahan','document_num'=>'DSM/PUSAIR/PR/05','rmp_id'=>$rmp_id),
-			array('document_name'=>'Pengelolaan Kegiatan Penelitian ','document_num'=>'DSM/PUSAIR/PP/04','rmp_id'=>$rmp_id)
+			array('document_name'=>'Manual Sistem Manajemen Terpadu (SIMPADU)','document_num'=>'MM/PUSAIR/01','rmp_id'=>$rmp_id),
+			array('document_name'=>'Pengendalian Informasi Terdokumentasi','document_num'=>'PP/PUSAIR/01','rmp_id'=>$rmp_id),
+			array('document_name'=>'Audit Internal','document_num'=>'PP/PUSAIR/02','rmp_id'=>$rmp_id),
+			array('document_name'=>'Pelaporan Ketidaksesuaian dan Tindakan Perbaikan','document_num'=>'PP/PUSAIR/03','rmp_id'=>$rmp_id),
+			array('document_name'=>'Pemantauan, Evaluasi, dan Pelaporan','document_num'=>'PP/PUSAIR/08','rmp_id'=>$rmp_id),
 		);
 		foreach($documents as $document){
 			$this->insert($document);

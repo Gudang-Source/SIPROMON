@@ -27,30 +27,17 @@
 									</div>
 									<div>
 									<div class="form-group col-md-1">
-								      <select id="navigate" class="form-control" style="margin-left:-15px; background-color:#ffd700;">
-								        <option selected disabled><b>-Navigasi-</b></option>
-								        <option value="satu">Bab I</option>
-								        <option value="dua">Bab II</option>
-								        <option value="tiga">Bab III</option>
-								        <option value="empat">Bab IV</option>
-								        <option value="lima">Bab V</option>
-								        <option value="enam">Bab VI</option>
-								        <option value="tujuh">Bab VII</option>
-								        <option value="delapan">Bab VIII</option>
-								        <option value="sembilan">Bab IX-XII</option>
-								        <option value="tigabelas">Bab XIII</option>
-								        <option value="empatbelas">Bab XIV</option>
-								        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu" || $row['jenis'] == "Pilot Project"){  ?>
-								        <option value="limabelas">Bab XV</option>
-								        <?php } ?>
-								        <option value="att1">Lampiran 1</option>
-								        <option value="att2">Lampiran 2</option>
-								        <option value="att3">Lampiran 3</option>
-								        <option value="att4">Lampiran 4-5</option>
-								        <?php if($row['jenis']=="Teknologi dan Terapan Terpadu"){  ?>
-								        <option value="att6">Lampiran 6</option>
-								        <?php } ?>									        
-								      </select>
+							      <select id="navigate" class="form-control" style="margin-left:-15px; background-color:#ffd700;">
+							        <option selected disabled><b>-Navigasi-</b></option>
+							        <option value="satu">Bab I</option>
+							        <option value="dua">Bab II</option>
+							        <option value="tiga">Bab III</option>
+							        <option value="empat">Bab IV</option>
+							        <option value="limabelas">Daftar Pustaka</option>
+							        <option value="att1">Lampiran 1</option>
+							        <option value="att2">Lampiran 2</option>
+							        <option value="att3">Lampiran 3</option>
+							      </select>
 								    </div>																																										
 										<div style="margin-bottom: 15px;">
 											<a href="<?=base_url(); ?>RMP/att2/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">

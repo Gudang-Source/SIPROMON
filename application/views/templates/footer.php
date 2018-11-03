@@ -17,27 +17,19 @@
          }
        });
     });
-  <?php if($this->uri->segment(2) == "enam"){ ?>
-  CKEDITOR.replace( 'ta1', {
-      height: 200
-  } );
-  CKEDITOR.replace( 'ta2', {
-      height: 200
-  } );
-  CKEDITOR.replace( 'ta3', {
-      height: 200
-  } );
-  <?php }else if($this->uri->segment(4) != NULL){
+
+  <?php if($this->uri->segment(4) != NULL){
    ?>
 
-   var x = <?=$this->uri->segment(4); ?>;
-   
+   var x = '<?=$this->uri->segment(4); ?>';
+   console.log(x);
    $(document).ready(function(){
-    if(x == sdk) $('.nav-pills a[href="#sdk"]').tab('show')
+    if(x == 'sdk') $('.nav-pills a[href="#sdk"]').tab('show');
+    if(x == 'rec') $('.nav-pills a[href="#rekaman"]').tab('show');
+    if(x == 'doc') $('.nav-pills a[href="#dokumen"]').tab('show');
+    if(x == 'keg') $('.nav-pills a[href="#kegiatan"]').tab('show');
+
    });
-   CKEDITOR.replace( 'ta1', {
-      height: 200
-  } );
    <?php } ?>
   $('#navigate').change(function(){ 
     var value = $(this).val();
@@ -171,8 +163,69 @@
        window.location = url+loc+id+"/";
     });
   }  
-  
+  $('#tambahdoc').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        name = $(e.relatedTarget).attr("data-name"),
+        num = $(e.relatedTarget).attr("data-num");
+        console.log($(e.relatedTarget).attr("data-id"));
+        $("input[name='document_name'").val(name);
+        $("input[name='document_num'").val(num);
+        $("input[name='document_id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });  
+  $('#tambahrec').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        name = $(e.relatedTarget).attr("data-name"),
+        locarr = $(e.relatedTarget).attr("data-loc").split("<br/>");
+        period = $(e.relatedTarget).attr("data-period");
+        $("input[name='record_name'").val(name);
+        $("input[name='lemari'").val((locarr[0].split("Lemari No"))[1]);
+        $("input[name='pj'").val(locarr[1]);
+        $("input[name='period'").val(period);
+        $("input[name='record_id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });  
+  $('#tambahsub').on('show.bs.modal', function(e) {
 
+      var $modal = $(this),
+        name = $(e.relatedTarget).attr("data-name"),
+        desc = $(e.relatedTarget).attr("data-desc");
+        parent = $(e.relatedTarget).attr("data-parent");
+        $("#keg1").val(name);
+        $("#desc1").val(desc);
+        $(e.currentTarget).find('input[name="parent"]').val(parent);
+        $("input[name='act_id'").val($(e.relatedTarget).attr("data-id"));
+  });   
+
+  $('#tambahtahapan').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        name = $(e.relatedTarget).attr("data-name"),
+        desc = $(e.relatedTarget).attr("data-desc");
+        parent = $(e.relatedTarget).attr("data-parent");
+
+        $("#keg2").val(name);
+        $("#desc2").val(desc);
+        $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        $("input[name='stages_id'").val($(e.relatedTarget).attr("data-id"));
+  });      
+  $('#tambahsdk').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        akun = $(e.relatedTarget).attr("data-akun"),
+        jenis = $(e.relatedTarget).attr("data-jenis");
+        biaya = $(e.relatedTarget).attr("data-biaya");
+
+        $("input[name='akun'").val(akun);
+        $("input[name='jenis'").val(jenis);
+        $("input[name='biaya'").val(biaya);
+        // $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        $("input[name='sdk_id'").val($(e.relatedTarget).attr("data-id"));
+  });        
   /*MONEV*/
   $('#addLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),

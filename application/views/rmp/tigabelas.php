@@ -167,3 +167,67 @@
 						</div>
 				</div>
 		</div>
+		<div class="modal fade" id="tambahrec" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Tambah Rekaman</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+								<?php echo form_open('RMP/addRecord/'.$this->uri->segment(3)); ?>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class=" form-control-label">Nama Rekaman / Bukti Kerja</label>
+												<div class="input-group">
+														<input type="text" name="record_name" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Lokasi & Penanggung Jawab</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Lemari No </span>
+                          </div>
+                          <input type="text" name="lemari" class="form-control" placeholder="">
+                        </div>
+												<div class="input-group">
+														<input type="text" name="pj" class="form-control" placeholder="Penanggung Jawab">
+												</div>												
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Masa Simpan</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Aktif : </span>
+                          </div>
+                          <input type="number" name="aktif" class="form-control" placeholder="" value="1">
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Tahun</span>
+                          </div>                          
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Inaktif : </span>
+                          </div>
+                          <input type="number" name="inaktif" class="form-control" placeholder="" value="3">
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Tahun</span>
+                          </div>                          
+                        </div>                        
+											</div>											
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<input type="hidden" name="rmp_id" value="<?=$row['id'];?>">
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
