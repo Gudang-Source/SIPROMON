@@ -79,7 +79,7 @@
 											<td>Keluaran (Output)</td>
 											<td>:</td>
 
-											<td><i <?php if($row['output'] == NULL) echo 'class="text-danger"'; else echo 'style="font-style:normal;"'; ?>><?php if($row['output']) echo $row['output']; else echo "(not set)"; ?> <a class="text-primary" href="" title="Lengkapi" data-toggle="modal" data-target="#lengkapi"><span class="fa fa-fw fa-pencil-square"></span></a></i></td>
+											<td><i <?php if($row['output'] == NULL) echo 'class="text-danger"'; else echo 'style="font-style:normal;"'; ?>><?php if($row['output']) echo $row['output']; else echo "(not set)"; ?> <a class="text-primary" href="" title="Lengkapi" data-toggle="modal" data-target="#lengkapi" data-output="<?=$row['output']; ?>" data-volume="<?=$row['volume']; ?>" data-unitof="<?=$row['unitof']; ?>" data-rabtitle="<?=$row['rabtitle']; ?>"><span class="fa fa-fw fa-pencil-square"></span></a></i></td>
 										</tr>
 										<tr>
 											<td>Volume</td>

@@ -226,6 +226,21 @@
         // $(e.currentTarget).find('input[name="act_id"]').val(parent);
         $("input[name='sdk_id'").val($(e.relatedTarget).attr("data-id"));
   });        
+  $('#lengkapi').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        output = $(e.relatedTarget).attr("data-output"),
+        volume = $(e.relatedTarget).attr("data-volume");
+        unitof = $(e.relatedTarget).attr("data-unitof");
+        rabtitle = $(e.relatedTarget).attr("data-rabtitle");
+
+        $("input[name='output'").val(output);
+        $("input[name='volume'").val(volume);
+        $("input[name='unitof'").val(unitof);
+        $("input[name='rabtitle'").val(rabtitle);
+        // $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        // $("input[name='rmp_id'").val($(e.relatedTarget).attr("data-id"));
+  });          
   /*MONEV*/
   $('#addLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),
