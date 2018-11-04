@@ -57,13 +57,13 @@
 											<?php if($row['jenis'] == "Litbang"){ ?>
 											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#tinjauan" role="tab" aria-controls="latar" aria-selected="true">Tinjauan Pustaka</a>
 											<?php } ?>
-											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#acuanteknis" role="tab" aria-controls="masalah" aria-selected="false">Acuan Teknis</a>
+											<a class="nav-link <?php if($row['jenis'] == "Non-Litbang"){ echo "active"; }?>" id="v-pills-profile-tab" data-toggle="pill" href="#acuanteknis" role="tab" aria-controls="masalah" aria-selected="false">Acuan Teknis</a>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#acuanadministrasi" role="tab" aria-controls="masalah" aria-selected="false">Acuan Administrasi</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
 											<button type="submit" class="btn btn-success">
 													<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
 											</button>
-											<<!-- button type="submit" class="btn btn-outline-dark">
+											<!-- button type="submit" class="btn btn-outline-dark">
 													<span class=""><i class="fa fa-fw fa-eye"></i></span> Preview
 											</button> -->
 										</div>
