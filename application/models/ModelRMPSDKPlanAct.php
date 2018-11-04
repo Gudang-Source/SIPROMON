@@ -34,6 +34,95 @@ class ModelRMPSDKPlanAct extends CI_Model {
 
 		return $this->db->get();	
 	}
+
+	public function selectByActIdMonth($id,$month){
+		$this->db->select('rmp_sdk_plan_act.*,rmp_sdk.akun,rmp_sdk.jenis');
+		$this->db->from($this->tableName);
+		$this->db->join('rmp_sdk','rmp_sdk.id = rmp_sdk_plan_act.sdk_id');
+		$this->db->where('act_id ='.$id.' and month='.$month);
+
+		return $this->db->get();	
+	}
+	public function getByMonthRMP($id,$month){
+		$this->db->select('rmp_sdk_plan_act.*,rmp_sdk.akun,rmp_sdk.jenis');
+		$this->db->from($this->tableName);
+		$this->db->join('rmp_sdk','rmp_sdk.id = rmp_sdk_plan_act.sdk_id');
+		$this->db->where('act_id ='.$id.' and month='.$month);
+
+		return $this->db->get();
+	}
+
+	public function getByActTotal($id){
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya, SUM(rmp_sdk_plan_act.biayaP) as biayaP, SUM(rmp_sdk_plan_act.fisik) as fisik');
+		$this->db->from($this->tableName);
+		$this->db->where('act_id ='.$id);
+
+		return $this->db->get();
+	}
+
+	public function getSisaSDK($id_sdk,$month,$act_id){
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act');
+		$this->db->from($this->tableName);
+		$this->db->where('sdk_id='.$id_sdk.' and month='.$month.' and act_id='.$act_id);
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['biaya_act'] == null){
+			$biaya_now = 0;
+		}else{
+			$biaya_now = $temp[0]['biaya_act'];
+		}
+
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act');
+		$this->db->from($this->tableName);
+		$this->db->where('sdk_id='.$id_sdk);
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['biaya_act'] == null){
+			$biaya_act = 0;
+		}else{
+			$biaya_act = $temp[0]['biaya_act'];
+		}
+
+		$this->db->select('SUM(rmp_sdk_plan_stage.biaya) as biaya_stage');
+		$this->db->from('rmp_sdk_plan_stage');
+		$this->db->where('sdk_id='.$id_sdk);
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['biaya_stage'] == null){
+			$biaya_stage = 0;
+		}else{
+			$biaya_stage = $temp[0]['biaya_stage'];
+		}
+
+		$this->db->select('rmp_sdk.biaya as total');
+		$this->db->from('rmp_sdk');
+		$this->db->where('id='.$id_sdk);
+		$temp = $this->db->get()->result_array();
+		
+		$biaya['total'] = $temp[0]['total'];
+
+		$biaya['sisa'] = $biaya['total']-($biaya_act+$biaya_stage) + $biaya_now;
+		return $biaya;
+	}
+
+	public function getTotalByIdAct($act_id){
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act');
+		$this->db->from($this->tableName);
+		$this->db->where('act_id ='.$act_id);
+		$temp = $this->db->get()->result_array();
+		
+		if($temp[0]['biaya_act'] == null){
+			return 0;
+		}else{
+			return $temp[0]['biaya_act'];
+		}
+
+	}
+
+	public function getActPlanByAMS($act_id,$month,$sdk_id){
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+		$this->db->where('act_id ='.$act_id.' and month='.$month.' and sdk_id='.$sdk_id);
+		return $this->db->get();
+	}
+	
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 	}

@@ -45,6 +45,8 @@ class ModelRMPStages extends CI_Model {
 		return $this->db->get();
 	}
 
+	
+	
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 	}

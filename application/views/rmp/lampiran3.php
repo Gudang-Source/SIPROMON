@@ -43,14 +43,16 @@
 											<a href="<?=base_url(); ?>RMP/att2/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 											</a>												
-											<a href="<?=base_url(); ?>RMP/att4/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
-													<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Lampiran 4 & 5
+											
+											<a href="<?=base_url(); ?>Report/lampiran3/<?=$idk?>" type="button" class="btn btn-labeled btn-secondary">
+													<span class="btn-label"><i class="fa fa-fw fa-print"></i></span> Print
 											</a>												
 										</div>
 
 									</div>
 								</div>
 							</div>
+							<br>
 							<div class="table-responsive">
 								<table class="table table-sm table-bordered table-hover" style="background-color: white; border-color: white; font-size:13px;">	
 									<thead class="text-center font-weight-bold" >	
@@ -84,51 +86,67 @@
 									<tbody>
 										<tr>
 											<td colspan="2"><?=$row['judul']; ?></td>
-											<td><?=number_format($row['pagu'],0,',','.'); ?></td>
+											<td><?=number_format($row['pagu'],0,',','.'); ?> <input type="hidden" id="pagu" value="<?= $row['pagu']; ?>"/></td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
 											<td></td>
 											<td></td>
 											<?php } ?>
 										</tr>
+										
 										<tr>
-											<td>1.</td>
-											<td>PERSIAPAN</td>
+											<td><b>1.</b></td>
+											<td><b>PERSIAPAN</b></td>
 											<td><?=number_format($total[0],0,',','.');?></td>
-											<td class="text-center"><?=round(($total[0]/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($total[0]/$row['pagu'])*100,2); ?></td>
-											<?php for($i=0;$i<24;$i++){ ?>
+											<td class="text-center"><?=round($totalP[0],2); ?></td>
+											<td class="text-center"><?=round($totalF[0],2); ?></td>
+											<?php for($i=0;$i<12;$i++){ ?>
 												<td></td>
 											<?php } ?>
 																				
 										</tr>
-										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'A'){$ada=0;$bk=0;$bf=0;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){$ada+=$stage['anggaran'];$bk=+round(($stage['anggaran']/$row['pagu'])*100,2);$bf=$bk;}} ?>
-										<tr <?php if($ada!=0)echo 'class="text-muted"' ?>>
+										<?php if(isset($allAct) != NULL){ 
+											$no=1; 
+											foreach($allAct as $act){
+												if($act['parent'] == 'A'){
+													 ?>
+										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
 											<td>1.<?=$no++; ?></td>
 											<td nowrap=""><?php echo $act['kegiatan'];?>
 											</td>
-											<?php if($ada!=0){ ?>
-											<td class=""><?=number_format($ada,0,',','.'); ?></td>
-											<td class="text-center"><?=$bk;?></td>
-											<td class="text-center"><?=$bf; ?></td>
-											<?php }else{ ?>
-											<td class=""><?=number_format($act['anggaran'],0,',','.'); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php } ?>
+											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['fisik'],2); ?></td>
 
-											<?php if(($act['waktu'] == ""))$act['waktu']="0-0";$mg=explode("-",$act['waktu']);  $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<?php 
+
+											for($i=1;$i<=12;$i++){
+												if($actTotal[$act['id']]['hchild']==0){
+													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
+
+														<?php
+													}else{
+													
+												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$act['anggaran']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+											<?php 
+													}
+												}else{
+													echo "<td></td><td></td>";
+												}
+											} 
+												?>
 																				
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
@@ -136,65 +154,88 @@
 											<td>1.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php if(($stage['waktu'] == ""))$stage['waktu']="0-0";$mg=explode("-",$stage['waktu']); $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
+											<?php 
+											for($i=0;$i<12;$i++){ 
+												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
+													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+													?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
+													<?php
+												}else{
+													?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stage['anggaran']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+													<?php
+												}
+											}
+											?>
 																				
 										</tr>
 											<?php }}} ?>
 										<?php }}} ?>
 										<tr>
-											<td>2.</td>
-											<td>PELAKSANAAN
+											<td><b>2.</b></td>
+											<td><b>PELAKSANAAN</b>
 											</td>
 											<td><?=number_format($total[1],0,',','.');?></td>
-											<td class="text-center"><?=round(($total[1]/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($total[1]/$row['pagu'])*100,2); ?></td>											
-											<?php for($i=0;$i<24;$i++){ ?>
+											<td class="text-center"><?=round($totalP[1],2); ?></td>
+											<td class="text-center"><?=round($totalF[1],2); ?></td>											
+											<?php for($i=0;$i<12;$i++){ ?>
 												<td></td>
 											<?php } ?>
 																				
 										</tr>
-										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){$ada=0;$bk=0;$bf=0;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){$ada+=$stage['anggaran'];$bk=+round(($stage['anggaran']/$row['pagu'])*100,2);$bf=$bk;}} ?>
-										<tr <?php if($ada!=0)echo 'class="text-muted"' ?>>
+										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){
+											?>
+										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
 											<td>2.<?=$no++; ?></td>
 											<td nowrap=""><?php echo $act['kegiatan'];?>
 											</td>
-											<?php if($ada!=0){ ?>
-											<td class=""><?=number_format($ada,0,',','.'); ?></td>
-											<td class="text-center"><?=$bk;?></td>
-											<td class="text-center"><?=$bf; ?></td>
-											<?php }else{ ?>
-											<td class=""><?=number_format($act['anggaran'],0,',','.'); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php } ?>
+											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['fisik'],2); ?></td>
 
-											<?php if(($act['waktu'] == ""))$act['waktu']="0-0";$mg=explode("-",$act['waktu']);  $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<?php 
+
+											for($i=1;$i<=12;$i++){
+												if($actTotal[$act['id']]['hchild']==0){
+													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
+
+														<?php
+													}else{
+													
+												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$act['anggaran']; ?>" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+											<?php 
+													}
+												}else{
+													echo "<td></td><td></td>";
+												}
+											} 
+												?>
 																				
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
@@ -202,66 +243,87 @@
 											<td>2.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td><?=number_format($stage['anggaran'],0,',','.'); ?></td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php if(($stage['waktu'] == ""))$stage['waktu']="0-0";$mg=explode("-",$stage['waktu']); $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
+											<?php 
+											for($i=0;$i<12;$i++){ 
+												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
+													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+													?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
+													<?php
+												}else{
+													?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stage['anggaran']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+													<?php
+												}
+											}
+											?>
 																				
 										</tr>
 											<?php }}} ?>															
 										<?php }}} ?>															
 										<tr>
-											<td>3.</td>
-											<td>PELAPORAN
+											<td><b>3.</b></td>
+											<td><b>PELAPORAN</b>
 											</td>
 											<td><?=number_format($total[2],0,',','.');?></td>
-											<td class="text-center"><?=round(($total[2]/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($total[2]/$row['pagu'])*100,2); ?></td>
-											<?php for($i=0;$i<24;$i++){ ?>
+											<td class="text-center"><?=round($totalP[2],2); ?></td>
+											<td class="text-center"><?=round($totalF[2],2); ?></td>
+											<?php for($i=0;$i<12;$i++){ ?>
 												<td></td>
 											<?php } ?>
 																				
 										</tr>
-										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){$ada=0;$bk=0;$bf=0;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){$ada+=$stage['anggaran'];$bk=+round(($stage['anggaran']/$row['pagu'])*100,2);$bf=$bk;}} ?>
-										<tr <?php if($ada!=0)echo 'class="text-muted"' ?>>
+										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){?>
+										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
 											<td>3.<?=$no++; ?></td>
 											<td nowrap=""><?php echo $act['kegiatan'];?>
 											</td>
-											<?php if($ada!=0){ ?>
-											<td class=""><?=number_format($ada,0,',','.'); ?></td>
-											<td class="text-center"><?=$bk;?></td>
-											<td class="text-center"><?=$bf; ?></td>
-											<?php }else{ ?>
-											<td class=""><?=number_format($act['anggaran'],0,',','.'); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($act['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php } ?>
+											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
+											<td class="text-center"><?=round($actTotal[$act['id']]['fisik'],2); ?></td>
 
-											<?php if(($act['waktu'] == ""))$act['waktu']="0-0";$mg=explode("-",$act['waktu']);  $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<?php 
+
+											for($i=1;$i<=12;$i++){
+												if($actTotal[$act['id']]['hchild']==0){
+													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
+														?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
+
+														<?php
+													}else{
+													
+												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$act['anggaran']; ?>" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+											<?php 
+													}
+												}else{
+													echo "<td></td><td></td>";
+												}
+											} 
+												?>
 																				
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
@@ -269,49 +331,112 @@
 											<td>3.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td><?=number_format($stage['anggaran'],0,',','.'); ?></td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<td class="text-center"><?=round(($stage['anggaran']/$row['pagu'])*100,2); ?></td>
-											<?php if(($stage['waktu'] == ""))$stage['waktu']="0-0";$mg=explode("-",$stage['waktu']); $bln=(int)($mg[0]/4); if($mg[0]%4==1)$bln+=1; $end=(int)($mg[1]/4); if($mg[1]%4==1)$end+=1;$stats=0;for($i=1;$i<=12;$i++){ 
-												if($i==$bln || $stats == 1){$stats=1;?>
+											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
+											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
+											<?php 
+											for($i=0;$i<12;$i++){ 
+												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
+													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+													?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+												</td>
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
+													<?php
+												}else{
+													?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stage['anggaran']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
 												<td></td>
-											<?php if($i==$end) $stats=0;}else{ ?>
-												<td></td>
-												<td></td>
-											<?php } ?>
-											<?php } ?>
+													<?php
+												}
+											}
+											?>
 																				
 										</tr>
 											<?php }}} ?>															
-										<?php }}} ?>															
+										<?php }}} ?>												
+										<tr>
+											<td colspan="2">Belum Terpakai</td>
+											<td><font color="red" class='text-center'><?=number_format($sisa,0,',','.'); ?></font></td>
+											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
+											<td></td>
+											<td></td>
+											<?php } ?>
+										</tr>
+										<tr style="background-color: #d67c00;border-color: #ffb74d;color:#fff; font-weight: 400;">
+											<td colspan="2" >Jumlah Rencana Keuangan</td>
+											<td class='text-center'><?=number_format($moneysKumulatif,0,',','.'); ?></td>
+											<td class='text-center'><?= round($moneysP,2); ?></td>
+											<td class='text-center'><?= round($fisikP,2); ?></td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($moneysMonths[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".number_format($moneysMonths[$i],0,',','.')."</td>";
+													
+												}
+											 } ?>	
+										</tr>	
 										<tr style="background-color: #ffb74d;border-color: #ffb74d;color:#fff; font-weight: 400;">
-											<td colspan="5">Jumlah Rencana bulanan</td>
-											<?php for($i=0;$i<24;$i++){ ?>
-												<td></td>
-											<?php } ?>											
+											<td colspan="5">Jumlah Kumulatif Rencana Keuangan</td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($moneysMonthsKumulatif[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".number_format($moneysMonthsKumulatif[$i],0,',','.')."</td>";
+													
+												}
+											 } ?>											
 										</tr>
 										<tr style="background-color: #a1887f;border-color: #a1887f;color:#fff; font-weight: 400;">
-											<td colspan="5">Jumlah Rencana Kumulatif</td>
-											<?php for($i=0;$i<24;$i++){ ?>
-												<td></td>
-											<?php } ?>											
+											<td colspan="5">Persentase Rencana Keuangan</td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($moneysMonthsP[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".round($moneysMonthsP[$i],2)."</td>";
+													
+												}
+											 } ?>										
 										</tr>
 										<tr style="background-color: #90a4ae;border-color: #90a4ae;color:#fff; font-weight: 400;">
-											<td colspan="5">Presentase Rencana Bulan</td>
-											<?php for($i=0;$i<24;$i++){ ?>
-												<td></td>
-											<?php } ?>											
+											<td colspan="5">Persentase Kumulatif Rencana Keuangan</td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($moneysMonthsKumulatifP[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".round($moneysMonthsKumulatifP[$i],2)."</td>";
+													
+												}
+											 } ?>											
 										</tr>
 										<tr style="background-color: #999;border-color: #999;color:#fff; font-weight: 400;">
-											<td colspan="5">Presentase Kumulatif Rencana</td>
-											<?php for($i=0;$i<24;$i++){ ?>
-												<td></td>
-											<?php } ?>											
+											<td colspan="5">Persentase Rencana Fisik</td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($fisikMonths[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".round($fisikMonths[$i],2)."</td>";
+													
+												}
+											 } ?>											
+										</tr>
+										<tr style="background-color: #999;border-color: #232323;color:#fff; font-weight: 400;">
+											<td colspan="5">Persentase Kumulatif Rencana Fisik</td>
+											<?php for($i=0;$i<12;$i++){ 
+												if($fisikMonthsKumulatif[($i)] == 0){
+													echo "<td colspan='2' class='text-center'></td>";
+												}else{
+													echo "<td colspan='2' class='text-center'>".round($fisikMonthsKumulatif[$i],2)."</td>";
+													
+												}
+											 } ?>											
 										</tr>
 									</tbody>	
 								</table>
@@ -342,6 +467,7 @@
 															<td>Akun</td>
 															<td>Biaya</td>
 															<td>Fisik</td>
+															<td>Action</td>
 														</tr>
 													</thead>
 													<tbody id="realact">
@@ -352,7 +478,7 @@
 											</div>											
 											<div class="form-group">
 												<label class=" form-control-label">Pilih Akun</label>
-												<select id="akunatt3" name="sdk_id" class="form-control">
+												<select id="akunatt3" name="sdk_id" class="form-control" onchange="setMaxBiaya()">
 													<option disabled selected>--Pilih Akun--</option>
 													<?php foreach($moneys as $money){ ?>
 													<option value="<?=$money['id']; ?>"><?=$money['akun'].'. '.$money['jenis']; ?></option>
@@ -366,9 +492,10 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" min=0 class="form-control" name="biaya" >
+											    <input type="number" min=0 class="form-control" name="biaya" id="biayaActAdd" onchange="setFisikAct()">
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="act_id" id="actkeu" value="">
+											    <input type="hidden" name="biayaP" id="biayaPact" value="">
 											    <input type="hidden" name="month" id="monthkeu" value="">
 											  </div>											
 											  <small class="form-text text-muted">Total Anggaran Tahapan: Rp.<i id="paguanggaran" style="font-style: normal;color:green;"> </i> </small>
@@ -379,7 +506,7 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="text" min=0 class="form-control" name="fisik" >
+											    <input type="text" min=0 class="form-control" name="fisik" id="fisikAct">
 											  </div>											
 											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikkeu" style="font-style: normal;color:green;"> </i> </small>
 											</div>											
@@ -416,6 +543,7 @@
 															<td>Akun</td>
 															<td>Biaya</td>
 															<td>Fisik</td>
+															<td>Action</td>
 														</tr>
 													</thead>
 		
@@ -423,7 +551,7 @@
 											</div>
 											<div class="form-group">
 												<label class=" form-control-label">Pilih Akun</label>
-												<select id="akunatt3" name="sdk_id" class="form-control">
+												<select id="akunatt3stage" name="sdk_id" class="form-control" onchange="setMaxBiayaStage()">
 													<option disabled selected>--Pilih Akun--</option>
 													<?php foreach($moneys as $money){ ?>
 													<option value="<?=$money['id']; ?>"><?=$money['akun'].'. '.$money['jenis']; ?></option>
@@ -437,7 +565,7 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" min=0 class="form-control" name="biaya" >
+											    <input type="number" min=0 class="form-control" name="biaya" id="biayaStageAdd" onchange="setFisikStage()">
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="stage_id" id="actkeustage" value="">
 											    <input type="hidden" name="month" id="monthkeustage" value="">											    
@@ -450,9 +578,10 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="text" min=0 class="form-control" name="fisikstage" >
+											    <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage">
+											    <input type="text" min=0 class="form-control" name="fisik" id="fisikStage">
 											  </div>											
-											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisik" style="font-style: normal;color:green;"> </i> </small>
+											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikstage" style="font-style: normal;color:green;"> </i> </small>
 											</div>																						
 										</div>
 									</div>

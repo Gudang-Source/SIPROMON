@@ -78,8 +78,8 @@
 																<a target="_blank" href="<?=base_url();?>Report/printAtt2/<?=$row['id']; ?>" class="dropdown-item">
 																	<i class="fa fa-fw fa-file-pdf-o"></i>Rancangan Kerja
 																</a>
-																<a href="#" class="dropdown-item">
-																	<i class="fa fa-fw fa-file-pdf-o"></i>Rencana Fisik dan Keuangan
+																<a target="_blank" href="<?=base_url();?>Report/lampiran3/<?=$row['id']; ?>" class="dropdown-item">
+																	<i class="fa fa-fw fa-file-pdf-o"></i>Rencana Fisik dan Keuangan (Lampiran 3)
 																</a>																																
 
 														  </div>
