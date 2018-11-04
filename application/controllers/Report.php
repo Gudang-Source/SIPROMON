@@ -518,7 +518,7 @@ class Report extends CI_Controller{
     $this->data['sisa'] = $this->data['row']['pagu'];
 
     $this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
-    $this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();    
+    $this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();     
     $this->data['moneys'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
     $this->data['sdktitles'] = $this->ModelRMPSDKTitle->selectAll()->result_array();
     $this->data['idk'] = $idk;  //add ahmad 
