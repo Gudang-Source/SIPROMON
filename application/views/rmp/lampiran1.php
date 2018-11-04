@@ -40,7 +40,7 @@
 									      </select>
 									    </div>																						
 											<div class="pull-right">
-												<a href="<?=base_url(); ?>RMP/empat/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
+												<a href="<?=base_url(); ?>RMP/limabelas/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
 														<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 												</a>												
 												<a href="<?=base_url(); ?>RMP/att2/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
@@ -105,6 +105,14 @@
 										</button>
 									</div>
 									<table class="table table-bordered table-striped table-sm">
+									<col width="5px">
+									<col width="auto">
+									<col width="auto">
+									<col width="auto">
+									<col width="10px">
+									<col width="100px">
+									<!-- <col width="15px"> -->
+
 									<thead class="text-center" style="background-color: white; font-weight: bold;">
 										<tr>
 											<td rowspan="2" >No.</td>

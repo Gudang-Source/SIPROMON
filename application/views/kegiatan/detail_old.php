@@ -53,7 +53,7 @@
 												<td class="left">Pengesah</td>
 												<td><?=$kapus['name']; ?></td>
 											</tr>
-											<tr class="<?php if($row['rmp_stats'] == 1) echo "table-success"; else echo "table-danger"; ?>">
+											<tr class="<?php if($row['rmp_stats'] >= 1) echo "table-success"; else echo "table-danger"; ?>">
 												<td class="left">Penyusunan RMP</td>
 												<td>
 													<div class="muted">Penyusunan RMP <br> <!-- <i style="color:orange;">(Testing Phase)</i> -->
