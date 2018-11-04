@@ -57,7 +57,7 @@
 								<table class="table table-sm table-bordered table-hover" style="background-color: white; border-color: white; font-size:13px;">	
 									<thead class="text-center font-weight-bold" >	
 										<tr class="" style="background-color: #607d8b;border-color: #607d8b;color:#fff; font-weight: 400; " >
-											<td colspan="2" rowspan="2" style="vertical-align: middle;">
+											<td colspan="4" rowspan="2" style="vertical-align: middle;">
 												Uraian Kegiatan
 											</td>
 											<td rowspan="2">Jumlah Biaya<br>[Rp.]</td>
@@ -85,7 +85,7 @@
 									</thead>			
 									<tbody>
 										<tr>
-											<td colspan="2"><?=$row['judul']; ?></td>
+											<td colspan="4"><?=$row['judul']; ?></td>
 											<td><?=number_format($row['pagu'],0,',','.'); ?> <input type="hidden" id="pagu" value="<?= $row['pagu']; ?>"/></td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
 											<td></td>
@@ -94,8 +94,8 @@
 										</tr>
 										
 										<tr>
-											<td><b>1.</b></td>
-											<td><b>PERSIAPAN</b></td>
+											<td width="7px"><b>1.</b></td>
+											<td colspan="3"><b>PERSIAPAN</b></td>
 											<td><?=number_format($total[0],0,',','.');?></td>
 											<td class="text-center"><?=round($totalP[0],2); ?></td>
 											<td class="text-center"><?=round($totalF[0],2); ?></td>
@@ -110,8 +110,9 @@
 												if($act['parent'] == 'A'){
 													 ?>
 										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
-											<td>1.<?=$no++; ?></td>
-											<td nowrap=""><?php echo $act['kegiatan'];?>
+											<td width="7px"></td>
+											<td width="7px">1.<?=$no++; ?></td>
+											<td nowrap="" colspan="2"><?php echo $act['kegiatan'];?>
 											</td>
 											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
@@ -151,7 +152,9 @@
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 										<tr>
-											<td>1.<?=($no-1).".".$no3++; ?></td>
+											<td width="7px"></td>
+											<td width="7px"></td>
+											<td width="7px">1.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
 											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
@@ -185,8 +188,8 @@
 											<?php }}} ?>
 										<?php }}} ?>
 										<tr>
-											<td><b>2.</b></td>
-											<td><b>PELAKSANAAN</b>
+											<td width="7px"><b>2.</b></td>
+											<td colspan="3"><b>PELAKSANAAN</b>
 											</td>
 											<td><?=number_format($total[1],0,',','.');?></td>
 											<td class="text-center"><?=round($totalP[1],2); ?></td>
@@ -199,8 +202,9 @@
 										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){
 											?>
 										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
-											<td>2.<?=$no++; ?></td>
-											<td nowrap=""><?php echo $act['kegiatan'];?>
+											<td width="7px"></td>
+											<td width="7px">2.<?=$no++; ?></td>
+											<td nowrap="" colspan="2"><?php echo $act['kegiatan'];?>
 											</td>
 											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
@@ -240,7 +244,9 @@
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 										<tr>
-											<td>2.<?=($no-1).".".$no3++; ?></td>
+											<td width="7px"></td>
+											<td width="7px"></td>
+											<td width="7px">2.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
 											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
@@ -274,8 +280,8 @@
 											<?php }}} ?>															
 										<?php }}} ?>															
 										<tr>
-											<td><b>3.</b></td>
-											<td><b>PELAPORAN</b>
+											<td width="7px"><b>3.</b></td>
+											<td colspan="3"><b>PELAPORAN</b>
 											</td>
 											<td><?=number_format($total[2],0,',','.');?></td>
 											<td class="text-center"><?=round($totalP[2],2); ?></td>
@@ -287,8 +293,9 @@
 										</tr>
 										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){?>
 										<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'class="text-muted"' ?>>
-											<td>3.<?=$no++; ?></td>
-											<td nowrap=""><?php echo $act['kegiatan'];?>
+											<td width="7px"></td>
+											<td width="7px">3.<?=$no++; ?></td>
+											<td nowrap="" colspan="2"><?php echo $act['kegiatan'];?>
 											</td>
 											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
@@ -328,7 +335,9 @@
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 										<tr>
-											<td>3.<?=($no-1).".".$no3++; ?></td>
+											<td width="7px"></td>
+											<td width="7px"></td>
+											<td width="7px">3.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
 											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
@@ -362,7 +371,7 @@
 											<?php }}} ?>															
 										<?php }}} ?>												
 										<tr>
-											<td colspan="2">Belum Terpakai</td>
+											<td colspan="4">Belum Terpakai</td>
 											<td><font color="red" class='text-center'><?=number_format($sisa,0,',','.'); ?></font></td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
 											<td></td>
@@ -370,7 +379,7 @@
 											<?php } ?>
 										</tr>
 										<tr style="background-color: #d67c00;border-color: #ffb74d;color:#fff; font-weight: 400;">
-											<td colspan="2" >Jumlah Rencana Keuangan</td>
+											<td colspan="4" >Jumlah Rencana Keuangan</td>
 											<td class='text-center'><?=number_format($moneysKumulatif,0,',','.'); ?></td>
 											<td class='text-center'><?= round($moneysP,2); ?></td>
 											<td class='text-center'><?= round($fisikP,2); ?></td>
@@ -384,7 +393,7 @@
 											 } ?>	
 										</tr>	
 										<tr style="background-color: #ffb74d;border-color: #ffb74d;color:#fff; font-weight: 400;">
-											<td colspan="5">Jumlah Kumulatif Rencana Keuangan</td>
+											<td colspan="7">Jumlah Kumulatif Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsKumulatif[($i)] == 0){
 													echo "<td colspan='2' class='text-center'></td>";
@@ -395,7 +404,7 @@
 											 } ?>											
 										</tr>
 										<tr style="background-color: #a1887f;border-color: #a1887f;color:#fff; font-weight: 400;">
-											<td colspan="5">Persentase Rencana Keuangan</td>
+											<td colspan="7">Persentase Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsP[($i)] == 0){
 													echo "<td colspan='2' class='text-center'></td>";
@@ -406,7 +415,7 @@
 											 } ?>										
 										</tr>
 										<tr style="background-color: #90a4ae;border-color: #90a4ae;color:#fff; font-weight: 400;">
-											<td colspan="5">Persentase Kumulatif Rencana Keuangan</td>
+											<td colspan="7">Persentase Kumulatif Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsKumulatifP[($i)] == 0){
 													echo "<td colspan='2' class='text-center'></td>";
@@ -417,7 +426,7 @@
 											 } ?>											
 										</tr>
 										<tr style="background-color: #999;border-color: #999;color:#fff; font-weight: 400;">
-											<td colspan="5">Persentase Rencana Fisik</td>
+											<td colspan="7">Persentase Rencana Fisik</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($fisikMonths[($i)] == 0){
 													echo "<td colspan='2' class='text-center'></td>";
@@ -428,7 +437,7 @@
 											 } ?>											
 										</tr>
 										<tr style="background-color: #999;border-color: #232323;color:#fff; font-weight: 400;">
-											<td colspan="5">Persentase Kumulatif Rencana Fisik</td>
+											<td colspan="7">Persentase Kumulatif Rencana Fisik</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($fisikMonthsKumulatif[($i)] == 0){
 													echo "<td colspan='2' class='text-center'></td>";
