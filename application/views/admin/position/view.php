@@ -57,6 +57,7 @@
 															<tr>
 																<th>No.</th>
 																<th>Jabatan</th>
+																<th>Kompetensi</th>
 																<th>Tugas</th>
 																<th>Tanggung Jawab</th>
 																<th>Wewenang</th>
@@ -68,6 +69,7 @@
 															<tr>
 																<td><?=$no++;?></td>
 																<td><?=$row['name'];?></td>
+																<td><?=$row['kompetensi'];?></td>
 																<td><?=$row['tugas'];?></td>
 																<td><?=$row['tanggungjawab'];?></td>
 																<td><?=$row['wewenang'];?></td>

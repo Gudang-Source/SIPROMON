@@ -40,12 +40,29 @@
   $('#tambahraker').on('show.bs.modal', function(e) {
         var $modal = $(this),
             esseyId = e.relatedTarget.id;
-        $("input[name='activity_id'").val(esseyId);
+            sarpras = $(e.relatedTarget).attr("data-sarpras"),
+            hasil = $(e.relatedTarget).attr("data-hasil"),
+            kriteria = $(e.relatedTarget).attr("data-kriteria"),
+            metode = $(e.relatedTarget).attr("data-metode"),
+        $("input[name='activity_id']").val(esseyId);
+        $("input[name='sarpras']").val(sarpras);
+        $("input[name='hasil']").val(hasil);
+        $("input[name='kriteria']").val(kriteria);
+        $("input[name='metode']").val(metode);
     });
   $('#tambahraker2').on('show.bs.modal', function(e) {
       var $modal = $(this),
           esseyId = e.relatedTarget.id;
-      $("input[name='stages_id'").val(esseyId);
+          sarpras = $(e.relatedTarget).attr("data-sarpras"),
+          hasil = $(e.relatedTarget).attr("data-hasil"),
+          kriteria = $(e.relatedTarget).attr("data-kriteria"),
+          metode = $(e.relatedTarget).attr("data-metode"),
+          console.log(metode);
+      $("input[name='stages_id']").val(esseyId);
+      $("input[name='sarpras']").val(sarpras);
+      $("input[name='hasil']").val(hasil);
+      $("input[name='kriteria']").val(kriteria);
+      $("input[name='metode']").val(metode);      
   });
   $('#tambahrencanakeu').on('show.bs.modal', function(e) {
       var $modal = $(this),

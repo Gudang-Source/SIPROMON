@@ -40,16 +40,9 @@
 									      </select>
 									    </div>																						
 											<div class="pull-right">
-												
-												<?php if($row['jenis'] == "Teknologi dan Terapan Terpadu" || $row['jenis'] == "Pilot Project"){ ?>
-												<a href="<?=base_url(); ?>RMP/limabelas/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
+												<a href="<?=base_url(); ?>RMP/empat/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
 														<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 												</a>												
-												<?php }else{ ?>
-												<a href="<?=base_url(); ?>RMP/empatbelas/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
-														<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
-												</a>												
-												<?php } ?>
 												<a href="<?=base_url(); ?>RMP/att2/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
 														<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Lampiran 2 (Raker)
 												</a>												

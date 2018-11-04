@@ -434,41 +434,15 @@ class RMP extends CI_Controller {
 		redirect('RMP/att1/'.$idk);
 	} 
 	public function att2($idk){
-		$this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
-		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($idk)->row_array();
 		$this->data['row2'] = $this->ModelKegiatan->selectAllKegiatanById($idk)->row_array();
+		$this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
+
 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
 		$this->data['allActExe'] = $this->ModelRMPActExe->selectAll()->result_array();
-		$this->data['row']['sisa'] = $this->data['row']['pagu'];
 		$this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();		
 		$this->data['allStageExe'] = $this->ModelRMPStagesExe->selectAll()->result_array();
-		/*Counting Sisa Pagu*/
-		foreach($this->data['allAct'] as $r){
-			$this->data['row']['sisa'] -= $r['anggaran'];
-		}
-		foreach($this->data['allStages'] as $r){
-			$this->data['row']['sisa'] -= $r['anggaran'];
-		}
-		/*Counting Total Every Step*/
-		$convert = array('A'=>0,'B'=>1,'C'=>2);
-		for($i=0;$i<3;$i++){
-			$this->data['total'][$i] = 0;
-			foreach($this->data['allAct'] as $act){
-				if($convert[$act['parent']] == $i){
-					foreach($this->data['allStages'] as $stage){
-						if($stage['act_id'] == $act['id']){
-							$this->data['total'][$i] += $stage['anggaran'];
-						}
-					}
-					if($act['anggaran'] != 0){
-						$this->data['total'][$i] += $act['anggaran'];
-					}
-				}
-			}
-		}
-		$this->data['moneys'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
-		$this->data['sdktitles'] = $this->ModelRMPSDKTitle->selectAll()->result_array();
+
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);
 		$this->load->view('rmp/lampiran2',$this->data);
@@ -477,14 +451,22 @@ class RMP extends CI_Controller {
 	public function addDetailAct($idk){
 		$post = $this->input->post();
 
-		if(!empty($post['hasil'])) $upd['hasil'] = $post['hasil'];
 		if(!empty($post['sarpras'])) $upd['sarpras'] = $post['sarpras'];
-		if(!empty($post['anggaran'])) $upd['anggaran'] = $post['anggaran'];
+		if(!empty($post['hasil'])) $upd['hasil'] = $post['hasil'];
+		if(!empty($post['metode'])) $upd['metode'] = $post['metode'];
+		if(!empty($post['kriteria'])) $upd['kriteria'] = $post['kriteria'];
 		if(!empty($post['pj'])) $upd['pj'] = $post['pj'];
 		if(!empty($post['start'])){
-			$upd['waktu'] = strval((4*($post['start'][0]-1))+$post['start'][1]);
+			$upd['waktu'] = $post['start'];
 			$upd['waktu'] .= "-";
-			$upd['waktu'] .= strval((4*($post['end'][0]-1))+$post['end'][1]);
+			$upd['waktu'] .= $post['end'];
+		}
+		/*Delete ALl FIRST*/
+		$inquiry = $this->ModelRMPActExe->selectByIdAct($post['activity_id'])->result_array();
+		if($inquiry != NULL){
+			foreach($inquiry as $inq){
+				$this->ModelRMPActExe->delete($inq['id']);
+			}
 		}
 		if(!empty($post['pelaksana'])){
 			foreach($post['pelaksana'] as $pelaksana){
@@ -496,14 +478,22 @@ class RMP extends CI_Controller {
 	}
 	public function addDetailStage($idk){
 		$post = $this->input->post();
-		if(!empty($post['hasil'])) $upd['hasil'] = $post['hasil'];
 		if(!empty($post['sarpras'])) $upd['sarpras'] = $post['sarpras'];
-		if(!empty($post['anggaran'])) $upd['anggaran'] = $post['anggaran'];
+		if(!empty($post['hasil'])) $upd['hasil'] = $post['hasil'];
+		if(!empty($post['metode'])) $upd['metode'] = $post['metode'];
+		if(!empty($post['kriteria'])) $upd['kriteria'] = $post['kriteria'];
 		if(!empty($post['pj'])) $upd['pj'] = $post['pj'];
+		/*Delete ALl FIRST*/
+		$inquiry = $this->ModelRMPStagesExe->selectByIdStages($post['stages_id'])->result_array();
+		if($inquiry != NULL){
+			foreach($inquiry as $inq){
+				$this->ModelRMPStagesExe->delete($inq['id']);
+			}
+		}
 		if(!empty($post['start'])){
-			$upd['waktu'] = strval((4*($post['start'][0]-1))+$post['start'][1]);
+			$upd['waktu'] = $post['start'];
 			$upd['waktu'] .= "-";
-			$upd['waktu'] .= strval((4*($post['end'][0]-1))+$post['end'][1]);
+			$upd['waktu'] .= $post['end'];
 		}
 		if(!empty($post['pelaksana'])){
 			foreach($post['pelaksana'] as $pelaksana){
