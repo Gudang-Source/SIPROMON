@@ -31,24 +31,6 @@
 						</ul>
 					</li>
 					<?php } ?>
-
-					<?php if($this->session->userdata('roles') == "Admin"){ ?>
-					<li class="active">
-						<a href="<?=base_url();?>Home/beranda"> <i class="menu-icon fa fa-home"></i>Halaman Utama</a>
-					</li>
-					<li>
-						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Jabatan RMP</a>
-					</li>										
-					<li>
-						<a href="<?=base_url();?>User"> <i class="menu-icon fa fa-users"></i>User Ketua Tim</a>
-					</li>
-					<li>
-						<a href="<?=base_url();?>Pejabat"> <i class="menu-icon fa fa-user-circle-o"></i>List Pejabat</a>
-					</li>					
-					<li>
-						<a href="<?=base_url();?>Struktur"> <i class="menu-icon fa fa-sitemap"></i>Struktur Organisasi</a>
-					</li>
-					<?php } ?>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</nav>

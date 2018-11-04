@@ -102,17 +102,20 @@
 														<div class="text-right" style="margin-bottom: 15px;">
 														</div>
 													<table class="table table-striped table-bordered">
+														<col width="7px">
+														<col width="7px">
+														<col width="7px">
 														<thead>
 															<tr align="middle">
 																<th>No.</th>
-																<th>Kegiatan</th>
+																<th colspan="3">Kegiatan</th>
 																<th>Aksi</th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td>1.</td>
-																<td>Tahapan Persiapan
+																<td colspan="3">Tahapan Persiapan
 																	<span data-toggle="modal" data-target="#tambahsub" data-parent="A">
 																	    <a href="#" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Tambah Sub Kegiatan"><i class="fa fa-fw fa-plus"></i></a>
 																	</span>
@@ -121,8 +124,9 @@
 															</tr>
 															<?php if(isset($allAct) != NULL){ $no=1;foreach($allAct as $act){if($act['parent'] == 'A'){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',8)?>1.<?=$no++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 8).$act['kegiatan'];?> 
+																<td></td>
+																<td>1.<?=$no++; ?></td>
+																<td colspan="2"><?php echo $act['kegiatan'];?> 
 																	<span data-toggle="modal" data-target="#tambahtahapan" data-parent="<?=$act['id']; ?>">
 																	    <a href="#" class="text-info" data-toggle="tooltip" data-placement="bottom" title="Tambah Tahapan"><i class="fa fa-fw fa-plus"></i></a>
 																	</span>
@@ -134,8 +138,10 @@
 															</tr>
 																<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',16)?>1.<?=($no-1).".".$no3++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 16).$stage['kegiatan'];?> 
+																<td></td>
+																<td></td>
+																<td>1.<?=($no-1).".".$no3++; ?></td>
+																<td><?php echo $stage['kegiatan'];?> 
 																</td>
 																<td>
 																	<a href="#" class="text-warning" data-toggle="modal" data-target="#tambahtahapan" data-name="<?=$stage['kegiatan']; ?>" data-desc="<?=$stage['deskripsi']; ?>" data-id="<?=$stage['id'];?>" data-parent="<?=$act['id']; ?>" ><span class="fa fa-fw fa-pencil"></span></a>
@@ -146,7 +152,7 @@
 															<?php }}} ?>
 															<tr>
 																<td>2.</td>
-																<td>Tahapan Pelaksanaan
+																<td colspan="3">Tahapan Pelaksanaan
 																	<span data-toggle="modal" data-target="#tambahsub" data-parent="B">
 																	    <a href="#" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Tambah Sub Kegiatan"><i class="fa fa-fw fa-plus"></i></a>
 																	</span>
@@ -155,8 +161,9 @@
 															</tr>
 															<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',8)?>2.<?=$no++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 8).$act['kegiatan'];?> 																	<span data-toggle="modal" data-target="#tambahtahapan" data-parent="<?=$act['id']; ?>">
+																<td></td>
+																<td>2.<?=$no++; ?></td>
+																<td colspan="2"><?php echo $act['kegiatan'];?> 																	<span data-toggle="modal" data-target="#tambahtahapan" data-parent="<?=$act['id']; ?>">
 																	    <a href="#" class="text-info" data-toggle="tooltip" data-placement="bottom" title="Tambah Tahapan"><i class="fa fa-fw fa-plus"></i></a>
 																	</span>
 																</td>
@@ -167,8 +174,10 @@
 															</tr>
 																<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',16)?>2.<?=($no-1).".".$no3++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 16).$stage['kegiatan'];?> 
+																<td></td>
+																<td></td>																
+																<td>2.<?=($no-1).".".$no3++; ?></td>
+																<td><?php echo $stage['kegiatan'];?> 
 																</td>
 																<td>
 																	<a href="#" class="text-warning" data-toggle="modal" data-target="#tambahtahapan" data-name="<?=$stage['kegiatan']; ?>" data-desc="<?=$stage['deskripsi']; ?>" data-id="<?=$stage['id'];?>" data-parent="<?=$act['id']; ?>" ><span class="fa fa-fw fa-pencil"></span></a>
@@ -179,7 +188,7 @@
 															<?php }}} ?>															
 															<tr>
 																<td>3.</td>
-																<td>Tahapan Pelaporan
+																<td colspan="3">Tahapan Pelaporan
 																	<span data-toggle="modal" data-target="#tambahsub" data-parent="C">
 
 																	    <a href="#" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Tambah Sub Kegiatan"><i class="fa fa-fw fa-plus"></i></a> 
@@ -189,8 +198,9 @@
 															</tr>
 															<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',8)?>3.<?=$no++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 8).$act['kegiatan'];?> 																	
+																<td></td>
+																<td>3.<?=$no++; ?></td>
+																<td colspan="2"><?php echo $act['kegiatan'];?> 																	
 																	<span data-toggle="modal" data-target="#tambahtahapan" data-parent="<?=$act['id']; ?>">
 																	    <a href="#" class="text-info" data-toggle="tooltip" data-placement="bottom" title="Tambah Tahapan"><i class="fa fa-fw fa-plus"></i></a>
 																	</span>
@@ -202,8 +212,10 @@
 															</tr>
 																<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 															<tr>
-																<td><?=str_repeat('&nbsp;',16)?>3.<?=($no-1).".".$no3++; ?></td>
-																<td><?php echo str_repeat('&nbsp;', 16).$stage['kegiatan'];?> 
+																<td></td>
+																<td></td>																
+																<td>3.<?=($no-1).".".$no3++; ?></td>
+																<td><?php echo $stage['kegiatan'];?> 
 																</td>
 																<td>
 																	<a href="#" class="text-warning" data-toggle="modal" data-target="#tambahtahapan" data-name="<?=$stage['kegiatan']; ?>" data-desc="<?=$stage['deskripsi']; ?>" data-id="<?=$stage['id'];?>" data-parent="<?=$act['id']; ?>" ><span class="fa fa-fw fa-pencil"></span></a>
@@ -255,6 +267,7 @@
 															</button>
 														</div>
 													<table class="table table-striped table-bordered">
+														<col width="7px">
 														<thead>
 															<tr>
 																<th>No.</th>
@@ -297,6 +310,7 @@
 															</button>
 														</div>
 													<table class="table table-striped table-bordered">
+														<col width="7px">
 														<thead>
 															<tr>
 																<th>No.</th>

@@ -40,7 +40,7 @@
 									      </select>
 									    </div>																																	
 											<div class="pull-right" style="margin-bottom: 15px;">
-												<a href="<?=base_url(); ?>RMP/empatbelas/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
+												<a href="<?=base_url(); ?>RMP/empat/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
 														<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 												</a>												
 												<a href="<?=base_url(); ?>RMP/att1/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">

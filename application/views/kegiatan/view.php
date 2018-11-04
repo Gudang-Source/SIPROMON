@@ -39,7 +39,6 @@
 																<th>No.</th>
 																<th>Judul</th>
 																<th>Jenis RMP</th>
-																<th>Progres</th>
 																<th>Aksi</th>
 															</tr>
 														</thead>
