@@ -55,7 +55,7 @@
 									<div class="col-md-3">
 										<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 											<?php if($row['jenis'] == "Litbang"){ ?>
-											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#tinjauan" role="tab" aria-controls="latar" aria-selected="true">Tinjauan Pustaka</a>
+											<a class="nav-link <?php if($row['jenis'] == "Litbang"){ echo "active"; }?>" id="v-pills-home-tab" data-toggle="pill" href="#tinjauan" role="tab" aria-controls="latar" aria-selected="true">Tinjauan Pustaka</a>
 											<?php } ?>
 											<a class="nav-link <?php if($row['jenis'] == "Non-Litbang"){ echo "active"; }?>" id="v-pills-profile-tab" data-toggle="pill" href="#acuanteknis" role="tab" aria-controls="masalah" aria-selected="false">Acuan Teknis</a>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#acuanadministrasi" role="tab" aria-controls="masalah" aria-selected="false">Acuan Administrasi</a>
@@ -70,14 +70,14 @@
 									</div>
 									<div class="col-md-9">
 										<div class="tab-content" id="v-pills-tabContent">
-											<div class="tab-pane fade show active" id="tinjauan" role="tabpanel">
+											<div class="tab-pane fade show <?php if($row['jenis'] == "Litbang"){ echo "active"; }?>" id="tinjauan" role="tabpanel">
 												<div class="card-title">
 													<h3 class="text-center">Tinjauan Kegiatan</h3>
 													<hr>
 													<textarea class="ckeditor" name="tinjauan" ><?=$row['tinjauan'];?></textarea>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="acuanteknis" role="tabpanel">
+											<div class="tab-pane fade show <?php if($row['jenis'] == "Non-Litbang"){ echo "active"; }?>" id="acuanteknis" role="tabpanel">
 												<div class="card-title">
 													<h3 class="text-center">Acuan Teknis</h3>
 													<hr>
