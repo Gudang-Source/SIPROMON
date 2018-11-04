@@ -15,7 +15,7 @@
 					<th colspan="1" rowspan="2" style="vertical-align: middle;">
 						No
 					</th>
-					<th colspan="4" rowspan="2" style="vertical-align: middle;">
+					<th colspan="6" rowspan="2" style="vertical-align: middle;">
 						Uraian Kegiatan
 					</th>
 					<th rowspan="2">Satuan/Volume</th>
@@ -44,7 +44,7 @@
 			<tbody style="font-size: 12; font-family: Calibri;">
 				<tr>
 					<td></td>
-					<td colspan="4"><b>Judul Kegiatan</b></br><?=$row['judul']; ?></td>
+					<td colspan="6"><b>Judul Kegiatan</b></br><?=$row['judul']; ?></td>
 					<td></td>
 					<td></td>
 					<td><?=number_format($row['pagu'],0,',','.'); ?></td>
@@ -56,7 +56,7 @@
 				</tr>
 				<tr>
 					<td><b>1.</b></td>
-					<td colspan="4"><b>PERSIAPAN</b></td>
+					<td colspan="6"><b>PERSIAPAN</b></td>
 					<td></td>
 					<td></td>
 					<td><?=number_format($total[0],0,',','.');?></td>
@@ -70,7 +70,8 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'A'){?>
 				<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'style="font-weight:bold"' ?>>
 					<td></td>
-					<td colspan="4">1.<?=$no++; ?> <?php echo $act['kegiatan'];?>
+					<td>1.<?=$no++; ?></td>
+					<td colspan="5"> <?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
 					<td></td>
@@ -91,7 +92,9 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td colspan="4">   1.<?=($no-1).".".$no3++; ?> <?php echo $stage['kegiatan'];?> 
+					<td></td>
+					<td>1.<?=($no-1).".".$no3++; ?></td>
+					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>
 					<td></td>
@@ -113,7 +116,7 @@
 				<?php }}} ?>
 				<tr>
 					<td><b>2.</b></td>
-					<td colspan="4"><b>PELAKSANAAN</b>
+					<td colspan="6"><b>PELAKSANAAN</b>
 					</td>
 					<td></td>
 					<td></td>
@@ -128,7 +131,8 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){ ?>
 				<tr>
 					<td></td>
-					<td colspan="4">2.<?=$no++; ?> <?php echo $act['kegiatan'];?>
+					<td>2.<?=$no++; ?></td>
+					<td colspan="5"> <?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
 					<td></td>
@@ -149,7 +153,9 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td colspan="4">   2.<?=($no-1).".".$no3++; ?> <?php echo $stage['kegiatan'];?> 
+					<td></td>
+					<td>2.<?=($no-1).".".$no3++; ?></td>
+					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>
 					<td></td>
@@ -171,7 +177,7 @@
 				<?php }}} ?>															
 				<tr>
 					<td><b>3.</b></td>
-					<td colspan="4"><b>PELAPORAN</b>
+					<td colspan="6"><b>PELAPORAN</b>
 					</td>
 					<td></td>
 					<td></td>
@@ -186,7 +192,8 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){ ?>
 				<tr>
 					<td></td>
-					<td colspan="4">3.<?=$no++; ?> <?php echo $act['kegiatan'];?>
+					<td>3.<?=$no++; ?></td>
+					<td colspan="5"><?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
 					<td></td>
@@ -207,7 +214,9 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td colspan="4">   3.<?=($no-1).".".$no3++; ?> <?php echo $stage['kegiatan'];?> 
+					<td></td>
+					<td>3.<?=($no-1).".".$no3++; ?></td>
+					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>
 					<td></td>
@@ -229,7 +238,7 @@
 				<?php }}} ?>
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Jumlah Rencana Keuangan</td>
+					<td colspan="8">Jumlah Rencana Keuangan</td>
 					
 					<td><?=number_format($moneysKumulatif,0,',','.'); ?></td>
 					<td><?= round($moneysP,2); ?></td>
@@ -246,7 +255,7 @@
 				
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Jumlah Kumulatif Rencana Keuangan</td>
+					<td colspan="8">Jumlah Kumulatif Rencana Keuangan</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -261,7 +270,7 @@
 				</tr>
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Persentase Rencana Keuangan</td>
+					<td colspan="8">Persentase Rencana Keuangan</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -277,7 +286,7 @@
 				</tr>
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Persentase Kumulatif Rencana Keuangan</td>
+					<td colspan="8">Persentase Kumulatif Rencana Keuangan</td>
 					<td style="background-color:#f90000;"></td>
 					<td></td>
 					<td></td>
@@ -292,7 +301,7 @@
 				</tr>
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Persentase Rencana Fisik</td>
+					<td colspan="8">Persentase Rencana Fisik</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -307,7 +316,7 @@
 				</tr>
 				<tr style="text-weight:bold;">
 					<td></td>
-					<td colspan="6">Persentase Kumulatif Rencana Fisik</td>
+					<td colspan="8">Persentase Kumulatif Rencana Fisik</td>
 					<td style="background-color:#0059f9;"></td>
 					<td></td>
 					<td></td>
