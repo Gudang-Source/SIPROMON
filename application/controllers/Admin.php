@@ -34,6 +34,24 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/footer',$this->foot);
 	}
 
+	public function addPosition(){
+		$post = $this->input->post();
+		$employee_id = $this->ModelRMPPosition->insert($post);
+		// $this->position();
+		redirect('Admin/position');
+	}
+	public function delPosition($id){
+		$this->ModelRMPPosition->delete($id);
+		redirect('Admin/position');
+		// $this->position();
+	}
+	public function updatePosition(){
+		$post = $this->input->post();
+		$this->ModelRMPPosition->update($post['id'],$post);
+		redirect('Admin/position');
+		
+	}
+
 	/*End of Jabatan RMP*/
 	/*Struktur Organisasi*/
 	/**

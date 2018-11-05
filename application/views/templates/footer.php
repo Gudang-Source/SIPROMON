@@ -179,7 +179,28 @@
     function(){
        window.location = url+loc+id+"/";
     });
-  }  
+  }
+
+  
+  $('#formUpdateP').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        id = $(e.relatedTarget).attr("data-id"),
+        name = $(e.relatedTarget).attr("data-name"),
+        kompetensi = $(e.relatedTarget).attr("data-kompetensi"),
+        tugas = $(e.relatedTarget).attr("data-tugas"),
+        tanggungjawab = $(e.relatedTarget).attr("data-tanggungjawab"),
+        wewenang = $(e.relatedTarget).attr("data-wewenang");
+
+        $('#idU').val(id);
+        $('#nameU').val(name);
+        $('#kompetensiU').val(kompetensi);
+        $('#tugasU').text(tugas);
+        $('#tanggungjawabU').text(tanggungjawab);
+        $('#wewenangU').text(wewenang);
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });  
   $('#tambahdoc').on('show.bs.modal', function(e) {
       var $modal = $(this),
         name = $(e.relatedTarget).attr("data-name"),
