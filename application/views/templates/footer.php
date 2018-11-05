@@ -179,7 +179,88 @@
     function(){
        window.location = url+loc+id+"/";
     });
-  }  
+  }
+
+  $('#formPejabat').on('show.bs.modal', function(e) {
+      var $modal = $(this);
+        $("input[name='nip'").val("");
+        $("input[name='name'").val("");
+        $("input[name='username'").val("");
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });
+  $('#editPejabat').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        nip = $(e.relatedTarget).attr("data-nip"),
+        name = $(e.relatedTarget).attr("data-name"),
+        username = $(e.relatedTarget).attr("data-username");
+        $("input[name='nip'").val(nip);
+        $("input[name='name'").val(name);
+        $("input[name='username'").val(username);
+        $("input[name='id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });
+  $('#editPejabatP').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        username = $(e.relatedTarget).attr("data-username");
+        $("input[name='username'").val(username);
+        $("input[name='id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  }); 
+  $('#formUpdateP').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        id = $(e.relatedTarget).attr("data-id"),
+        name = $(e.relatedTarget).attr("data-name"),
+        kompetensi = $(e.relatedTarget).attr("data-kompetensi"),
+        tugas = $(e.relatedTarget).attr("data-tugas"),
+        tanggungjawab = $(e.relatedTarget).attr("data-tanggungjawab"),
+        wewenang = $(e.relatedTarget).attr("data-wewenang");
+
+        $('#idU').val(id);
+        $('#nameU').val(name);
+        $('#kompetensiU').val(kompetensi);
+        $('#tugasU').text(tugas);
+        $('#tanggungjawabU').text(tanggungjawab);
+        $('#wewenangU').text(wewenang);
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });
+  $('#formUpdateK').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        fullname = $(e.relatedTarget).attr("data-fullname"),
+        username = $(e.relatedTarget).attr("data-username"),
+        hp = $(e.relatedTarget).attr("data-hp"),
+        satker_id = $(e.relatedTarget).attr("data-satker_id"),
+        roles_id = $(e.relatedTarget).attr("data-roles_id"),
+        email = $(e.relatedTarget).attr("data-email");
+        $("input[name='fullname'").val(fullname);
+        $("input[name='username'").val(username);
+        $("input[name='hp'").val(hp);
+        $("input[name='email'").val(email);
+        $("#satker_id").val(satker_id);
+        $("#roles_id").val(roles_id);
+        $("input[name='id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });  
+   $('#formUpdateKP').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        username = $(e.relatedTarget).attr("data-username"),
+        email = $(e.relatedTarget).attr("data-email");
+        $("input[name='username'").val(username);
+        $("input[name='email'").val(email);
+        $("input[name='id'").val($(e.relatedTarget).attr("data-id"));
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  }); 
   $('#tambahdoc').on('show.bs.modal', function(e) {
       var $modal = $(this),
         name = $(e.relatedTarget).attr("data-name"),

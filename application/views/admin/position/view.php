@@ -48,7 +48,7 @@
 												</div>
 												<div class="card-body">													
 													<div class="text-right" style="margin-bottom: 15px;">
-														<button type="button" class="btn btn-labeled btn-success" data-toggle="modal" data-target="#formPejabat">
+														<button type="button" class="btn btn-labeled btn-success" data-toggle="modal" data-target="#formPosition">
 																<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah Jabatan
 														</button>
 													</div>
@@ -74,8 +74,8 @@
 																<td><?=$row['tanggungjawab'];?></td>
 																<td><?=$row['wewenang'];?></td>
 																<td>
-																	<a class="text-primary" href="<?=base_url(); ?>Admin/formPosition/<?=$row['id']; ?>" title="Edit" data-toggle="tooltip" data-placement="bottom"><span class="fa fa-fw fa-pencil"></span></a> 
-																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Admin/delPosition');" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Pejabat"><span class="fa fa-fw fa-trash"></span></a>
+																	<a class="text-primary" href="#" title="Edit" data-toggle="modal" data-target="#formUpdateP" data-id="<?= $row['id'];?>" data-name="<?= $row['name'];?>" data-kompetensi="<?= $row['kompetensi'];?>" data-tugas="<?= $row['tugas'];?>" data-tanggungjawab="<?= $row['tanggungjawab'];?>" data-wewenang="<?= $row['wewenang'];?>"><span class="fa fa-fw fa-pencil"></span></a> 
+																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Admin/delPosition/');" class="text-danger" title="Hapus jabatan"><span class="fa fa-fw fa-trash"></span></a>
 																</td>
 															</tr>
 															<?php }}else{ ?>
@@ -98,52 +98,47 @@
 						</div><!-- .animated -->
 				</div><!-- .content -->
 		</div><!-- /#right-panel -->
-		<div class="modal fade" id="formPejabat" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+		<div class="modal fade" id="formPosition" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-md" role="document">
 						<div class="modal-content">
 								<div class="modal-header">
-										<h5 class="modal-title" id="largeModalLabel">Tambah Pejabat</h5>
+										<h5 class="modal-title" id="largeModalLabel">Tambah Jabatan</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 										</button>
 								</div>
 								<div class="modal-body">
-										<?php echo form_open('Pejabat/addPejabat'); ?>
+										<?php echo form_open('Admin/addPosition'); ?>
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class=" form-control-label">NIP</label>
-													<div class="input-group">
-															<input name="nip" class="form-control" required="">
-													</div>
-												</div>												
-												<div class="form-group">
-													<label class=" form-control-label">Nama Lengkap dan Gelar</label>
+													<label class=" form-control-label">Jabatan</label>
 													<div class="input-group">
 															<input name="name" class="form-control" required="">
 													</div>
-												</div>
+												</div>												
 												<div class="form-group">
-													<label class=" form-control-label">Username</label>
+													<label class=" form-control-label">Kompetensi</label>
 													<div class="input-group">
-															<input name="username" class="form-control" required="">
+															<input name="kompetensi" class="form-control" >
 													</div>
 												</div>
 												<div class="form-group">
-													<label class=" form-control-label">Password</label>
+													<label class=" form-control-label">Tugas</label>
 													<div class="input-group">
-															<input name="password" type="password" class="form-control" required="">
+															<textarea class="form-control" name="tugas" rows=7 required></textarea>
 													</div>
 												</div>
 												<div class="form-group">
-													<label class=" form-control-label">Jabatan <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pejabat sebelumnya akan otomatis tergantikan"><i class="fa fa-info-circle"></i></a></label>
+													<label class=" form-control-label">Tanggung Jawab</label>
 													<div class="input-group">
-															<select name="roles_id" class="form-control">
-																<option disabled selected>--Pilih Jabatan--</option>
-																<?php foreach($roles as $role){ ?>
-																<option value="<?php echo $role['id']; ?>"><?php echo $role['position']; ?></option>
-																<?php } ?>
-															</select>
+															<textarea class="form-control" name="tanggungjawab" rows=7 required></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Wewenang</label>
+													<div class="input-group">
+															<textarea class="form-control" name="wewenang" rows=7 required></textarea>
 													</div>
 												</div>												
 											</div>
@@ -160,3 +155,61 @@
 				</div>
 		</div>
 		<!-- Right Panel -->
+
+		<div class="modal fade" id="formUpdateP" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Edit Jabatan</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<?php echo form_open('Admin/updatePosition'); ?>
+										<div class="row">
+											<div class="col-md-12">
+												<input name="id" id="idU" type="hidden" class="form-control" >
+												<div class="form-group">
+													<label class=" form-control-label">Jabatan</label>
+													<div class="input-group">
+															<input name="name" id="nameU" class="form-control" required="">
+													</div>
+												</div>												
+												<div class="form-group">
+													<label class=" form-control-label">Kompetensi</label>
+													<div class="input-group">
+															<input name="kompetensi" id="kompetensiU" class="form-control" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Tugas</label>
+													<div class="input-group">
+															<textarea class="form-control" name="tugas" id="tugasU" rows=7 required></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Tanggung Jawab</label>
+													<div class="input-group">
+															<textarea class="form-control" name="tanggungjawab" id="tanggungjawabU" rows=7 required></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Wewenang</label>
+													<div class="input-group">
+															<textarea class="form-control" name="wewenang" id="wewenangU" rows=7 required></textarea>
+													</div>
+												</div>												
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
+										</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>
