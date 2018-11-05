@@ -70,8 +70,9 @@
 																<td><?=$row['name'];?></td>
 																<td><?=$row['username'];?></td>
 																<td>
-																	<a class="text-primary" href="<?=base_url(); ?>Admin/formPejabat/<?=$row['id']; ?>" title="Perbarui Pejabat" data-toggle="tooltip" data-placement="bottom"><span class="fa fa-fw fa-pencil"></span></a> 
-																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Admin/delPejabat');" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Pejabat"><span class="fa fa-fw fa-trash"></span></a>
+																	<a class="text-primary" href="#" title="Perbarui Pejabat"  data-toggle="modal" data-target="#editPejabat" data-placement="bottom" data-id="<?= $row['id'];?>" data-nip="<?= $row['nip'];?>" data-name="<?= $row['name'];?>" data-username="<?= $row['username'];?>"><span class="fa fa-fw fa-pencil"></span></a> 
+																	<a class="text-warning" href="#" title="Ubah Password" data-toggle="modal" data-target="#editPejabatP" data-id="<?= $row['id'];?>" data-username="<?= $row['username'];?>"><span class="fa fa-fw fa-key"></span></a> 
+																	<a href="javascript:void(0);" onclick="del(<?php echo $row['id'];?>,'Admin/delPejabat/');" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Pejabat"><span class="fa fa-fw fa-trash"></span></a>
 																</td>
 															</tr>
 															<?php }}else{ ?>
@@ -149,6 +150,94 @@
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-primary"
 											<i class="fa fa-fw fa-dot-circle-o"></i> Add
+										</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>
+
+		<div class="modal fade" id="editPejabat" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Edit Pejabat</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<?php echo form_open('Admin/formPejabat'); ?>
+										<input name="id" type="hidden" class="form-control">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class=" form-control-label">NIP</label>
+													<div class="input-group">
+															<input name="nip" class="form-control" required="">
+													</div>
+												</div>												
+												<div class="form-group">
+													<label class=" form-control-label">Nama Lengkap dan Gelar</label>
+													<div class="input-group">
+															<input name="name" class="form-control" required="">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Username</label>
+													<div class="input-group">
+															<input name="username" class="form-control" required="" autocomplete="false">
+													</div>
+												</div>											
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
+										</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>
+
+		<div class="modal fade" id="editPejabatP" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Edit User/Password Pejabat</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<?php echo form_open('Pejabat/form'); ?>
+										<input name="id" type="hidden" class="form-control">
+										<div class="row">
+											<div class="col-md-12">
+												
+												<div class="form-group">
+													<label class=" form-control-label">Username</label>
+													<div class="input-group">
+															<input name="username" class="form-control" required="" autocomplete="false">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class=" form-control-label">Password</label>
+													<div class="input-group">
+															<input name="password" type="password" class="form-control" required="" autocomplete="false">
+													</div>
+												</div>
+												
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
 										</button>
 								</div>
 								<?php echo form_close(); ?>

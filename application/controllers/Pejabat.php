@@ -28,7 +28,7 @@ class Pejabat extends CI_Controller {
 	public function del($id){
 		$this->ModelEmployee->delete($id);
 		$this->session->set_flashdata('del','ok');
-		redirect('Pejabat');
+		redirect('Admin/pejabat');
 	}
 	public function addPejabat(){
 		$post = $this->input->post();
@@ -37,8 +37,9 @@ class Pejabat extends CI_Controller {
 		unset($post['roles_id']);
 		$employee_id = $this->ModelEmployee->insert($post);
 		$this->ModelRoles->update($id,['employee_id' => $employee_id]);
-		redirect('Pejabat');
+		redirect('Admin/pejabat');
 	}
+
 	public function form($id=NULL){
 		if($this->input->post() != NULL){
 			$post = $this->input->post();
@@ -47,12 +48,16 @@ class Pejabat extends CI_Controller {
 
 			$this->session->set_flashdata('edit','ok');
 			$this->ModelEmployee->update($id,$post);
-			redirect('Pejabat');
+			redirect('Admin/pejabat');
 		}
-		$this->data['row'] = $this->ModelEmployee->selectById($id)->row_array();
-		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('pejabat/form',$this->data);
-		$this->load->view('templates/footer',$this->foot);
+		if($id!=NULL){
+			$this->data['row'] = $this->ModelEmployee->selectById($id)->row_array();
+			$this->load->view('templates/header',$this->head);
+			$this->load->view('templates/sidebar',$this->side);
+			$this->load->view('pejabat/form',$this->data);
+			$this->load->view('templates/footer',$this->foot);
+		}else{
+			redirect('Admin/pejabat');
+		}
 	}
 }
