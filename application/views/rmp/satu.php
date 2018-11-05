@@ -66,9 +66,9 @@
 											<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#sasarankeluaran" role="tab" aria-controls="sasarankeluaran" aria-selected="false">Sasaran Keluaran (Output)</a>
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#sasaranmutu" role="tab" aria-controls="sasaranmutu" aria-selected="false">Sasaran Mutu</a>
 											<?php if($row['jenis'] == "Litbang"){ ?>
-											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#lokasi" role="tab" aria-controls="lokasi" aria-selected="false">Lokasi Kegiatan</a>
-											<?php } ?>
 											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#manfaat" role="tab" aria-controls="v-pills-settings" aria-selected="false">Penerima Manfaat</a>
+											<?php } ?>
+											<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#lokasi" role="tab" aria-controls="lokasi" aria-selected="false">Lokasi Kegiatan</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
 											<button type="submit" class="btn btn-success">
 													<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
