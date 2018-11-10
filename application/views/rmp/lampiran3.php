@@ -125,7 +125,7 @@
 
 											for($i=1;$i<=12;$i++){
 												if($actTotal[$act['id']]['hchild']==0){
-													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+													if(isset($actMonths[$act['id']][($i-1)]['fisik'])){
 														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
 														?>
 														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
@@ -140,6 +140,7 @@
 												?>
 												<td class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
+														
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
@@ -165,8 +166,8 @@
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
 											for($i=0;$i<12;$i++){ 
-												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
-													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
+													echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
 													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
@@ -217,7 +218,7 @@
 
 											for($i=1;$i<=12;$i++){
 												if($actTotal[$act['id']]['hchild']==0){
-													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+													if(isset($actMonths[$act['id']][($i-1)]['fisik'])){
 														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
 														?>
 														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
@@ -257,8 +258,8 @@
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
 											for($i=0;$i<12;$i++){ 
-												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
-													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
+													echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
 													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
@@ -308,7 +309,7 @@
 
 											for($i=1;$i<=12;$i++){
 												if($actTotal[$act['id']]['hchild']==0){
-													if($actMonths[$act['id']][($i-1)]['biaya'] != "x"){
+													if(isset($actMonths[$act['id']][($i-1)]['fisik'])){
 														echo "<td class='text-center'>".number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');
 														?>
 														<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
@@ -348,8 +349,8 @@
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
 											for($i=0;$i<12;$i++){ 
-												if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
-													echo "<td class='text-center'>".round($stageMonths[$stage['id']][$i]['biaya'],2);
+												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
+													echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
 													?>
 													<a href="#" class="text-success" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
@@ -476,7 +477,6 @@
 													<thead>
 														<tr>
 															<td>No</td>
-															<td>Akun</td>
 															<td>Biaya</td>
 															<td>Fisik</td>
 															<td>Action</td>
@@ -488,16 +488,7 @@
 		
 												</table>
 											</div>											
-											<div class="form-group">
-												<label class=" form-control-label">Pilih Akun</label>
-												<select id="akunatt3" name="sdk_id" class="form-control" onchange="setMaxBiaya()">
-													<option disabled selected>--Pilih Akun--</option>
-													<?php foreach($moneys as $money){ ?>
-													<option value="<?=$money['id']; ?>"><?=$money['akun'].'. '.$money['jenis']; ?></option>
-													<?php } ?>
-												</select>
-												<!-- <small class="form-text text-muted">Sisa Pagu Akun: <i id="paguakun" style="font-style: normal;color:red;">Rp. </i> </small> -->
-											</div>
+											
 											<div class="form-group">
 												<label class=" form-control-label">Anggaran Biaya</label>
 												<div class="input-group">
@@ -509,6 +500,7 @@
 											    <input type="hidden" name="act_id" id="actkeu" value="">
 											    <input type="hidden" name="biayaP" id="biayaPact" value="">
 											    <input type="hidden" name="month" id="monthkeu" value="">
+											    <input type="hidden" name="id_kegiatan" id="id_kegiatankeu" value="<?= $this->uri->segment(3);?>">
 											  </div>											
 											  <small class="form-text text-muted">Total Anggaran Tahapan: Rp.<i id="paguanggaran" style="font-style: normal;color:green;"> </i> </small>
 											</div>
@@ -548,28 +540,19 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<table id="realstage" class="table table-sm table-bordered">
+												<table class="table table-sm table-bordered">
 													<thead>
 														<tr>
 															<td>No</td>
-															<td>Akun</td>
 															<td>Biaya</td>
 															<td>Fisik</td>
 															<td>Action</td>
 														</tr>
 													</thead>
-		
+													<tbody id="realstage">
+														
+													</tbody>
 												</table>
-											</div>
-											<div class="form-group">
-												<label class=" form-control-label">Pilih Akun</label>
-												<select id="akunatt3stage" name="sdk_id" class="form-control" onchange="setMaxBiayaStage()">
-													<option disabled selected>--Pilih Akun--</option>
-													<?php foreach($moneys as $money){ ?>
-													<option value="<?=$money['id']; ?>"><?=$money['akun'].'. '.$money['jenis']; ?></option>
-													<?php } ?>
-												</select>
-												<!-- <small class="form-text text-muted">Sisa Pagu Akun: <i id="paguakun" style="font-style: normal;color:red;">Rp. </i> </small> -->
 											</div>
 											<div class="form-group">
 												<label class=" form-control-label">Anggaran Biaya</label>
@@ -580,7 +563,8 @@
 											    <input type="number" min=0 class="form-control" name="biaya" id="biayaStageAdd" onchange="setFisikStage()">
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="stage_id" id="actkeustage" value="">
-											    <input type="hidden" name="month" id="monthkeustage" value="">											    
+											    <input type="hidden" name="month" id="monthkeustage" value="">	
+											    <input type="hidden" name="id_kegiatan" id="id_kegiatanstage" value="<?= $this->uri->segment(3);?>">										    
 											  </div>											
 											  <small class="form-text text-muted">Total Anggaran Tahapan: Rp.<i id="paguanggaranstage" style="font-style: normal;color:green;"> </i> </small>
 											</div>

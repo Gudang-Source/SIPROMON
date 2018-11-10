@@ -43,7 +43,7 @@ class Report extends CI_Controller{
     return $hasil;
   }
   public function debug($id){
-    $this->data['user'] = $this->ModelRMPSDKPlanAct->getByMonthRMP()
+    $this->data['user'] = $this->ModelRMPSDKPlanAct->getByMonthRMP();
   }
   public function printRMP($id){
     $this->data['user'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
