@@ -70,7 +70,7 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'A'){?>
 				<tr <?php if($actTotal[$act['id']]['hchild']!=0)echo 'style="font-weight:bold"' ?>>
 					<td></td>
-					<td>1.<?=$no++; ?></td>
+					<td width="7px">1.<?=$no++; ?></td>
 					<td colspan="5"> <?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
@@ -92,8 +92,8 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td>1.<?=($no-1).".".$no3++; ?></td>
+					<td width="7px"></td>
+					<td width="7px">1.<?=($no-1).".".$no3++; ?></td>
 					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>
@@ -131,7 +131,7 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'B'){ ?>
 				<tr>
 					<td></td>
-					<td>2.<?=$no++; ?></td>
+					<td width="7px">2.<?=$no++; ?></td>
 					<td colspan="5"> <?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
@@ -153,8 +153,8 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td>2.<?=($no-1).".".$no3++; ?></td>
+					<td width="7px"></td>
+					<td width="7px">2.<?=($no-1).".".$no3++; ?></td>
 					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>
@@ -192,7 +192,7 @@
 				<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'C'){ ?>
 				<tr>
 					<td></td>
-					<td>3.<?=$no++; ?></td>
+					<td width="7px">3.<?=$no++; ?></td>
 					<td colspan="5"><?php echo $act['kegiatan'];?>
 					</td>
 					<td></td>
@@ -214,8 +214,8 @@
 					<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td>3.<?=($no-1).".".$no3++; ?></td>
+					<td width="7px"></td>
+					<td width="7px">3.<?=($no-1).".".$no3++; ?></td>
 					<td colspan="4"><?php echo $stage['kegiatan'];?> 
 					</td>
 					<td></td>

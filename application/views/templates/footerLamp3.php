@@ -45,7 +45,6 @@
           actkeu = $(e.relatedTarget).attr("data-act"),
           month = $(e.relatedTarget).attr("data-month"),
           fisik = $(e.relatedTarget).attr("data-fisik");
-          var e = document.getElementById("akunatt3");
 
       $.ajax({
         type:"POST",
@@ -58,7 +57,7 @@
            $('#realact').text("");
           for (var i = 0; i < data.length; i++) {
             // console.log(data);
-            $('#realact').append('<tr><td>'+(i+1)+'</td><td>'+data[i].akun+'. '+ data[i].jenis+'</td><td>'+(data[i].biaya).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</td><td>'+data[i].fisik+'</td><td><a class="text-danger" href="<?=base_url(); ?>RMP/deleteActPlan/'+data[i].id+'/'+actkeu+'" title="Hapus Penggunaan Anggaran" onclink="javascript:history.go(-1)"><span class="fa fa-fw fa-trash"></span></a></td></tr>')
+            $('#realact').append('<tr><td>'+(i+1)+'</td><td>'+(data[i].biaya).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</td><td>'+data[i].fisik+'</td><td><a class="text-danger" href="<?=base_url(); ?>RMP/deleteActPlan/'+data[i].id+'/'+actkeu+'" title="Hapus Penggunaan Anggaran" onclink="javascript:history.go(-1)"><span class="fa fa-fw fa-trash"></span></a></td></tr>')
           }
 
         }
@@ -67,9 +66,7 @@
       $('#actkeu').val(actkeu);
       $('#monthkeu').val(month);
       $('#fisikkeu').text(''+fisik+'');
-      if(e.selectedIndex > 0){
-        setMaxBiaya();
-      }
+      setMaxBiaya();
       // $('#fisik').val(fisik);
   });
   $('#tambahrencanakeustage').on('show.bs.modal', function(e) {
@@ -90,7 +87,7 @@
            $('#realstage').text("");
           for (var i = 0; i < data.length; i++) {
             // console.log(data);
-            $('#realstage').append('<tr><td>'+(i+1)+'</td><td>'+data[i].akun+'. '+ data[i].jenis+'</td><td>'+(data[i].biaya).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</td><td>'+data[i].fisik+'</td><td><a class="text-danger" href="<?=base_url(); ?>RMP/deleteStagePlan/'+data[i].id+'/'+actkeu+'" title="Hapus Penggunaan Anggaran" onclink="javascript:history.go(-1)"><span class="fa fa-fw fa-trash"></span></a></td></tr>')
+            $('#realstage').append('<tr><td>'+(i+1)+'</td><td>'+(data[i].biaya).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</td><td>'+data[i].fisik+'</td><td><a class="text-danger" href="<?=base_url(); ?>RMP/deleteStagePlan/'+data[i].id+'/'+actkeu+'" title="Hapus Penggunaan Anggaran" onclink="javascript:history.go(-1)"><span class="fa fa-fw fa-trash"></span></a></td></tr>')
           }
 
         }
@@ -100,23 +97,21 @@
       $('#actkeustage').val(actkeu);
       $('#monthkeustage').val(month);
       $('#fisikstage').text(''+fisik+',-');
-      var e = document.getElementById("akunatt3stage");
-      if(e.selectedIndex > 0){
-        setMaxBiayaStage();
-      }
+   
       // $('#fisikstage').val(fisik);
+      setMaxBiayaStage();
 
   });  
   
   function setMaxBiaya(){
-    var e = document.getElementById("akunatt3");
-    var id_rmp_sdk = e.options[e.selectedIndex].value;
     var month = document.getElementById("monthkeu").value;
     var act_id = document.getElementById("actkeu").value;
+    var pagu = document.getElementById("pagu").value;
+    var id_kegiatan = document.getElementById("id_kegiatankeu").value;
     // alert(month);
     $.ajax({
         type:"POST",
-        url:"<?=site_url('RMP/getSDKsisa/')?>"+id_rmp_sdk+"/"+month+"/"+act_id,
+        url:"<?=site_url('RMP/getSisaPagu/')?>"+pagu+"/"+month+"/"+act_id+"/"+id_kegiatan,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success:function(data)
@@ -139,14 +134,14 @@
   }
 
   function setMaxBiayaStage(){
-    var e = document.getElementById("akunatt3stage");
-    var id_rmp_sdk = e.options[e.selectedIndex].value;
+     var pagu = document.getElementById("pagu").value;
+    var id_kegiatan = document.getElementById("id_kegiatanstage").value;
     var month = document.getElementById("monthkeustage").value;
     var stage_id = document.getElementById("actkeustage").value;
     // alert(month);
     $.ajax({
         type:"POST",
-        url:"<?=site_url('RMP/getSDKsisaStage/')?>"+id_rmp_sdk+"/"+month+"/"+stage_id,
+        url:"<?=site_url('RMP/getSisaPaguStage/')?>"+pagu+"/"+month+"/"+stage_id+"/"+id_kegiatan,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success:function(data)

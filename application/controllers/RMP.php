@@ -639,7 +639,7 @@ class RMP extends CI_Controller {
 	public function addBobotAct($idk){
 		$post = $this->input->post();
 
-		$temp = $this->ModelRMPSDKPlanAct->getActPlanByAMS($post['act_id'],$post['month'],$post['sdk_id']); //edited model
+		$temp = $this->ModelRMPSDKPlanAct->getActPlanByAMK($post['act_id'],$post['month'],$post['id_kegiatan']); //edited model
 		if($temp->num_rows() == 0){
 			// echo $post['act_id'];
 			$this->ModelRMPSDKPlanAct->insert($post);
@@ -661,7 +661,7 @@ class RMP extends CI_Controller {
 	public function addBobotStage($idk){
 		$post = $this->input->post();
 
-		$temp = $this->ModelRMPSDKPlanStage->getStagePlanByAMS($post['stage_id'],$post['month'],$post['sdk_id']); //edited model
+		$temp = $this->ModelRMPSDKPlanStage->getStagePlanByAMK($post['stage_id'],$post['month'],$post['id_kegiatan']); //edited model
 		if($temp->num_rows() == 0){
 			// echo $post['act_id'];
 			$this->ModelRMPSDKPlanStage->insert($post);
@@ -681,13 +681,13 @@ class RMP extends CI_Controller {
 		redirect('RMP/att3/'.$idk);
 	}
 
-	public function getSDKsisa($id_sdk,$month,$act_id){
-		$x = $this->ModelRMPSDKPlanAct->getSisaSDK($id_sdk,$month,$act_id); //edited model
+	public function getSisaPagu($pagu,$month,$act_id,$id_kegiatan){
+		$x = $this->ModelRMPSDKPlanAct->getSisaPagu($pagu,$month,$act_id,$id_kegiatan); //edited model
 		echo json_encode($x);
 	}
 
-	public function getSDKsisaStage($id_sdk,$month,$stage_id){
-		$x = $this->ModelRMPSDKPlanStage->getSisaSDK($id_sdk,$month,$stage_id); //edited model
+	public function getSisaPaguStage($pagu,$month,$stage_id,$id_kegiatan){
+		$x = $this->ModelRMPSDKPlanStage->getSisaPagu($pagu,$month,$stage_id,$id_kegiatan); //edited model
 		echo json_encode($x);
 	}
 
