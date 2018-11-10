@@ -30,6 +30,7 @@ class ModelRMPSDM extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->tableName);
 		$this->db->where('rmp_id',$id);
+		$this->db->join('rmp_position','rmp_position.id = rmp_sdm.rmp_position');
 		// $this->db->join('kegiatan','rmp.kegiatan_id = kegiatan.id');
 
 		return $this->db->get();

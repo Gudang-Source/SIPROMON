@@ -114,13 +114,13 @@
 															<?php if(isset($allsdm)){$no=1;foreach($allsdm as $row2){ ?>
 															<tr>
 																<td><?=$no++;?></td>
-																<td><?=$row2['jabatan_org'];?></td>
+																<td><?=$row2['name'];?></td>
 																<td><?=$row2['kompetensi'];?></td>
-																<td><?=$row2['kompetensi'];?></td>
-																<td><?=$row2['kompetensi'];?></td>
-																<td><?=$row2['kompetensi'];?></td>
+																<td><?=$row2['tugas'];?></td>
+																<td><?=$row2['tanggungjawab'];?></td>
+																<td><?=$row2['wewenang'];?></td>
 																<td>
-																	<a class="text-warning" href="<?=base_url(); ?>RMP/editSDM/<?=$row2['id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Jabatan"><span class="fa fa-fw fa-pencil"></span></a>
+																	<!-- <a class="text-warning" href="<?=base_url(); ?>RMP/editSDM/<?=$row2['id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Jabatan"><span class="fa fa-fw fa-pencil"></span></a> -->
 																	<a class="text-danger" href="<?=base_url(); ?>RMP/deleteSDM/<?=$row2['id'];?>/<?=$this->uri->segment(3);?>" title="Edit Jabatan"><span class="fa fa-fw fa-trash"></span></a>
 																</td>
 															</tr>
@@ -146,7 +146,26 @@
 																	<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah RAB
 															</button>
 														</div>
-														<p>Sesuai dokumen anggaran DIPA No. DIPA-033.11.1.636846/2018 Tanggal 05 Desember 2017, biaya pelaksanaan Kegiatan <?= $row['judul']; ?> Tahun <?=$row['tahun_anggaran'] ?> pada Satuan Kerja <?=$satker['name']; ?> sebesar Rp. <?=number_format($pagu,0,',','.'); ?> dengan rincian sebagai berikut.</p>
+														<table class="table table-striped table-sm" style="background-color: white;">
+															<tr>
+																<td>Dokumen DIPA</td>
+																<td>:</td>
+																<td><i <?php if($row['dipa'] == NULL) echo 'class="text-danger"'; else echo 'style="font-style:normal;"'; ?>>
+																	<?php if($row['dipa']) echo $row['dipa']; else echo "(not set)"; ?> 
+																	<a class="text-primary" href="#" title="Lengkapi" data-toggle="modal" data-target="#dipafill" data-dipa="<?=$row['dipa']; ?>" data-date="<?=$row['dipa_date']; ?>"><span class="fa fa-fw fa-pencil-square"></span></a></i></td>
+															</tr>
+															<tr>
+																<td>Tanggal</td>
+																<td>:</td>
+																<td><i <?php if($row['dipa_date'] == NULL) echo 'class="text-danger"'; else echo 'style="font-style:normal;"'; ?>><?php if($row['dipa_date']) echo $row['dipa_date']; else echo "(not set)"; ?></i></td>
+															</tr>
+															<tr>
+																<td>Kegiatan</td>
+																<td>:</td>
+																<td><?=$row['judul']; ?></td>
+															</tr>
+														</table>
+														<p>Sesuai dokumen anggaran DIPA No.<i <?php if($row['dipa_date'] == NULL) echo 'class="text-danger"'; else echo 'style="font-style:normal;"'; ?>><?php if($row['dipa_date']) echo $row['dipa_date']; else echo "(not set)"; ?></i> , biaya pelaksanaan Kegiatan <?= $row['judul']; ?> Tahun <?=$row['tahun_anggaran'] ?> pada Satuan Kerja <?=$satker['name']; ?> sebesar Rp. <?=number_format($pagu,0,',','.'); ?> dengan rincian sebagai berikut.</p>
 													<table class="table table-striped table-bordered text-center" style="background-color: white;	">
 														<thead>
 															<tr>
@@ -222,23 +241,17 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label class=" form-control-label">Jabatan Organisasi </label>
+												<label class=" form-control-label">Pilih SDM </label>
 												<div class="input-group">
-														<input type="text" name="jabatan_org" class="form-control">
+														<select name="sdm_position" class="form-control">
+															<?php foreach($positions as $position){ ?>
+															<option value="<?=$position['id']; ?>"><?=$position['name']; ?></option>
+															<?php } ?>
+															
+														</select>
 												</div>
 											</div>
-											<div class="form-group">
-												<label class=" form-control-label">Jumlah</label>
-												<div class="input-group">
-														<input type="number" name="jumlah" class="form-control">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class=" form-control-label">Kompentensi</label>
-												<div class="input-group">
-														<textarea id="ta1" type="text" name="kompetensi" class="ckeditor"></textarea>
-												</div>
-											</div>
+
 										</div>
 									</div>
 								</div>
@@ -297,3 +310,59 @@
 						</div>
 				</div>
 		</div>		
+		<div class="modal fade" id="previewfoto" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Preview Foto</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<img width="600" src="<?=base_url(); ?>assets/uploads/strukturorg/<?=$row['strukturorg']?>" alt="">
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>
+		<div class="modal fade" id="dipafill" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Lengkapi Dokumen DIPA</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+								<?php echo form_open('RMP/fulfillSDK/'.$this->uri->segment(3)); ?>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class=" form-control-label">Dokumen DIPA</label>
+												<div class="input-group">
+														<input type="text" name="dipa" class="form-control" placeholder="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Tanggal</label>
+												<div class="input-group">
+														<input type="date" name="dipa_date" class="form-control" placeholder="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>						

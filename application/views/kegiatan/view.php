@@ -48,7 +48,6 @@
 																<td><?=$no++;?></td>
 																<td><?=$row['judul'];?></td>
 																<td><?=$row['jenis'];?></td>
-																<td>
 
 																<td>
 																	<a href="<?=base_url();?>Kegiatan/show/<?=$row['id']; ?>" type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Detail">

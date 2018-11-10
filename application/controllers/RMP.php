@@ -136,7 +136,8 @@ class RMP extends CI_Controller {
 			foreach($this->data['allsdk'] as $money){
 				$pagu+=(int) $money['biaya'];
 			}
-
+			// var_dump($this->data['allsdm']);
+			$this->data['positions'] = $this->ModelRMPPosition->selectAll()->result_array();
 			$this->data['satker'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
 			$this->ModelKegiatan->update($id,['pagu'=>$pagu]);
 			$this->data['pagu'] = $pagu;
@@ -223,11 +224,11 @@ class RMP extends CI_Controller {
 	public function addSDM($idk){
 		$post = $this->input->post();
 		$this->ModelRMPSDM->insert($post);
-		redirect('RMP/empat/'.$idk);
+		redirect('RMP/empat/'.$idk.'/sdm');
 	}
 	public function deleteSDM($deleted,$idk){
 		$this->ModelRMPSDM->delete($deleted);
-		redirect('RMP/empat/'.$idk);
+		redirect('RMP/empat/'.$idk.'/sdm');
 	}	
 	public function addSDK($idk){
 		$post = $this->input->post();
@@ -245,6 +246,10 @@ class RMP extends CI_Controller {
 		$this->ModelRMPSDK->delete($deleted);
 		redirect('RMP/empat/'.$idk.'/sdk');
 	}
+	public function fulfillSDK($idk){
+		$this->ModelKegiatan->update($idk,$this->input->post());
+		redirect('RMP/empat/'.$idk.'/sdk');
+	}	
 	public function addAct($idk){
 		$post = $this->input->post();
 		if($post['act_id'] != ""){

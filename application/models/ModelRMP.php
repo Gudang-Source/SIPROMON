@@ -27,7 +27,7 @@ class ModelRMP extends CI_Model {
 		return $this->db->get();
 	}
 	public function selectByIdKegiatan($id){
-		$this->db->select('rmp.*,kegiatan.judul,kegiatan.jenis,kegiatan.tahun_anggaran,kegiatan.pagu,kegiatan.rmp_stats,kegiatan.volume,kegiatan.unitof,kegiatan.rabtitle,kegiatan.output,kegiatan.att4,kegiatan.att5');
+		$this->db->select('rmp.*,kegiatan.judul,kegiatan.jenis,kegiatan.tahun_anggaran,kegiatan.pagu,kegiatan.rmp_stats,kegiatan.volume,kegiatan.unitof,kegiatan.rabtitle,kegiatan.output,kegiatan.att4,kegiatan.att5, kegiatan.dipa, kegiatan.dipa_date');
 		$this->db->from($this->tableName);
 		$this->db->where('kegiatan_id',$id);
 		$this->db->join('kegiatan','rmp.kegiatan_id = kegiatan.id');

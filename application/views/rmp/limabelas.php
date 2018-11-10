@@ -59,9 +59,7 @@
 											<!-- <button type="submit" class="btn btn-success">
 																								<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
 																						</button> -->
-											<button class="btn btn-outline-dark">
-													<span class=""><i class="fa fa-fw fa-eye"></i></span> Preview
-											</button>
+
 										</div>
 									</div>
 									<div class="col-md-9">

@@ -94,6 +94,7 @@
 											<td></td>
 											<td></td>
 										</tr>
+										<?php $bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']; ?>
 										<?php if(isset($allAct) != NULL){ $no=1; foreach($allAct as $act){if($act['parent'] == 'A'){$ada=0;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){$ada=1;}} ?>
 										<tr <?php if($ada!=0)echo 'class="text-muted"' ?>>
 											<td></td>
@@ -102,14 +103,14 @@
 												<?php if($ada!=0){ ?>
 												<?php echo $act['kegiatan'];?>
 												<?php }else{ ?>
-												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>"><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
+												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>" data-pj="<?=$act['pj']; ?>" ><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
 												<?php } ?>
 											</td>
 											<td nowrap=""><?=$act['sarpras']; ?></td>
 											<td nowrap=""><?=$act['hasil']; ?></td>
 											<td nowrap=""><?=$act['metode']; ?></td>
 											<td nowrap=""><?=$act['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$act['waktu']; ?></td>
+											<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 											<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 										</tr>
@@ -123,7 +124,7 @@
 											<td nowrap=""><?=$stage['hasil']; ?></td>
 											<td nowrap=""><?=$stage['metode']; ?></td>
 											<td nowrap=""><?=$stage['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$stage['waktu']; ?></td>
+											<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name'].", "; }}?></td>
 											<td nowrap=""><?=$stage['pj']; ?></td>
 										</tr>
@@ -149,14 +150,14 @@
 												<?php if($ada!=0){ ?>
 												<?php echo $act['kegiatan'];?>
 												<?php }else{ ?>
-												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>"><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
+												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>" data-pj="<?=$act['pj']; ?>"><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
 												<?php } ?>
 											</td>
 											<td nowrap=""><?=$act['sarpras']; ?></td>
 											<td nowrap=""><?=$act['hasil']; ?></td>
 											<td nowrap=""><?=$act['metode']; ?></td>
 											<td nowrap=""><?=$act['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$act['waktu']; ?></td>
+											<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 											<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 										</tr>
@@ -170,7 +171,7 @@
 											<td nowrap=""><?=$stage['hasil']; ?></td>
 											<td nowrap=""><?=$stage['metode']; ?></td>
 											<td nowrap=""><?=$stage['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$stage['waktu']; ?></td>
+											<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
 											<td nowrap=""><?=$stage['pj']; ?></td>
 										</tr>
@@ -196,14 +197,14 @@
 												<?php if($ada!=0){ ?>
 												<?php echo $act['kegiatan'];?>
 												<?php }else{ ?>
-												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>"><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
+												<a href="#" class="text-info" id="<?=$act['id']; ?>" data-toggle="modal" data-target="#tambahraker" data-sarpras="<?=$act['sarpras']; ?>" data-hasil="<?=$act['hasil']; ?>" data-metode="<?=$act['metode']; ?>" data-kriteria="<?=$act['kriteria']; ?>" data-waktu="<?=$act['waktu']; ?>" data-pj="<?=$act['pj']; ?>"><i data-toggle="tooltip" data-placement="bottom" title="Isi Rincian Kerja" style="font-style: normal;">	<?php echo $act['kegiatan'];?></i></a>
 												<?php } ?>
 											</td>
 											<td nowrap=""><?=$act['sarpras']; ?></td>
 											<td nowrap=""><?=$act['hasil']; ?></td>
 											<td nowrap=""><?=$act['metode']; ?></td>
 											<td nowrap=""><?=$act['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$act['waktu']; ?></td>
+											<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 											<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 										</tr>
@@ -217,7 +218,7 @@
 											<td nowrap=""><?=$stage['hasil']; ?></td>
 											<td nowrap=""><?=$stage['metode']; ?></td>
 											<td nowrap=""><?=$stage['kriteria']; ?></td>
-											<td nowrap="">Bulan <?=$stage['waktu']; ?></td>
+											<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
 											<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
 											<td nowrap=""><?=$stage['pj']; ?></td>
 

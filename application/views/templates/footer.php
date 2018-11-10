@@ -25,6 +25,7 @@
    console.log(x);
    $(document).ready(function(){
     if(x == 'sdk') $('.nav-pills a[href="#sdk"]').tab('show');
+    if(x == 'sdm') $('.nav-pills a[href="#sdm"]').tab('show');
     if(x == 'rec') $('.nav-pills a[href="#rekaman"]').tab('show');
     if(x == 'doc') $('.nav-pills a[href="#dokumen"]').tab('show');
     if(x == 'keg') $('.nav-pills a[href="#kegiatan"]').tab('show');
@@ -276,11 +277,17 @@
   $('#tambahrec').on('show.bs.modal', function(e) {
       var $modal = $(this),
         name = $(e.relatedTarget).attr("data-name"),
-        locarr = $(e.relatedTarget).attr("data-loc").split("<br/>");
+        locarr = $(e.relatedTarget).attr("data-loc");
+        console.log(locarr);
+        if(locarr != null){
+          locarr = locarr.split("<br/>");
+        }
         period = $(e.relatedTarget).attr("data-period");
         $("input[name='record_name'").val(name);
-        $("input[name='lemari'").val((locarr[0].split("Lemari No"))[1]);
-        $("input[name='pj'").val(locarr[1]);
+        if(locarr != null){
+          $("input[name='lemari'").val((locarr[0].split("Lemari No"))[1]);
+          $("input[name='pj'").val(locarr[1]);
+        }
         $("input[name='period'").val(period);
         $("input[name='record_id'").val($(e.relatedTarget).attr("data-id"));
       // $('#actkeustage').val(actkeu);
@@ -339,6 +346,18 @@
         // $(e.currentTarget).find('input[name="act_id"]').val(parent);
         // $("input[name='rmp_id'").val($(e.relatedTarget).attr("data-id"));
   });          
+  $('#dipafill').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        dipa = $(e.relatedTarget).attr("data-dipa"),
+        dipa_date = $(e.relatedTarget).attr("data-date");
+
+
+        $("input[name='dipa'").val(dipa);
+        $("input[name='date'").val(dipa_date);
+        // $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        // $("input[name='rmp_id'").val($(e.relatedTarget).attr("data-id"));
+  });            
   /*MONEV*/
   $('#addLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),
