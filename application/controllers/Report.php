@@ -43,8 +43,7 @@ class Report extends CI_Controller{
     return $hasil;
   }
   public function debug($id){
-    $this->data['user'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
-    var_dump($this->data['user']);
+    $this->data['user'] = $this->ModelRMPSDKPlanAct->getByMonthRMP()
   }
   public function printRMP($id){
     $this->data['user'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
@@ -54,6 +53,8 @@ class Report extends CI_Controller{
     $this->data['stages'] = $this->ModelRMPStages->selectAll()->result_array();
     $this->data['bibs'] = $this->ModelRMPBib->selectByIdRMP($this->data['row']['id'])->result_array();
     $this->data['terbilang'] = $this->terbilang($this->data['row']['pagu']);
+    $this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
+
     // $docs = $this->ModelRMPDocument->selectByIdRMP($row['id'])->result_array();
     // $roles = $this->ModelRMPRoles->selectByIdRMP($row['id'])->result_array();
     // $sdms = $this->ModelRMPSDM->selectByIdRMP($row['id'])->result_array();
@@ -191,7 +192,7 @@ class Report extends CI_Controller{
                 </tr>
                 <tr>
                   <td style="background-color: #e3ece4;"><b>Disahkan Oleh</b></td>
-                  <td>z</td>
+                  <td>'.$this->data['kapus'].'</td>
                   <td></td>
                 </tr>
                 </tbody>
@@ -518,7 +519,7 @@ class Report extends CI_Controller{
     $this->data['sisa'] = $this->data['row']['pagu'];
 
     $this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
-    $this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();     
+    $this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();    
     $this->data['moneys'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
     $this->data['sdktitles'] = $this->ModelRMPSDKTitle->selectAll()->result_array();
     $this->data['idk'] = $idk;  //add ahmad 

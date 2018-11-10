@@ -47,6 +47,9 @@
 											<a href="<?=base_url(); ?>Report/lampiran3/<?=$idk?>" type="button" class="btn btn-labeled btn-secondary">
 													<span class="btn-label"><i class="fa fa-fw fa-print"></i></span> Print
 											</a>												
+											<a href="<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
+													<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> End
+											</a>												
 										</div>
 
 									</div>
