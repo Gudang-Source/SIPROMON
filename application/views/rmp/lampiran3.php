@@ -44,10 +44,10 @@
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 											</a>												
 											
-											<a href="<?=base_url(); ?>Report/lampiran3/<?=$idk?>" type="button" class="btn btn-labeled btn-secondary">
+											<a href="#" type="button" class="btn btn-labeled btn-secondary" onclick="printLamp3()">
 													<span class="btn-label"><i class="fa fa-fw fa-print"></i></span> Print
 											</a>												
-											<a href="<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
+											<a href="#" type="button" class="btn btn-labeled btn-success" onclick="checkSisa()">
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> End
 											</a>												
 										</div>
@@ -376,7 +376,10 @@
 										<?php }}} ?>												
 										<tr>
 											<td colspan="4">Belum Terpakai</td>
-											<td><font color="red" class='text-center'><?=number_format($sisa,0,',','.'); ?></font></td>
+											<td><font color="red" class='text-center'><?=number_format($sisa,0,',','.'); ?></font>
+												<input type="hidden" id="sisaPagu" value="<?=number_format($sisa,0,',','.'); ?>" />
+												<input type="hidden" id="sisaFisik" value="<?= $sisaFisik; ?>" />
+											</td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
 											<td></td>
 											<td></td>
@@ -495,7 +498,8 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" min=0 class="form-control" name="biaya" id="biayaActAdd" onchange="setFisikAct()">
+											    <input type="number" min=0 class="form-control" name="biaya" id="biayaActAdd" onchange="setFisikAct()" required>
+											    <button type="button" class="btn btn-info" onclick="setMaxBAct()">Set Max Biaya</button>
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="act_id" id="actkeu" value="">
 											    <input type="hidden" name="biayaP" id="biayaPact" value="">
@@ -510,7 +514,8 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="text" min=0 class="form-control" name="fisik" id="fisikAct">
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" id="fisikAct" required>
+											    <button type="button" class="btn btn-info" onclick="setMaxFAct()">Set Max Fisik</button>
 											  </div>											
 											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikkeu" style="font-style: normal;color:green;"> </i> </small>
 											</div>											
@@ -560,7 +565,8 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" min=0 class="form-control" name="biaya" id="biayaStageAdd" onchange="setFisikStage()">
+											    <input type="number" min=0 class="form-control" name="biaya" id="biayaStageAdd" onchange="setFisikStage()" required>
+											    <button type="button" class="btn btn-info" onclick="setMaxBStage()">Set Max Biaya</button>
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="stage_id" id="actkeustage" value="">
 											    <input type="hidden" name="month" id="monthkeustage" value="">	
@@ -574,8 +580,9 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage">
-											    <input type="text" min=0 class="form-control" name="fisik" id="fisikStage">
+											    <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage" required>
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" id="fisikStage" required>
+											    <button type="button" class="btn btn-info" onclick="setMaxFStage()">Set Max Fisik</button>
 											  </div>											
 											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikstage" style="font-style: normal;color:green;"> </i> </small>
 											</div>																						

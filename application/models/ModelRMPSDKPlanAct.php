@@ -106,7 +106,7 @@ class ModelRMPSDKPlanAct extends CI_Model {
 	// }
 
 	public function getSisaPagu($pagu,$month,$act_id,$id_kegiatan){
-		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act');
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act, SUM(rmp_sdk_plan_act.fisik) as fisik_act');
 		$this->db->from($this->tableName);
 		$this->db->where('month='.$month.' and act_id='.$act_id);
 		$temp = $this->db->get()->result_array();
@@ -115,8 +115,13 @@ class ModelRMPSDKPlanAct extends CI_Model {
 		}else{
 			$biaya_now = $temp[0]['biaya_act'];
 		}
+		if($temp[0]['fisik_act'] == null){
+			$fisik_now = 0;
+		}else{
+			$fisik_now = $temp[0]['fisik_act'];
+		}
 
-		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act');
+		$this->db->select('SUM(rmp_sdk_plan_act.biaya) as biaya_act, SUM(rmp_sdk_plan_act.fisik) as fisik_act');
 		$this->db->from($this->tableName);
 		$this->db->where('id_kegiatan='.$id_kegiatan);
 		$temp = $this->db->get()->result_array();
@@ -125,8 +130,13 @@ class ModelRMPSDKPlanAct extends CI_Model {
 		}else{
 			$biaya_act = $temp[0]['biaya_act'];
 		}
+		if($temp[0]['fisik_act'] == null){
+			$fisik_act = 0;
+		}else{
+			$fisik_act = $temp[0]['fisik_act'];
+		}
 
-		$this->db->select('SUM(rmp_sdk_plan_stage.biaya) as biaya_stage');
+		$this->db->select('SUM(rmp_sdk_plan_stage.biaya) as biaya_stage, SUM(rmp_sdk_plan_stage.fisik) as fisik_stage');
 		$this->db->from('rmp_sdk_plan_stage');
 		$this->db->where('id_kegiatan='.$id_kegiatan);
 		$temp = $this->db->get()->result_array();
@@ -135,10 +145,16 @@ class ModelRMPSDKPlanAct extends CI_Model {
 		}else{
 			$biaya_stage = $temp[0]['biaya_stage'];
 		}
+		if($temp[0]['fisik_stage'] == null){
+			$fisik_stage = 0;
+		}else{
+			$fisik_stage = $temp[0]['fisik_stage'];
+		}
 		
 		$biaya['total'] = $pagu;
 
-		$biaya['sisa'] = $biaya['total']-($biaya_act+$biaya_stage) + $biaya_now;
+		$biaya['sisa'] = ($biaya['total']-($biaya_act+$biaya_stage)) + $biaya_now;
+		$biaya['fisik'] = (100-($fisik_act+$fisik_stage)) + $fisik_now;
 		return $biaya;
 	}
 

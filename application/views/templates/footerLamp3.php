@@ -76,6 +76,7 @@
           actkeu = $(e.relatedTarget).attr("data-act"),
           month = $(e.relatedTarget).attr("data-month"),
           fisik = $(e.relatedTarget).attr("data-fisik");
+
       $.ajax({
         type:"POST",
         url:"<?=site_url('RMP/getSDKStage/')?>"+actkeu+'/'+month, //edited model
@@ -103,6 +104,98 @@
 
   });  
   
+  function checkSisa(){
+
+    var sisaPagu = document.getElementById("sisaPagu").value;
+    var sisaFisik = document.getElementById("sisaFisik").value;
+
+
+    if(sisaPagu == 0 && sisaFisik == 0){
+      window.location.href = "<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>";
+    }else{
+      if(sisaPagu >0 && sisaFisik > 0){
+        swal({
+        title: "Pagu dan Fisik belum 100%",
+        text: "Pagu dan Fisik yang digunakan belum sepenuhnya terisi",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Lanjutkan Pengisian!",
+        closeOnConfirm: true
+        },
+        function(){
+
+        });
+      }else if(sisaPagu > 0 ){
+        swal({
+        title: "Pagu belum 100%",
+        text: "Pagu yang digunakan belum sepenuhnya terisi",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Lanjutkan Pengisian!",
+        closeOnConfirm: true
+        },
+        function(){
+
+        });
+      }else if(sisaFisik > 0){
+        swal({
+        title: "Fisik belum 100%",
+        text: "Fisik yang digunakan belum sepenuhnya terisi",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Lanjutkan Pengisian!",
+        closeOnConfirm: true
+        },
+        function(){
+
+        });
+      }
+    }
+  }
+
+  function printLamp3(){
+    var sisaPagu = document.getElementById("sisaPagu").value;
+    var sisaFisik = document.getElementById("sisaFisik").value;
+
+
+    if(sisaPagu == 0 && sisaFisik == 0){
+      window.location.href = "<?=base_url(); ?>Report/lampiran3/<?=$this->uri->segment(3)?>";
+    }else{
+      swal({
+      title: "Pagu atau Fisik belum 100%",
+      text: "Apakah Anda yakin ingin mengunduh berkas?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Print!",
+      closeOnConfirm: true
+      },
+      function(){
+        window.location.href = "<?=base_url(); ?>Report/lampiran3/<?=$this->uri->segment(3)?>";
+      });
+    }
+    
+  }
+
+  function setMaxBAct(){
+     $('#biayaActAdd').val($('#biayaActAdd').attr("max"));
+     var biaya = document.getElementById("biayaActAdd").value;
+     var pagu = document.getElementById("pagu").value;
+      $('#biayaPact').val((biaya/pagu)*100);
+  }
+  function setMaxFAct(){
+    $('#fisikAct').val($('#fisikAct').attr("max"));
+  }
+  function setMaxBStage(){
+     $('#biayaStageAdd').val($('#biayaStageAdd').attr("max"));
+     var biaya = document.getElementById("biayaStageAdd").value;
+    var pagu = document.getElementById("pagu").value;
+    $('#biayaPstage').val((biaya/pagu)*100);  
+  }
+  function setMaxFStage(){
+    $('#fisikStage').val($('#fisikStage').attr("max"));   
+  }
+
   function setMaxBiaya(){
     var month = document.getElementById("monthkeu").value;
     var act_id = document.getElementById("actkeu").value;
@@ -118,7 +211,8 @@
         {
           $('#biayaActAdd').attr("placeholder","maximum = "+data['sisa']);    
           $('#biayaActAdd').attr("max",data['sisa']);    
-
+          $('#fisikAct').attr("placeholder","maximum = "+data['fisik']);    
+          $('#fisikAct').attr("max",data['fisik']);    
         }
       });
   }
@@ -147,7 +241,9 @@
         success:function(data)
         {
           $('#biayaStageAdd').attr("placeholder","maximum = "+data['sisa']);    
-          $('#biayaStageAdd').attr("max",data['sisa']);    
+          $('#biayaStageAdd').attr("max",data['sisa']);
+          $('#fisikStage').attr("placeholder","maximum = "+data['fisik']);    
+          $('#fisikStage').attr("max",data['fisik']);    
 
         }
       });

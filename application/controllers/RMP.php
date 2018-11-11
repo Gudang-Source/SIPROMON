@@ -511,6 +511,7 @@ class RMP extends CI_Controller {
 	public function att3($idk){
 		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($idk)->row_array();
+		$this->data['sisaFisik'] = 100;
 		$this->data['sisa'] = $this->data['row']['pagu'];
 
 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
@@ -589,6 +590,7 @@ class RMP extends CI_Controller {
 		}
 		$this->data['moneysP'] = $moneys_kumulatifP;
 		$this->data['fisikP'] = $fisik_kumulatif;
+		$this->data['sisaFisik'] -= $fisik_kumulatif;
 		$this->data['moneysKumulatif'] = $moneys_kumulatif;
 		$this->data['sisa'] -= $moneys_kumulatif;
 		$convert = array('A'=>0,'B'=>1,'C'=>2);
