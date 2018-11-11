@@ -364,7 +364,7 @@
         type = $(e.relatedTarget).attr("data-type"),
         id_refer = $(e.relatedTarget).attr("data-refer"),
         fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
+        month = $(e.relatedTarget).attr("data-month");
 
 
         bulan = [
@@ -383,9 +383,7 @@
         
         ];
 
-        $('#bulanItem').text(bulan[month]);
-        $('#mingguItem').text(month+1);
-        $('#minggu').val(month+1);
+        $('#bulanItem').text(bulan[(month-1)]);
         $('#type').val(type);
         $('#id_refer').val(id_refer);
         $('#fisik_real').val(fisik_real);

@@ -133,15 +133,27 @@
 													
 												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if($i < $this_month && ($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$moneysMonths[($i-1)]; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala=1>
 														<i class="fa fa-fw fa-exclamation"></i>
 													</a>
+													<?php
+														}else if(($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
 													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+													}else{
+														?>
 														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+													}
+														?>
 												</td>
 											<?php 
 													}
@@ -528,16 +540,16 @@
 											<div class="col-sm-8">
 												<h5>Bulan: <b><i id="bulanItem" style="font-style: normal;"> </i></b></h5>
 											</div>
-											<div class="col-sm-4">
-												<h5>Minggu ke-<i id="mingguItem" style="font-style: normal;"> </i></b></h5>
-											</div>
 											<div class="col-md-12" style="margin-top: 20px;">
 												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="persentase" type="number" class="form-control" placeholder="50">
+														<input name="fisik" type="number" step="any" class="form-control">
 													</div>
-													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
+													<small class="form-text text-muted">Skala kumulatif 0 - 100 untuk kegiatan <font id="subkegiatanA" style="bold"></font>, konversi persentase sesungguhnya yaitu:</small>
+													<div class="input-group">
+														<input name="fisik_real" type="number" step="any" class="form-control" required readonly>
+													</div>
 												</div>
 												<div class="form-group">
 													<label class=" form-control-label">Keluaran</label>
@@ -553,13 +565,33 @@
 													</div>
 													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
 												</div>
+												<div class="form-group" id="kendalaL" style="display:block">
+													<label class=" form-control-label">Kendala</label>
+													<div class="input-group">
+														<textarea class="form-control" name="kendala" value="-" rows=7 required>-</textarea>
+													</div>
+													<div class="input-group">
+														<input name="tingkat_kendala" required type="radio" class="form-control" value=1 >sangat rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
+													</div>
+												</div>
+												<div class="form-group" style="display:none">
+													<div class="input-group" style="font-size:8pt;">
+														<input name="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														
+													</div>
+												</div>
 											</div>
 										</div>
+
 								</div>
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
+										<input type="hidden" name="id_kegiatan" value="<?=$idk; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
 										<input type="hidden" name="minggu" id="minggu" value="0">
 										<input type="hidden" name="type" id="type" value="0">
@@ -576,87 +608,7 @@
 
 				</div>
 
-				<div class="modal fade" id="addKendala" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-md" role="document">
-						<div class="modal-content">
-								<div class="modal-header">
-										<h5 class="modal-title text-center" id="largeModalLabel">Rincian Perkembangan</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-										</button>
-								</div>
-								<div class="modal-body">
-										<?php echo form_open('Monev/submit_fisik'); ?>
-										<div class="row">
-											<div class="col-sm-8">
-												<h5>Bulan: <b><i id="bulanItemK" style="font-style: normal;"> </i></b></h5>
-											</div>
-											<div class="col-sm-4">
-												<h5>Minggu ke-<i id="mingguItemK" style="font-style: normal;"> </i></b></h5>
-											</div>
-											<div class="col-md-12" style="margin-top: 20px;">
-												<div class="form-group">
-													<label class=" form-control-label">Presentase Fisik</label>
-													<div class="input-group">
-														<input name="persentase" type="number" class="form-control" placeholder="50">
-													</div>
-													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
-												</div>
-												<div class="form-group">
-													<label class=" form-control-label">Keluaran</label>
-													<div class="input-group">
-														<input name="output" type="text" class="form-control">
-													</div>
-													<small class="form-text text-muted">Output merupakan luaran dari tahapan</small>
-												</div>												
-												<div class="form-group">
-													<label class=" form-control-label">Deskripsi</label>
-													<div class="input-group">
-														<textarea class="form-control" name="deskripsi" rows=10></textarea>
-													</div>
-													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
-												</div>
-												<div class="form-group">
-													<label class=" form-control-label">Kendala</label>
-													<div class="input-group">
-														<textarea class="form-control" name="kendala" rows=7 required></textarea>
-													</div>
-													
-												</div>
-												<div class="form-group">
-													<div class="input-group" style="font-size:8pt;">
-														<!-- <input name="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input> -->
-														<input name="tingkat_kendala" type="radio" class="form-control" value=1 required>sangat rendah</input>
-														<input name="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
-														<input name="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
-														<input name="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
-														<input name="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
-													</div>
-													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
-												</div>
-											</div>
-										</div>
-								</div>
-								<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
-										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
-										<input type="hidden" id="mingguK" name="minggu" value="0">
-										<input type="hidden" id="typeK" name="type" value="0">
-										<input type="hidden" id="id_referK" name="id_refer" value="0">
-										<input type="hidden" id="fisik_realK" name="fisik_real" value="0">
-										<input type="hidden" name="submit" value="0"/>
-										<button type="submit" class="btn btn-primary"
-											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
-										</button>
-								</div>
-								<?php echo form_close(); ?>
-						</div>
-				</div>
-
-				</div>
-
+				
 				<div class="modal fade" id="updateLaporan" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-md" role="document">
 						<div class="modal-content">
@@ -679,7 +631,7 @@
 												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="persentaseF" id="persentaseF" type="number" class="form-control" placeholder="50">
+														<input name="fisikF" id="fisikF" type="number" class="form-control" placeholder="50">
 													</div>
 													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
 												</div>
@@ -744,7 +696,7 @@
 												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="persentaseF" id="persentaseKk" type="number" class="form-control" placeholder="50">
+														<input name="fisikF" id="fisikKk" type="number" class="form-control" placeholder="50">
 													</div>
 													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
 												</div>

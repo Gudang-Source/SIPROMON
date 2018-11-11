@@ -107,6 +107,9 @@ class Monev extends CI_Controller {
 		$moneys_kumulatifR = 0;
 		$moneys_kumulatifPR = 0;
 
+		$month = (int)date("m");
+		$this->data['this_month'] = ($month-1);
+
 		for ($i=0; $i < 12; $i++) {
 			$temp = $this->ModelMnvKeuangan->getByMonthRMP($idk,($i+1));
 			if($temp->num_rows() != 0){
