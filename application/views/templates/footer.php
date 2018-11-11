@@ -369,53 +369,18 @@
 
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
+        
         ];
 
         $('#bulanItem').text(bulan[month]);
@@ -439,53 +404,18 @@
 
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
+        
         ];
 
         $('#bulanItemK').text(bulan[month]);
@@ -531,53 +461,18 @@
 
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
+        
         ];
 
         $('#bulanItemF').text(bulan[month]);
@@ -621,53 +516,18 @@
 
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
+        
         ];
 
         $('#bulanItemKk').text(bulan[month]);
@@ -678,83 +538,42 @@
   });
 
   $('#updateKeuangan').on('show.bs.modal', function(e) {
+    
       var $modal = $(this),
         money = $(e.relatedTarget).attr("data-money"),
-        actkeu = $(e.relatedTarget).attr("data-act"),
-        month = $(e.relatedTarget).attr("data-month")-1,
-        fisik = $(e.relatedTarget).attr("data-fisik");
-        money = JSON.parse(money);
+        this_money = $(e.relatedTarget).attr("data-money2"),
+        this_kendala = $(e.relatedTarget).attr("data-kendala"),
+        this_id = $(e.relatedTarget).attr("data-id"),
+        month = $(e.relatedTarget).attr("data-month"),
+        idk = $(e.relatedTarget).attr("data-idk");
+        var sisa = document.getElementById("sisaPagu").value;
+        alert(this_id);
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
         ];
-        $('#listMoneyKU').html("");
-        listMoney = '<div class="form-group"><label class=" form-control-label">Input keuangan merupakan nilai total pengajuan yang sudah terealisasi pada minggu ini</label></div><input type="hidden" name="minggu" value="'+(month+1)+'"/>';
-        $('#listMoneyKU').append(listMoney);
-        for (var i in money) {
-          $.ajax({
-            type:"POST",
-            url:"<?=site_url('Monev/getJmlRmpSdkWeeks/')?>"+(month+1)+"/"+money[i]['id'],
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success:function(data)
-            {
-              console.log(data[0]);
-              
-              $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
-            }
-          });
-          
-        };
-
-        $('#bulanItemKU').text(bulan[month]);
-        $('#mingguItemKU').text(month+1);
+        // alert(bulan[month]);
+        $('#bulanItemUK').text(bulan[month]);
+        month++;
+        $('#monthUK').val(month);
+        $('#paguMonthUK').text(money);
+        $('#max_rencanaUK').val(money);
+        $('#jml_uangUK').attr('placeholder',"max value = "+sisa);
+        $('#jml_uangUK').val(this_money);
+        $('#jml_uangUK').attr('max',sisa);
+        $('#kendalaUKF').val(this_kendala);
+        $('#id_mnv_keuanganUK').val(this_id);
+        checkUTK();
       // $('#actkeustage').val(actkeu);
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
@@ -763,73 +582,73 @@
   $('#addKeuangan').on('show.bs.modal', function(e) {
       var $modal = $(this),
         money = $(e.relatedTarget).attr("data-money"),
-        actkeu = $(e.relatedTarget).attr("data-act"),
-        month = $(e.relatedTarget).attr("data-month")-1,
-        fisik = $(e.relatedTarget).attr("data-fisik");
-        money = JSON.parse(money);
+        month = $(e.relatedTarget).attr("data-month"),
+        idk = $(e.relatedTarget).attr("data-idk");
+        var sisa = document.getElementById("sisaPagu").value;
+        
+
         bulan = [
           "Jan",
-          "Jan",
-          "Jan",
-          "Jan",
-          "Feb",
-          "Feb",
-          "Feb",
           "Feb",
           "Mar",
-          "Mar",
-          "Mar",
-          "Mar",
-          "Apr",
-          "Apr",
-          "Apr",
           "Apr",
           "Mei",
-          "Mei",
-          "Mei",
-          "Mei",
-          "Jun",
-          "Jun",
-          "Jun",
           "Jun",
           "Jul",
-          "Jul",
-          "Jul",
-          "Jul",
-          "Agu",
-          "Agu",
-          "Agu",
           "Agu",
           "Sep",
-          "Sep",
-          "Sep",
-          "Sep",
-          "Okt",
-          "Okt",
-          "Okt",
           "Okt",
           "Nov",
-          "Nov",
-          "Nov",
-          "Nov",
-          "Des",
-          "Des",
-          "Des",
           "Des"
         ];
-        $('#listMoney').html("");
-        listMoney = '<div class="form-group"><label class=" form-control-label">Input keuangan merupakan nilai total pengajuan yang sudah terealisasi pada minggu ini</label></div><input type="hidden" name="minggu" value="'+(month+1)+'"/>';
-        for (var i in money) {
-          listMoney += '<div class="row" ><div class="col-md-5">'+money[i]['jenis']+'</div><div class="col-md-7"><input name="jml['+money[i]['id']+']" type="number" value="0" class="form-control"></div></div><hr>';
-        };
-            $('#listMoney').append(listMoney);
-
-        $('#bulanItemK').text(bulan[month]);
-        $('#mingguItemK').text(month+1);
-      // $('#actkeustage').val(actkeu);
-      // $('#monthkeustage').val(month);
+        // alert(bulan[month]);
+        $('#bulanItemAK').text(bulan[month]);
+        month++;
+        $('#monthAK').val(month);
+        $('#paguMonth').text(money);
+        $('#max_rencanaAK').val(money);
+        $('#jml_uangAK').attr('placeholder',"max value = "+sisa);
+        $('#jml_uangAK').attr('max',sisa);
+        // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   });
+
+  function setMaxRencana(){
+
+    var max_rencanaAK = document.getElementById("max_rencanaAK").value;
+    $('#jml_uangAK').val(max_rencanaAK);
+    checkTK();
+  }
+  function setMaxRencanaU(){
+    var max_rencanaAK = document.getElementById("max_rencanaUK").value;
+    $('#jml_uangUK').val(max_rencanaAK);
+    checkUTK();
+  }
+
+  function checkTK(){
+    var max_rencanaAK = document.getElementById("max_rencanaAK").value;
+    var jml_uangAK = document.getElementById("jml_uangAK").value;
+    if(jml_uangAK < (9/10)*max_rencanaAK){
+      $('#kendalaAKF').val('');
+      $('#kendalaAK').css('display','block');
+    }else{
+      $('#kendalaAKF').val('-');
+      $('#kendalaAK').css('display','none');
+
+    }
+  }
+
+  function checkUTK(){
+    var max_rencanaAK = document.getElementById("max_rencanaUK").value;
+    var jml_uangAK = document.getElementById("jml_uangUK").value;
+    if(jml_uangAK < (9/10)*max_rencanaAK){
+      $('#kendalaUK').css('display','block');
+    }else{
+      $('#kendalaUKF').val('-');
+      $('#kendalaUK').css('display','none');
+
+    }
+  }
 
   /*MONEV END*/  
   // var allEditors = document.querySelectorAll('.froala');

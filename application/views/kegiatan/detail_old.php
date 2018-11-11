@@ -91,10 +91,10 @@
 											</tr>
 										</tbody>
 									</table>
-<!-- 									<a href="<?=base_url();?>Monev/realisasiAkun/<?=$row['id']; ?>" class="btn btn-labeled btn-info btn-sm" >
+									<a href="<?=base_url();?>Monev/realisasiAkun/<?=$row['id']; ?>" class="btn btn-labeled btn-info btn-sm" >
 											<span class="btn-label"><i class="fa fa-angle-double-right fa-fw"></i></span> Realisasi Per Akun
-									</a>&nbsp;&nbsp;&nbsp; -->
-<!-- 									<a href="<?=base_url();?>Monev/tabel_progres/<?=$row['id']; ?>" class="btn btn-labeled btn-primary btn-sm" >
+									</a>&nbsp;&nbsp;&nbsp;
+									<a href="<?=base_url();?>Monev/tabel_progres/<?=$row['id']; ?>" class="btn btn-labeled btn-primary btn-sm" >
 											<span class="btn-label"><i class="fa fa-plus fa-fw"></i></span> Progress Realisasi
 									</a>														
 									<br>
@@ -121,7 +121,7 @@
 											<td class="text-danger">0%</td>
 										</tr>
 									</tbody>
-								</table> -->
+								</table>
 									<br>
 									<br>
 									<br><br>
