@@ -377,7 +377,7 @@
 										<tr>
 											<td colspan="4">Belum Terpakai</td>
 											<td><font color="red" class='text-center'><?=number_format($sisa,0,',','.'); ?></font>
-												<input type="hidden" id="sisaPagu" value="<?=number_format($sisa,0,',','.'); ?>" />
+												<input type="hidden" id="sisaPagu" value="<?= $sisa; ?>" />
 												<input type="hidden" id="sisaFisik" value="<?= $sisaFisik; ?>" />
 											</td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>

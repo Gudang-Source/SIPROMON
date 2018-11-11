@@ -113,7 +113,7 @@
     if(sisaPagu == 0 && sisaFisik == 0){
       window.location.href = "<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>";
     }else{
-      if(sisaPagu >0 && sisaFisik > 0){
+      if(sisaPagu > 0 && sisaFisik > 0){
         swal({
         title: "Pagu dan Fisik belum 100%",
         text: "Pagu dan Fisik yang digunakan belum sepenuhnya terisi",

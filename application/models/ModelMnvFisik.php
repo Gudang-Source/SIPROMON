@@ -20,38 +20,55 @@ class ModelMnvFisik extends CI_Model {
 		
 		return $this->db->get();
 	}
-	public function getDetail($id_refer,$minggu, $type){
+	public function getDetail($id_refer,$month, $type){
 		$this->db->select('*');
 		$this->db->from($this->tableName);
-		$this->db->where('id_refer = '.$id_refer.' AND minggu = '.$minggu.' AND type = "'.$type.'"');
+		$this->db->where('id_refer = '.$id_refer.' AND month = '.$month.' AND type = "'.$type.'"');
 		
 		return $this->db->get();
 	}
-	public function cekByWeeksRMP($id_refer,$minggu, $type){
+	public function cekByWeeksRMP($id_refer,$month, $type){
 		$this->db->select('*');
 		$this->db->from($this->tableName);
-		$this->db->where('id_refer = '.$id_refer.' AND minggu = '.$minggu.' AND type = "'.$type.'"');
+		$this->db->where('id_refer = '.$id_refer.' AND month = '.$month.' AND type = "'.$type.'"');
 		
 		return $this->db->get();
 	}
-	public function getByWeeksRMP($id_refer,$minggu, $type){
-		$this->db->select('persentase_real, tingkat_kendala');
+	public function getByWeeksRMP($id_refer,$month, $type){
+		$this->db->select('fisik_real, tingkat_kendala');
 		$this->db->from($this->tableName);
-		$this->db->where('id_refer = '.$id_refer.' AND minggu = '.$minggu.' AND type = "'.$type.'"');
+		$this->db->where('id_refer = '.$id_refer.' AND month = '.$month.' AND type = "'.$type.'"');
 		
 		return $this->db->get();
 	}
-	public function getByWeeksRMPKumulatif($id_rmp,$minggu){
-		$this->db->select('SUM(persentase_real) as persentase_real');
+
+	public function getByMonthRMP($id_refer,$month, $type){
+		$this->db->select('*');
 		$this->db->from($this->tableName);
-		$this->db->where('id_rmp = '.$id_rmp.' AND minggu = '.$minggu);
+		$this->db->where('id_refer = '.$id_refer.' AND month = '.$month.' AND type = "'.$type.'"');
 		
 		return $this->db->get();
 	}
-	public function jmlFisikByActRMP($id_rmp,$id_refer, $type, $minggu){
-		$this->db->select('SUM(persentase_real) as persen_total');
+
+	public function getbyReferTotal($id_refer,$type){
+		$this->db->select('SUM(biaya) as biaya, SUM(fisik_real) as fisik, SUM(biayaP) as biayaP');
 		$this->db->from($this->tableName);
-		$this->db->where('id_rmp ='.$id_rmp.' AND id_refer='.$id_refer.' AND type="'.$type.'" AND minggu < '.$minggu);
+		$this->db->where('id_refer = '.$id_refer.' AND type = "'.$type.'"');
+		
+		return $this->db->get();
+	}
+
+	public function getByWeeksRMPKumulatif($id_kegiatan,$month){
+		$this->db->select('SUM(fisik_real) as fisik_real');
+		$this->db->from($this->tableName);
+		$this->db->where('id_kegiatan = '.$id_kegiatan.' AND month = '.$month);
+		
+		return $this->db->get();
+	}
+	public function jmlFisikByActRMP($id_kegiatan,$id_refer, $type, $month){
+		$this->db->select('SUM(fisik_real) as persen_total');
+		$this->db->from($this->tableName);
+		$this->db->where('id_kegiatan ='.$id_kegiatan.' AND id_refer='.$id_refer.' AND type="'.$type.'" AND month < '.$month);
 		
 		return $this->db->get()->result_array();
 	}
@@ -60,9 +77,9 @@ class ModelMnvFisik extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
-	public function updateByWeeksIdRMP($minggu,$id_rmp,$data){
+	public function updateByWeeksIdRMP($month,$id_kegiatan,$data){
 		$this->db->set($data);
-		$this->db->where('minggu = '.$minggu.' AND id_rmp = '.$id_rmp);
+		$this->db->where('month = '.$month.' AND id_kegiatan = '.$id_kegiatan);
 		return $this->db->update($this->tableName);
 	}
 	

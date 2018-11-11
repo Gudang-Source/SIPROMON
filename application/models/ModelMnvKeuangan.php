@@ -27,42 +27,36 @@ class ModelMnvKeuangan extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function selectByRmpSdkWeeks($minggu, $id_rmp_sdk){
+	public function selectByRmpSdkWeeks($month, $id_rmp_sdk){
 		$this->db->select('*');
 		$this->db->from($this->tableName);
 		$this->db->join('rmp_sdk','rmp_sdk.id = mnv_keuangan.id_rmp_sdk');
-		$this->db->where('id_rmp_sdk ='.$id_rmp_sdk.' AND minggu = '.$minggu);
+		$this->db->where('id_rmp_sdk ='.$id_rmp_sdk.' AND month = '.$month);
 		
 		return $this->db->get();
 	}
 
-	public function cekByWeeksRMP($rmp_sdk,$minggu){
+	public function cekByWeeksRMP($rmp_sdk,$month){
 		$this->db->select('*');
 		$this->db->from($this->tableName);
-		$this->db->where('id_rmp_sdk = '.$rmp_sdk.' AND minggu = '.$minggu);
+		$this->db->where('id_rmp_sdk = '.$rmp_sdk.' AND month = '.$month);
 		
 		return $this->db->get()->num_rows();
 	}
 
-	public function insertMingguan($minggu,$dataMentah){
-		$data = array();
-		$total = 0;
-		foreach ($dataMentah as $key => $value) {
-			$total += $value;
-			$temp = array(
-				'minggu' => $minggu, 
-				'jml_uang' => $value, 
-				'id_rmp_sdk' => $key, 
-				);
-			array_push($data,$temp);
-		}
-
-		$this->db->insert_batch($this->tableName, $data);
-		return $total;
-		// return $data;
+	public function getByMonthRMP($id_kegiatan,$month){
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+		$this->db->where('id_kegiatan = '.$id_kegiatan.' AND month = '.$month);
+		
+		return $this->db->get();
 	}
 
-	public function updateMingguan($dataMentah){
+	public function insert($data){
+		$this->db->insert($this->tableName,$data);
+	}
+
+	public function updateBulanan($dataMentah){
 		$data = array();
 		$total = 0;
 		foreach ($dataMentah as $key => $value) {
