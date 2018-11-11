@@ -147,7 +147,7 @@ class Report extends CI_Controller{
             </head>
             <body style="font-family: Calibri;">
               <div style="text-align: center; font-family: Calibri; font-size: 14; line-height: 2.0">
-                <b>SATUAN KERJA __SATKER___</b>
+                <b>SATUAN KERJA '. strtoupper($this->data['row']['satuankerja']).' </b>
               </div>
               <table border="1" style="font-size: 10;" width=100%>
                     <tbody style="vertical-align: text-top;">
@@ -192,7 +192,7 @@ class Report extends CI_Controller{
                 </tr>
                 <tr>
                   <td style="background-color: #e3ece4;"><b>Disahkan Oleh</b></td>
-                  <td>'.$this->data['kapus'].'</td>
+                  <td>'.$this->data['kapus']['name'].'</td>
                   <td></td>
                 </tr>
                 </tbody>
@@ -372,6 +372,7 @@ class Report extends CI_Controller{
     $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
     $mpdf->WriteHTML($style); 
     $mpdf->WriteHTML($content);
+    // print_r($this->data['row']);
     $mpdf->Output();
   }
 

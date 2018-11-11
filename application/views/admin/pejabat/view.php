@@ -213,7 +213,7 @@
 										</button>
 								</div>
 								<div class="modal-body">
-										<?php echo form_open('Pejabat/form'); ?>
+										<?php echo form_open('Admin/editPwdPejabat'); ?>
 										<input name="id" type="hidden" class="form-control">
 										<div class="row">
 											<div class="col-md-12">

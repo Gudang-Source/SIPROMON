@@ -55,8 +55,8 @@
 												<td><b>Konseptor</b></td>
 												<td><?=$row['konseptor']; ?></td>
 												<td class="text-center">
-													<?php if($row['rmp_stats'] == 1){ ?>
-													<a href="javascript:void(0);" onclick="sign(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Terbitkan RMP">
+													<?php if($row['rmp_stats'] == 1 ){ ?>
+													<a href="javascript:void(0);" onclick="sign(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm <?php if($this->session->userdata('position') != NULL) echo "disabled"; ?>" data-toggle="tooltip" data-placement="bottom" title="Terbitkan RMP" >
 														<i class="fa fa-fw fa-exclamation-circle"></i> Sign
 													</a>
 													<?php }else if($row['rmp_stats'] > 1){ ?>
@@ -71,6 +71,9 @@
 												<td><?=$row['pemeriksa']; ?></td>
 												<td class="text-center" >
 													<?php if($row['rmp_stats'] == 2){ ?>
+													<a href="<?=base_url(); ?>Review/form"  class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom" title="Periksa RMP">
+														<i class="fa fa-fw fa-pencil"></i> Review
+													</a>
 													<a href="javascript:void(0);" onclick="check(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Periksa RMP">
 														<i class="fa fa-fw fa-exclamation-circle"></i> Sign
 													</a>

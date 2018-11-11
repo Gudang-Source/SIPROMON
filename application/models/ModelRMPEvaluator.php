@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ModelEmployee extends CI_Model {
+class ModelRMPEvaluator extends CI_Model {
 
 	private $tableName;
 
 	public function __construct(){
 		parent::__construct();
-		$this->tableName = "employee";
+		$this->tableName = "rmp_evaluator";
 	}
 
 	public function selectAll($from=0,$offset=0){
@@ -19,10 +19,8 @@ class ModelEmployee extends CI_Model {
 		return $this->db->get();
 	}
 	public function check($username,$password){
-		$this->db->select('employee.*,roles.position,satker.id as satker_id');
+		$this->db->select('rmp_evaluator.*');
 		$this->db->from($this->tableName);
-		$this->db->join('roles','roles.employee_id = employee.id');
-		$this->db->join('satker','roles.id = roles.id');
 		$this->db->where('username',$username);
 		$this->db->where('password',$password);
 
@@ -35,11 +33,17 @@ class ModelEmployee extends CI_Model {
 
 		return $this->db->get();
 	}
+	public function selectByIdRMP($id){
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+		$this->db->where('rmp_id',$id);
+		// $this->db->join('kegiatan','rmp.kegiatan_id = kegiatan.id');
+
+		return $this->db->get();
+	}
 
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
-
-		return $this->db->insert_id();
 	}
 
 	public function update($id,$data){

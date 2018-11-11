@@ -43,6 +43,9 @@
 											<a href="<?=base_url(); ?>RMP/att1/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-danger">
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Back
 											</a>												
+											<a href="<?=base_url(); ?>Report/printAtt2/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-secondary">
+													<span class="btn-label"><i class="fa fa-fw fa-print"></i></span> Print
+											</a>												
 											<a href="<?=base_url(); ?>RMP/att3/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success">
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Lampiran 3 (Kurva S)
 											</a>												
@@ -125,7 +128,7 @@
 											<td nowrap=""><?=$stage['metode']; ?></td>
 											<td nowrap=""><?=$stage['kriteria']; ?></td>
 											<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
-											<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name'].", "; }}?></td>
+											<td nowrap=""><?php foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name'].", "; }}?></td>
 											<td nowrap=""><?=$stage['pj']; ?></td>
 										</tr>
 											<?php }}} ?>
@@ -158,7 +161,7 @@
 											<td nowrap=""><?=$act['metode']; ?></td>
 											<td nowrap=""><?=$act['kriteria']; ?></td>
 											<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
-											<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
+											<td nowrap=""><?php foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 											<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 										</tr>
 											<?php if(isset($allStages) != NULL){ $no3=1;foreach($allStages as $stage){if($stage['act_id'] == $act['id']){ ?>
@@ -172,7 +175,7 @@
 											<td nowrap=""><?=$stage['metode']; ?></td>
 											<td nowrap=""><?=$stage['kriteria']; ?></td>
 											<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?> </td>
-											<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
+											<td nowrap=""><?php foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
 											<td nowrap=""><?=$stage['pj']; ?></td>
 										</tr>
 											<?php }}} ?>															

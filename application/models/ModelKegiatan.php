@@ -66,6 +66,16 @@ class ModelKegiatan extends CI_Model {
 
 		return $this->db->get();
 	}
+  
+  public function selectAllBySatkerId($satker_id){
+		$this->db->select('kegiatan.*,user.fullname as konseptor,satker.name as satuankerja');
+		$this->db->from($this->tableName);
+		$this->db->where('satker.id', $satker_id);
+		$this->db->join('user','user.id = kegiatan.user_id');
+		$this->db->join('satker','satker.id = user.satker_id');
+
+		return $this->db->get();
+  }
 
 	public function selectPaguById($id){
 		$this->db->select('pagu');

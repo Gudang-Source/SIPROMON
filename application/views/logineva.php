@@ -35,8 +35,8 @@
                 <a class="navbar-brand" href="./"  style="font-family: 'Cinzel'; font-weight: bold; font-size:150%; color:white;"><img src="<?=base_url();?>assets/images/logo.png" alt="Logo" width=25>&nbsp;SIPROMON</a>
                 </div>
                 <div class="login-form">
-                    <?php echo form_open('Auth/login',['class' => 'needs-validation']); ?>
-                        <center><p>Masuk Ketua Tim</p></center>
+                    <?php echo form_open('Auth/loginevaluator',['class' => 'needs-validation']); ?>
+                        <center><p>Masuk Evaluator</p></center>
                         <?php if($this->session->flashdata('msg') == 'wrong'){ ?>
                         <div class="col-md-12">
                             <div class="alert alert-danger alert-dismissible fade show col-12" role="alert">
@@ -59,20 +59,21 @@
                           </div>
                           <input type="password" name="password" class="form-control" placeholder="Masukkan Password" >
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Masuk</button>
-                        <hr style="margin-bottom: 0;">
-                        <div class="register-link m-t-15 text-center">
-                            <p>Belum mempunyai akun ? Ketua tim silahkan<a href="<?php echo site_url(); ?>Auth/register"> daftar disini</a></p>
-                        </div>
-                        <a href="<?=base_url(); ?>Auth/es3" class="btn btn-info btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Eselon 3</a>
-                        <br>
-                        <br>
-                        <a href="Auth/ka" type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Kepala Pusair</a>
-                        <br>
-                        <br>
-                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-eye"></i></span> Evaluator</a>
+                        <button type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30">Masuk</button>
                         <!-- <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Masuk</button> -->
-
+                        <br>
+                        <br>
+                        <a href="<?=base_url(); ?>Auth/ka" type="button" class="btn btn-labeled btn-primary">
+                                <span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Kepala Pusair
+                        </a>                                                
+                        <br>
+                        <br>
+                        <a href="<?=base_url(); ?>Auth" type="button" class="btn btn-labeled btn-success">
+                                <span class="btn-label"><i class="fa fa-fw fa-sign-in"></i></span> Ketua Tim
+                        </a>                                                
+                        <br>
+                        <br>
+                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-info btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-right"></i></span> Eselon 3</a>                        
                     </form>
                 </div>
             </div>

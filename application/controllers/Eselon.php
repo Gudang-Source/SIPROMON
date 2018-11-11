@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Eselon extends CI_Controller {
 
 	private $head;
 	private $side;
@@ -16,22 +16,26 @@ class Home extends CI_Controller {
 		$this->foot = array();
 	}
 	public function index(){
-		$sess = $this->session->userdata();
-		if($sess['logged_in']){
-			$this->data['numkegiatan'] = $this->ModelKegiatan->selectById(1)->num_rows();
-		}else{
-			redirect('Auth');
-		}
+		// $sess = $this->session->userdata();
+		// if($sess['logged_in']){
+		// 	$this->data['numkegiatan'] = $this->ModelKegiatan->selectById(1)->num_rows();
+		// }else{
+		// 	redirect('Auth/es3');
+		// }
 	}	
-	public function beranda(){
-		$this->data['numkegiatan'] = $this->ModelKegiatan->selectByUserId($this->session->userdata('id'))->num_rows();
-		$this->data['kegiatans'] = $this->ModelKegiatan->selectAllKegiatanByUserId($this->session->userdata('id'))->result_array();
-		// var_dump($this->data);
+
+	public function berandaes3(){
+		$this->data['kegiatans'] = $this->ModelKegiatan->selectAllBySatkerId($this->session->userdata('satker_id'))->result_array();
+		$this->data['numkegiatan'] = count($this->data['kegiatans']);
+		$this->data['totalpagu'] = 15250000000;
+		// echo "<pre>";
+		// print_r($this->data);
+		// echo "<pre/>";
 		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('main',$this->data);
+		$this->load->view('templates/sidebares3',$this->side);
+		$this->load->view('berandaes3',$this->data);
 		$this->load->view('templates/footer',$this->foot);
-	}
+	}	
 	public function profilku(){
 		if($this->input->post() != NULL){
 			$update = $this->input->post();
@@ -62,31 +66,19 @@ class Home extends CI_Controller {
 		$this->data['roles2'] = $this->ModelRoles->selectAllJoinEmployee(4,1)->result_array();
 
 		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
+		$this->load->view('templates/sidebares3',$this->side);
 		$this->load->view('profilku',$this->data);
 		$this->load->view('templates/footer',$this->foot);
-	}
-	public function berandaka(){
-		$this->data['kegiatans'] = $this->ModelKegiatan->selectAllKegiatan()->result_array();
-		$this->data['numkegiatan'] = count($this->data['kegiatans']);
-		$this->data['totalpagu'] = 15250000000;
-
-		// var_dump($this->session->all_userdata());
-		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebar',$this->side);
-		$this->load->view('berandaka',$this->data);
-		$this->load->view('templates/footer',$this->foot);
-	}
-	public function berandaes3(){
-		$this->data['kegiatans'] = $this->ModelKegiatan->selectAllBySatkerId($this->session->userdata('satker_id'))->result_array();
-		$this->data['numkegiatan'] = count($this->data['kegiatans']);
-		$this->data['totalpagu'] = 15250000000;
-		// echo "<pre>";
-		// print_r($this->data);
-		// echo "<pre/>";
-		$this->load->view('templates/header',$this->head);
-		$this->load->view('templates/sidebares3',$this->side);
-		$this->load->view('berandaka',$this->data);
-		$this->load->view('templates/footer',$this->foot);
 	}	
+	public function statusRMP($kegiatan_id){
+		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($kegiatan_id)->row_array();
+		$this->data['row']['pengesah'] = $this->ModelEmployee->selectById(1)->row_array()['name'];
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebares3');
+		$this->load->view('rmp/status',$this->data);
+		$this->load->view('templates/footer');
+	}
+	public function reviewRMP($kegiatan_id){
+		
+	}
 }
