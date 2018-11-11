@@ -19,25 +19,17 @@ class Auth extends CI_Controller {
 	public function index(){
 		$this->load->view('login');
 	}
+	public function es3(){
+		$this->load->view('logines3');
+	}
+	public function ka(){
+		$this->load->view('loginka');
+	}		
+	public function evaluator(){
+		$this->load->view('logineva');
+	}		
 	public function login(){
 		$post = $this->input->post();
-		// $pejabat = $this->ModelEmployee->check($post['username'],md5($post['password']))->row_array();
-		// if(isset($pejabat)){
-		// 	/**
-		// 	 * Pejabat
-		// 	 */
-		// 	/*Employee Session Data*/
-		// 	$userdata = array(
-		// 		'id' => $pejabat['id'],
-		// 		'nip' => $pejabat['nip'],
-		// 		'username'  => $pejabat['username'],
-		// 		'fullname'  => $pejabat['name'],
-		// 		'position'  => $pejabat['position'],
-		// 		'logged_in' => TRUE
-		// 	);
-		// 	$this->session->set_userdata($userdata);
-		// 	redirect('Home/berandaka');			
-		// }
 
 		$data = $this->ModelUser->check($post['username'],md5($post['password']))->row_array();
 		if(isset($data)){
@@ -78,9 +70,57 @@ class Auth extends CI_Controller {
 			redirect('Auth');
 		}
 	}
+	public function logines3(){
+		$post = $this->input->post();
+		$data = $this->ModelEmployee->check($post['username'],md5($post['password']))->row_array();
+		if(isset($data)){
+			/**
+			 * Eselon 3 Login
+			 */
+			/*User Session Data*/
+			$userdata = array(
+				'id' => $data['id'],
+				'nip' => $data['nip'],
+				'username'  => $data['username'],
+				'fullname'  => $data['name'],
+				'position'  => $data['position'],
+				'log'  => $data['last_login'],
+				'satker_id'  => $data['satker_id'],
+				'logged_in' => TRUE
+			);
+			$this->session->set_userdata($userdata);
+			redirect('Eselon/berandaes3');			
+		}else{
+			$this->session->set_flashdata('msg', 'wrong');
+			redirect('Auth/es3');
+		}
+	}
+	public function loginevaluator(){
+		$post = $this->input->post();
+		$data = $this->ModelRMPEvaluator->check($post['username'],md5($post['password']))->row_array();
+		if(isset($data)){
+			/**
+			 * Evaluator Login
+			 */
+			/*User Session Data*/
+			// print_r($data);
+			$userdata = array(
+				'id' => $data['id'],
+				// 'nip' => $data['nip'],
+				'fullname'  => $data['name'],
+				'username'  => $data['username'],
+				'logged_in' => TRUE
+			);
+			$this->session->set_userdata($userdata);
+			redirect('Review');			
+		}else{
+			$this->session->set_flashdata('msg', 'wrong');
+			redirect('Auth/evaluator');
+		}
+	}
 	public function logout(){
 		$this->session->sess_destroy();
-		redirect('Auth');
+		redirect('');
 	}
 	public function register(){
 		if($this->input->post() != NULL){

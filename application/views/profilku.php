@@ -90,6 +90,9 @@
 				    <div class="col-6">
 				      <select name="roles_id" class="form-control <?php if(is_null($row['roles_id'])) echo "is-invalid"; ?>" required>
 								<option disabled selected>--Pilih Atasan Langsung--</option>
+				      	<?php foreach($roles2 as $role){ ?>
+				      	<option value="<?=$role['id']; ?>" <?php if($row['roles_id'] == $role['id']) echo "selected"; ?>><?=$role['position']; ?>( <?=$role['name']; ?> )</option>
+				      	<?php } ?>				      	
 				      	<?php foreach($roles as $role){ ?>
 				      	<option value="<?=$role['id']; ?>" <?php if($row['roles_id'] == $role['id']) echo "selected"; ?>><?=$role['position']; ?>( <?=$role['name']; ?> )</option>
 				      	<?php } ?>

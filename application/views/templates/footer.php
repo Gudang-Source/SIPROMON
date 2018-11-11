@@ -358,6 +358,33 @@
         // $(e.currentTarget).find('input[name="act_id"]').val(parent);
         // $("input[name='rmp_id'").val($(e.relatedTarget).attr("data-id"));
   });            
+  $('#formReview').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        komentar = $(e.relatedTarget).attr("data-komentar"),
+        id = $(e.relatedTarget).attr("data-id");
+        bab = $(e.relatedTarget).attr("data-bab");
+        sifat = $(e.relatedTarget).attr("data-sifat");
+        keterangan = $(e.relatedTarget).attr("data-keterangan");
+        kesesuaian = $(e.relatedTarget).attr("data-kesesuaian");
+        catatan = $(e.relatedTarget).attr("data-catatan");
+
+
+        $("input[name='id']").val(id);
+        $("input[name='bab']").val(bab);
+        $("input[name='komentar']").val(komentar);
+        // $("input[name='sifat']").val(sifat);
+        $("input[name='keterangan']").val(keterangan);
+        // $("input[name='kesesuaian']").val(kesesuaian);
+        $("input[name='catatan']").val(catatan);
+        // $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        // $("input[name='rmp_id'").val($(e.relatedTarget).attr("data-id"));
+  });              
+  /*MONEV*/
+  /*MONEV*/
+  /*MONEV*/
+  /*MONEV*/
+  /*MONEV*/
   /*MONEV*/
   $('#addLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),

@@ -245,7 +245,7 @@
 			<?php }} ?>
 				<tr>
 					<td colspan="3" class="table-warning"><b>Total</b></td>
-					<td colspan="2"><b> <?=number_format($row['pagu'],0,',','.'); ?></b></td>
+					<td ><b> <?=number_format($row['pagu'],0,',','.'); ?></b></td>
 				</tr>
 		</tbody>
 	</table>
