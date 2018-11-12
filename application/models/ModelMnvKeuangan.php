@@ -52,6 +52,42 @@ class ModelMnvKeuangan extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getSisaOther($id_refer, $month, $type, $id_kegiatan){
+		$this->db->select('jml_uang');
+		$this->db->from($this->tableName);
+		$this->db->where('month='.$month.' and id_kegiatan='.$id_kegiatan);
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['jml_uang'] == null){
+			$biaya_now = 0;
+		}else{
+			$biaya_now = $temp[0]['jml_uang'];
+		}
+
+		$this->db->select('SUM(biaya) as biaya');
+		$this->db->from('mnv_fisik');
+		$this->db->where('month='.$month.' and id_kegiatan='.$id_kegiatan);
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['biaya'] == null){
+			$biaya_kumulatif = 0;
+		}else{
+			$biaya_kumulatif = $temp[0]['biaya'];
+		}
+
+		$this->db->select('SUM(biaya) as biaya');
+		$this->db->from('mnv_fisik');
+		$this->db->where('month='.$month.' and id_kegiatan='.$id_kegiatan.' and id_refer='.$id_refer.' and type="'.$type.'"');
+		$temp = $this->db->get()->result_array();
+		if($temp[0]['biaya'] == null){
+			$biaya_self = 0;
+		}else{
+			$biaya_self = $temp[0]['biaya'];
+		}
+
+		$biaya['sisaM'] = ($biaya_now+$biaya_self)-$biaya_kumulatif;
+
+		return $biaya;
+	}
+
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 	}

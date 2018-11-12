@@ -513,8 +513,8 @@ class Monev extends CI_Controller {
 		echo json_encode($x);
 	}
 
-	public function getFisikBefore($id_refer,$month, $type){
-		$x = $this->ModelMnvFisik->getFisikBefore($id_refer,$month, $type)->result_array();
+	public function getSisaOther($id_refer,$month, $type, $id_kegiatan){
+		$x = $this->ModelMnvKeuangan->getSisaOther($id_refer,$month, $type, $id_kegiatan);
 		echo json_encode($x);
 	}
 }

@@ -814,7 +814,7 @@
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$idk; ?>">
+										<input type="hidden" name="id_kegiatan" id="id_kegiatan" value="<?=$idk; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
 										<input type="hidden" name="month" id="month" value="">
 										<input type="hidden" name="kendala_id" id="kendala_id" value="0">
@@ -912,7 +912,7 @@
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$idk; ?>">
+										<input type="hidden" name="id_kegiatan" id="id_kegiatanU" value="<?=$idk; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
 										<input type="hidden" name="month" id="monthU" value="">
 										<input type="hidden" name="kendala_id" id="kendala_idU" value="0">
