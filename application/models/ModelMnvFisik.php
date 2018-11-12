@@ -51,7 +51,7 @@ class ModelMnvFisik extends CI_Model {
 	}
 
 	public function getbyReferTotal($id_refer,$type){
-		$this->db->select('SUM(biaya) as biaya, SUM(fisik_real) as fisik, SUM(biayaP) as biayaP');
+		$this->db->select('SUM(biaya) as biaya, SUM(biayaP) as biayaP, SUM(fisik_real) as fisik');
 		$this->db->from($this->tableName);
 		$this->db->where('id_refer = '.$id_refer.' AND type = "'.$type.'"');
 		
@@ -72,6 +72,15 @@ class ModelMnvFisik extends CI_Model {
 		
 		return $this->db->get()->result_array();
 	}
+
+	public function getFisikBefore($id_refer,$month, $type){
+		$this->db->select('SUM(fisik_real) as fisik_real');
+		$this->db->from($this->tableName);
+		$this->db->where('id_refer = '.$id_refer.' AND month < '.$month.' AND type = "'.$type.'"');
+		
+		return $this->db->get();
+	}
+
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 		return $this->db->insert_id();

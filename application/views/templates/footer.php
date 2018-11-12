@@ -390,9 +390,16 @@
       var $modal = $(this),
         type = $(e.relatedTarget).attr("data-type"),
         id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
+        money = $(e.relatedTarget).attr("data-money"),
+        moneyMax = $(e.relatedTarget).attr("data-moneyAc"),
+        kendala = $(e.relatedTarget).attr("data-kendala"),
+        subkegiatan = $(e.relatedTarget).attr("data-sub"),
+        fisik_acuan = $(e.relatedTarget).attr("data-fisik"),
         month = $(e.relatedTarget).attr("data-month");
 
+        if(moneyMax == 'x'){
+          moneyMax = -1;
+        }
 
         bulan = [
           "Jan",
@@ -411,78 +418,141 @@
         ];
 
         $('#bulanItem').text(bulan[(month-1)]);
+        $('#month').val(month);
         $('#type').val(type);
         $('#id_refer').val(id_refer);
-        $('#fisik_real').val(fisik_real);
+        $('#kendala_id').val(kendala);
+        // alert(kendala);
+        // $('#biayaA').attr("placeholder","Minimal = 0");
+        $('#fisikA').attr("placeholder","Minimal = 0");
+        $('#fisikA').attr("min",0);
+        if(moneyMax == -1){
+          $('#biayaA').attr("placeholder","Tidak ada dana untuk digunakan");
+        }else{
+          $('#biayaA').attr("placeholder","Maksimal = "+moneyMax);
+        }
+        $('#biayaA').attr("min",0);
+        $('#biayaA').attr("max",moneyMax);
+        $('#fisik_acuan').val(fisik_acuan);
+        $('#target_fisik').text(fisik_acuan);
+        $('#biaya_acuan').val(money);
+        $('#target_biaya').text(money);
+        $('#subkegiatanA').text(subkegiatan);
+        if(kendala == 1){
+          $('#kendalaZero').prop('checked',false);
+          $('#kendalaText').val('');
+          $('#kendalaL').css("display","block");
+        }else{
+          $('#kendalaText').val('-');
+          $('#kendalaZero').prop('checked',true);
+          $('#kendalaL').css("display","none");
+        }
       // $('#actkeustage').val(actkeu);
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   });
 
-  $('#addKendala').on('show.bs.modal', function(e) {
-      var $modal = $(this),
-        type = $(e.relatedTarget).attr("data-type"),
-        id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
+  function checkRealF(){
+    var fisik_P = document.getElementById("fisikA").value;
+    var target_fisik = document.getElementById("fisik_acuan").value;
+    var kendala_id = document.getElementById("kendala_id").value;
 
+    $('#fisik_realA').val(fisik_P*target_fisik/100);
 
-        bulan = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "Mei",
-          "Jun",
-          "Jul",
-          "Agu",
-          "Sep",
-          "Okt",
-          "Nov",
-          "Des"
-        
-        ];
+    var biaya = document.getElementById("biayaA").value;
+    var biaya_acuan = document.getElementById("biaya_acuan").value;
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZero').prop('checked',false);
+      $('#kendalaText').val('');
+      $('#kendalaL').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaText').val('-');
+      $('#kendalaZero').prop('checked',true);
+      $('#kendalaL').css("display","none");
+    }
+  }
 
-        $('#bulanItemK').text(bulan[month]);
-        $('#mingguItemK').text(month+1);
-        $('#mingguK').val(month+1);
-        $('#typeK').val(type);
-        $('#id_referK').val(id_refer);
-        $('#fisik_realK').val(fisik_real);
-      // $('#actkeustage').val(actkeu);
-      // $('#monthkeustage').val(month);
-      // $('#fisikstage').text(''+fisik+',-');
-  });
+  function setBiayaPA(){
+    var fisik_P = document.getElementById("fisikA").value;
+    var biaya = document.getElementById("biayaA").value;
+    var pagu = document.getElementById("pagu").value;
+    var biaya_acuan = document.getElementById("biaya_acuan").value;
+    $('#biayaPA').val((biaya/pagu)*100);
+    var kendala_id = document.getElementById("kendala_id").value;
+    // alert(kendala_id);
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZero').prop('checked',false);
+      $('#kendalaText').val('');
+      $('#kendalaL').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaText').val('-');
+      $('#kendalaZero').prop('checked',true);
+      $('#kendalaL').css("display","none");
+    }
+    
+  }
+
+  function setMaxBiayaA(){
+    var biaya_acuan = document.getElementById("biaya_acuan").value;
+    var pagu = document.getElementById("pagu").value;
+    $('#biayaA').val(biaya_acuan);
+    $('#biayaPA').val((biaya_acuan/pagu)*100);
+    var kendala_id = document.getElementById("kendala_id").value;
+    var fisik_P = document.getElementById("fisikA").value;
+    
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZero').prop('checked',false);
+      $('#kendalaText').val('');
+      $('#kendalaL').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaText').val('-');
+      $('#kendalaZero').prop('checked',true);
+      $('#kendalaL').css("display","none");
+    }
+  }
+
+  function setMaxFisikA(){
+    var target_fisik = document.getElementById("fisik_acuan").value;
+    var biaya_acuan = document.getElementById("biaya_acuan").value;
+    var biaya = document.getElementById("biayaA").value;
+    $('#fisik_realA').val(target_fisik);
+    $('#fisikA').val(100);
+    var kendala_id = document.getElementById("kendala_id").value;
+    
+    if(((biaya < (9/10)*biaya_acuan))  && kendala_id == 0){
+      $('#kendalaZero').prop('checked',false);
+      $('#kendalaText').val('');
+      $('#kendalaL').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaText').val('-');
+      $('#kendalaZero').prop('checked',true);
+      $('#kendalaL').css("display","none");
+    }
+  }
 
   $('#updateLaporan').on('show.bs.modal', function(e) {
       var $modal = $(this),
         type = $(e.relatedTarget).attr("data-type"),
         id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
+        money = $(e.relatedTarget).attr("data-money"),
+        moneyMax = $(e.relatedTarget).attr("data-moneyAc"),
+        kendala = $(e.relatedTarget).attr("data-kendala"),
+        subkegiatan = $(e.relatedTarget).attr("data-sub"),
+        fisik_acuan = $(e.relatedTarget).attr("data-fisik"),
+        month = $(e.relatedTarget).attr("data-month"),
+        biaya = $(e.relatedTarget).attr("data-t-biaya"),
+        biayaP = $(e.relatedTarget).attr("data-t-biayaP");
+        fisik = $(e.relatedTarget).attr("data-t-fisik");
+        fisik_real = $(e.relatedTarget).attr("data-t-fisik_real");
+        output = $(e.relatedTarget).attr("data-t-output");
+        deskripsi = $(e.relatedTarget).attr("data-t-deskripsi");
+        kendala_text = $(e.relatedTarget).attr("data-t-kendala");
+        id_mnv_fisik = $(e.relatedTarget).attr("data-t-id");
+        tingkat_kendala = $(e.relatedTarget).attr("data-t-tingkat_kendala");
 
-        $('#mingguF').val(month+1);
-        $('#typeF').val(type);
-        $('#id_referF').val(id_refer);
-        $('#fisik_realF').val(fisik_real);
-        console.log(fisik_real);
-        $.ajax({
-          type:"POST",
-          url:"<?=site_url('Monev/getFisikDetail/')?>"+id_refer+"/"+(month+1)+"/"+type,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success:function(data)
-          {
-            console.log(data[0]);
-           $('#id_mnv_fisik').val(data[0]['id_mnv_fisik']);
-           $('#deskripsiF').val(data[0]['deskripsi']);
-           $('#outputF').val(data[0]['output']);
-           $('#persentaseF').val(data[0]['persentase']);
-           // $('#tingkat_kendalaF').val(data[0]['tingkat_kendala']).attr("checked");
-            
-            // $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
-          }
-        });
+        if(moneyMax == 'x'){
+          moneyMax = -1;
+        }
 
         bulan = [
           "Jan",
@@ -500,67 +570,128 @@
         
         ];
 
-        $('#bulanItemF').text(bulan[month]);
-        $('#mingguItemF').text(month+1);
+        $('#bulanItemU').text(bulan[(month-1)]);
+        $('#monthU').val(month);
+        $('#typeU').val(type);
+        $('#id_referU').val(id_refer);
+        $('#kendala_idU').val(kendala);
+        // alert(kendala);
+        // $('#biayaA').attr("placeholder","Minimal = 0");
+        $('#fisikU').attr("placeholder","Minimal = 0");
+        $('#fisikU').attr("min",0);
+        if(moneyMax == -1){
+          $('#biayaU').attr("placeholder","Tidak ada dana untuk digunakan");
+        }else{
+          $('#biayaU').attr("placeholder","Maksimal = "+moneyMax);
+        }
+        $('#biayaU').attr("min",0);
+        $('#biayaU').attr("max",moneyMax);
+        $('#fisik_acuanU').val(fisik_acuan);
+        $('#target_fisikU').text(fisik_acuan);
+        $('#biaya_acuanU').val(money);
+        $('#target_biayaU').text(money);
+        $('#subkegiatanU').text(subkegiatan);
+        if(kendala == 1){
+          $('#kendalaZeroU').prop('checked',false);
+          $('#kendalaTextU').val('');
+          $('#kendalaU').css("display","block");
+        }else{
+          $('#kendalaTextU').val('-');
+          $('#kendalaZeroU').prop('checked',true);
+          $('#kendalaU').css("display","none");
+        }
+
+        $('#biayaU').val(biaya);
+        $('#biayaPU').val(biayaP);
+        $('#fisikU').val(fisik);
+        $('#fisik_realU').val(fisik_real);
+        $('#outputU').val(output);
+        $('#deskripsiU').val(deskripsi);
+        $('#kendalaTextU').val(kendala_text);
+        $('#id_mnv_fisik').val(id_mnv_fisik);
+        $('input:radio[name=tingkat_kendala]').filter('[value='+tingkat_kendala+']').prop('checked', true);
       // $('#actkeustage').val(actkeu);
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   });
 
-  $('#updateKendala').on('show.bs.modal', function(e) {
-      var $modal = $(this),
-        type = $(e.relatedTarget).attr("data-type"),
-        id_refer = $(e.relatedTarget).attr("data-refer"),
-        fisik_real = $(e.relatedTarget).attr("data-fisik"),
-        month = $(e.relatedTarget).attr("data-month")-1;
+  function checkRealFU(){
+    var fisik_P = document.getElementById("fisikU").value;
+    var target_fisik = document.getElementById("fisik_acuanU").value;
+    var kendala_id = document.getElementById("kendala_idU").value;
 
-        $('#mingguKk').val(month+1);
-        $('#typeKk').val(type);
-        $('#id_referKk').val(id_refer);
-        $('#fisik_realKk').val(fisik_real);
-        console.log(fisik_real);
-        $.ajax({
-          type:"POST",
-          url:"<?=site_url('Monev/getFisikDetail/')?>"+id_refer+"/"+(month+1)+"/"+type,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success:function(data)
-          {
-            console.log(data[0]);
-           $('#id_mnv_fisikKk').val(data[0]['id_mnv_fisik']);
-           $('#deskripsiKk').val(data[0]['deskripsi']);
-           $('#outputKk').val(data[0]['output']);
-           $('#persentaseKk').val(data[0]['persentase']);
-           $('#kendalaKk').val(data[0]['kendala']);
-           $('input[id="tingkat_kendalaKk"][value="'+data[0]['tingkat_kendala']+'"]').attr('checked','checked');
-           // $('#tingkat_kendalaF').val(data[0]['tingkat_kendala']).attr("checked");
-            
-            // $('#listMoneyKU').append('<div class="row" ><div class="col-md-5">'+data[0]['jenis']+'</div><div class="col-md-7"><input name="jml['+data[0]['id_mnv_keuangan']+']" type="number" value="'+data[0]['jml_uang']+'" class="form-control"></div></div><hr>');
-          }
-        });
+    $('#fisik_realU').val(fisik_P*target_fisik/100);
 
-        bulan = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "Mei",
-          "Jun",
-          "Jul",
-          "Agu",
-          "Sep",
-          "Okt",
-          "Nov",
-          "Des"
-        
-        ];
+    var biaya = document.getElementById("biayaU").value;
+    var biaya_acuan = document.getElementById("biaya_acuanU").value;
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZeroU').prop('checked',false);
+      // $('#kendalaTextU').val('');
+      $('#kendalaU').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaTextU').val('-');
+      $('#kendalaZeroU').prop('checked',true);
+      $('#kendalaU').css("display","none");
+    }
+  }
 
-        $('#bulanItemKk').text(bulan[month]);
-        $('#mingguItemKk').text(month+1);
-      // $('#actkeustage').val(actkeu);
-      // $('#monthkeustage').val(month);
-      // $('#fisikstage').text(''+fisik+',-');
-  });
+  function setBiayaPU(){
+    var fisik_P = document.getElementById("fisikU").value;
+    var biaya = document.getElementById("biayaU").value;
+    var pagu = document.getElementById("pagu").value;
+    var biaya_acuan = document.getElementById("biaya_acuanU").value;
+    $('#biayaPU').val((biaya/pagu)*100);
+    var kendala_id = document.getElementById("kendala_id").value;
+    // alert(kendala_id);
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZeroU').prop('checked',false);
+      // $('#kendalaTextU').val('');
+      $('#kendalaU').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaTextU').val('-');
+      $('#kendalaZeroU').prop('checked',true);
+      $('#kendalaU').css("display","none");
+    }
+    
+  }
+
+  function setMaxBiayaU(){
+    var biaya_acuan = document.getElementById("biaya_acuanU").value;
+    var pagu = document.getElementById("pagu").value;
+    $('#biayaU').val(biaya_acuan);
+    $('#biayaPU').val((biaya_acuan/pagu)*100);
+    var kendala_id = document.getElementById("kendala_idU").value;
+    var fisik_P = document.getElementById("fisikU").value;
+    
+    if(((biaya < (9/10)*biaya_acuan) || fisik_P < 90)  && kendala_id == 0){
+      $('#kendalaZeroU').prop('checked',false);
+      // $('#kendalaTextU').val('');
+      $('#kendalaU').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaTextU').val('-');
+      $('#kendalaZeroU').prop('checked',true);
+      $('#kendalaU').css("display","none");
+    }
+  }
+
+  function setMaxFisikU(){
+    var target_fisik = document.getElementById("fisik_acuanU").value;
+    var biaya_acuan = document.getElementById("biaya_acuanU").value;
+    var biaya = document.getElementById("biayaU").value;
+    $('#fisik_realU').val(target_fisik);
+    $('#fisikU').val(100);
+    var kendala_id = document.getElementById("kendala_idU").value;
+    
+    if(((biaya < (9/10)*biaya_acuan))  && kendala_id == 0){
+      $('#kendalaZeroU').prop('checked',false);
+      // $('#kendalaTextU').val('');
+      $('#kendalaLU').css("display","block");
+    }else if(kendala_id == 0){
+      $('#kendalaTextU').val('-');
+      $('#kendalaZeroU').prop('checked',true);
+      $('#kendalaLU').css("display","none");
+    }
+  }
 
   $('#updateKeuangan').on('show.bs.modal', function(e) {
     
@@ -572,7 +703,7 @@
         month = $(e.relatedTarget).attr("data-month"),
         idk = $(e.relatedTarget).attr("data-idk");
         var sisa = document.getElementById("sisaPagu").value;
-        alert(this_id);
+        // alert(this_id);
         bulan = [
           "Jan",
           "Feb",

@@ -105,9 +105,15 @@
 											<td width="7px">1.<?=$no++; ?></td>
 											<td nowrap="" colspan="2"><?php echo $act['kegiatan'];?>
 											</td>
-											<td class=""><?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?></td>
-											<td class="text-center"><?=round($actTotal[$act['id']]['biayaP'],2);?></td>
-											<td class="text-center"><?=round($actTotal[$act['id']]['fisik'],2); ?></td>
+											<td class="">
+												<?=number_format($actTotal[$act['id']]['biaya'],0,',','.'); ?>
+											</td>
+											<td class="text-center">
+												<?=round($actTotal[$act['id']]['biayaP'],2);?>
+											</td>
+											<td class="text-center">
+												<?=round($actTotal[$act['id']]['fisik'],2); ?>
+											</td>
 
 											<?php 
 
@@ -118,13 +124,35 @@
 														?>
 														
 												<td class='text-center'>
-													<!-- <?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?> -->
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if($actMonths[$act['id']][($i-1)]['biaya'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['biaya']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');?>
+													</font>
+													<b>(</b>
+													<?php
+														if($actMonths[$act['id']][($i-1)]['fisik'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['fisik']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?>
+													</font>
+													<b>)</b>
+													<?php if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] > 0){ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
+													<?php }else{ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+													<?php } ?>
 
 												</td>
 
@@ -134,21 +162,21 @@
 												?>
 												<td class="text-center">
 													<?php
-														if($i < $this_month && ($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+														if(($i+1) < $this_month && ($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
 													?>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$moneysMonths[($i-1)]; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala=1>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>">
 														<i class="fa fa-fw fa-exclamation"></i>
 													</a>
 													<?php
 														}else if(($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
 													?>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 														<?php
 													}else{
 														?>
-														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 														<?php
@@ -177,31 +205,69 @@
 											<?php 
 											for($i=0;$i<12;$i++){ 
 												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
-													// echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
-													// $stageMonths[$stage['id']][$i]['fisik'],2);
+													
 													?>
-												<td>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-exclamation"></i>
-														</a>
-														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+
+													<td class='text-center'>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['biaya'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['biaya']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= number_format($stageMonths[$stage['id']][($i)]['biaya'],0,',','.');?>
+														</font>
+														<b>(</b>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['fisik'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['fisik']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= round($stageMonths[$stage['id']][($i)]['fisik'],2);?>
+														</font>
+														<b>)</b>
+														<?php if($stageMonths[$stage['id']][($i)]['tingkat_kendala'] > 0){ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-exclamation"></i>
+															</a>
+														<?php }else{ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+														<?php } ?>
+
+													</td>
+												
 													<?php
 												}else{
 													?>
-												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<td class="text-center">
+														<?php
+															if(($i+2) < $this_month && ($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+														<?php
+															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}else{
+															?>
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}
+															?>
+													</td>
+												
 													<?php
 												}
 											}
@@ -242,13 +308,35 @@
 														?>
 														
 												<td class='text-center'>
-													<!-- <?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?> -->
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if($actMonths[$act['id']][($i-1)]['biaya'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['biaya']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');?>
+													</font>
+													<b>(</b>
+													<?php
+														if($actMonths[$act['id']][($i-1)]['fisik'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['fisik']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?>
+													</font>
+													<b>)</b>
+													<?php if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] > 0){ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
+													<?php }else{ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+													<?php } ?>
 
 												</td>
 
@@ -257,15 +345,27 @@
 													
 												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if(($i+1) < $this_month && ($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>">
 														<i class="fa fa-fw fa-exclamation"></i>
 													</a>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														}else if(($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
-														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+													}
+														?>
 												</td>
 											<?php 
 													}
@@ -289,31 +389,69 @@
 												<?php 
 											for($i=0;$i<12;$i++){ 
 												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
-													// echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
-													// $stageMonths[$stage['id']][$i]['fisik'],2);
+													
 													?>
-												<td>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-exclamation"></i>
-														</a>
-														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+
+													<td class='text-center'>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['biaya'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['biaya']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= number_format($stageMonths[$stage['id']][($i)]['biaya'],0,',','.');?>
+														</font>
+														<b>(</b>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['fisik'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['fisik']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= round($stageMonths[$stage['id']][($i)]['fisik'],2);?>
+														</font>
+														<b>)</b>
+														<?php if($stageMonths[$stage['id']][($i)]['tingkat_kendala'] > 0){ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-exclamation"></i>
+															</a>
+														<?php }else{ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+														<?php } ?>
+
+													</td>
+												
 													<?php
 												}else{
 													?>
-												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<td class="text-center">
+														<?php
+															if(($i+2) < $this_month && ($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+														<?php
+															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}else{
+															?>
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}
+															?>
+													</td>
+												
 													<?php
 												}
 											}
@@ -353,13 +491,35 @@
 														?>
 														
 												<td class='text-center'>
-													<!-- <?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?> -->
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if($actMonths[$act['id']][($i-1)]['biaya'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['biaya']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= number_format($actMonths[$act['id']][($i-1)]['biaya'],0,',','.');?>
+													</font>
+													<b>(</b>
+													<?php
+														if($actMonths[$act['id']][($i-1)]['fisik'] < (9/10)*$actMonthsR[$act['id']][($i-1)]['fisik']){
+															echo "<font color='red'>";
+														}else{
+															echo "<font>";
+														}
+													?>
+													<?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?>
+													</font>
+													<b>)</b>
+													<?php if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] > 0){ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
+													<?php }else{ ?>
+													<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>" data-t-biaya="<?= $actMonths[$act['id']][($i-1)]['biaya'];?>" data-t-biayaP="<?= $actMonths[$act['id']][($i-1)]['biayaP'];?>" data-t-fisik="<?= $actMonths[$act['id']][($i-1)]['fisik_P'];?>" data-t-fisik_real="<?= $actMonths[$act['id']][($i-1)]['fisik'];?>" data-t-output="<?= $actMonths[$act['id']][($i-1)]['output'];?>" data-t-deskripsi="<?= $actMonths[$act['id']][($i-1)]['deskripsi'];?>" data-t-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" data-t-tingkat_kendala="<?= $actMonths[$act['id']][($i-1)]['tingkat_kendala'];?>" data-t-id="<?= $actMonths[$act['id']][($i-1)]['id_mnv_fisik'];?>">
+															<i class="fa fa-fw fa-edit"></i>
+														</a>
+													<?php } ?>
 
 												</td>
 
@@ -368,15 +528,27 @@
 													
 												?>
 												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														if(($i+1) < $this_month && ($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>">
 														<i class="fa fa-fw fa-exclamation"></i>
 													</a>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+													<?php
+														}else if(($actMonthsR[$act['id']][($i-1)]['fisik'] !=0 || $actMonthsR[$act['id']][($i-1)]['biaya'] != 0)){
+													?>
+													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
-														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$act['anggaran']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?=round(($act['anggaran']/$row['pagu'])*100,2); ?>">
+														<?php
+													}else{
+														?>
+														<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i-1];?>" data-money="<?=$actMonthsR[$act['id']][($i-1)]['biaya']; ?>" data-refer="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-type="act" data-fisik="<?= $actMonthsR[$act['id']][($i-1)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
+														<?php
+													}
+														?>
 												</td>
 											<?php 
 													}
@@ -400,35 +572,74 @@
 												<?php 
 											for($i=0;$i<12;$i++){ 
 												if(isset($stageMonths[$stage['id']][$i]['fisik'])){
-													// echo "<td class='text-center'>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.');
-													// $stageMonths[$stage['id']][$i]['fisik'],2);
+													
 													?>
-												<td>
-													<a href="#" class="text-success" data-toggle="modal" data-target="#updateKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-exclamation"></i>
-														</a>
-														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+
+													<td class='text-center'>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['biaya'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['biaya']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= number_format($stageMonths[$stage['id']][($i)]['biaya'],0,',','.');?>
+														</font>
+														<b>(</b>
+														<?php
+															if($stageMonths[$stage['id']][($i)]['fisik'] < (9/10)*$stageMonthsR[$stage['id']][($i)]['fisik']){
+																echo "<font color='red'>";
+															}else{
+																echo "<font>";
+															}
+														?>
+														<?= round($stageMonths[$stage['id']][($i)]['fisik'],2);?>
+														</font>
+														<b>)</b>
+														<?php if($stageMonths[$stage['id']][($i)]['tingkat_kendala'] > 0){ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-exclamation"></i>
+															</a>
+														<?php }else{ ?>
+														<a href="#" class="text-success" data-toggle="modal" data-target="#updateLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>" data-t-biaya="<?= $stageMonths[$stage['id']][($i)]['biaya'];?>" data-t-biayaP="<?= $stageMonths[$stage['id']][($i)]['biayaP'];?>" data-t-fisik="<?= $stageMonths[$stage['id']][($i)]['fisik_P'];?>" data-t-fisik_real="<?= $stageMonths[$stage['id']][($i)]['fisik'];?>" data-t-output="<?= $stageMonths[$stage['id']][($i)]['output'];?>" data-t-deskripsi="<?= $stageMonths[$stage['id']][($i)]['deskripsi'];?>" data-t-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" data-t-tingkat_kendala="<?= $stageMonths[$stage['id']][($i)]['tingkat_kendala'];?>" data-t-id="<?= $stageMonths[$stage['id']][($i)]['id_mnv_fisik'];?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+														<?php } ?>
+
+													</td>
+												
 													<?php
 												}else{
 													?>
-												<td class="text-center">
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addKendala" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
+													<td class="text-center">
+														<?php
+															if(($i+2) < $this_month && ($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
 															<i class="fa fa-fw fa-exclamation"></i>
 														</a>
-													<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-													<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-money="<?=$stage['anggaran']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=$i; ?>" data-type="stage" data-fisik="<?=round(($stage['anggaran']/$row['pagu'])*100,2); ?>">
-															<i class="fa fa-fw fa-edit"></i>
-														</a>
-												</td>
+														<?php
+															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
+														?>
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}else{
+															?>
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
+																<i class="fa fa-fw fa-edit"></i>
+															</a>
+															<?php
+														}
+															?>
+													</td>
+												
 													<?php
 												}
 											}
 											?>
+													
 																				
 										</tr>
 											<?php }}} ?>															
@@ -542,14 +753,25 @@
 											</div>
 											<div class="col-md-12" style="margin-top: 20px;">
 												<div class="form-group">
+													<label class=" form-control-label">Biaya yang dikeluarkan</label>
+													<div class="input-group">
+														<input name="biaya" id="biayaA" type="number" min="0" step="any" onchange="setBiayaPA()" class="form-control" required>
+														<input name="biayaP" id="biayaPA" type="hidden" min="0" step="any" class="form-control" required>
+														<button type="button" class="btn btn-info" onclick="setMaxBiayaA()">Set Sesuai Perencanaan</button>
+													</div>
+													<small class="form-text text-muted">Target perencanaan: <font id="target_biaya" style="bold"></font></small>
+												</div>
+												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="fisik" type="number" step="any" class="form-control">
+														<input name="fisik" id="fisikA" type="number" step="any" onchange="checkRealF()" class="form-control">
 													</div>
 													<small class="form-text text-muted">Skala kumulatif 0 - 100 untuk kegiatan <font id="subkegiatanA" style="bold"></font>, konversi persentase sesungguhnya yaitu:</small>
 													<div class="input-group">
-														<input name="fisik_real" type="number" step="any" class="form-control" required readonly>
+														<input name="fisik_real" id="fisik_realA" type="number" step="any" class="form-control" required readonly>
+														<button type="button" class="btn btn-info" onclick="setMaxFisikA()">Set Sesuai Perencanaan</button>
 													</div>
+													<small class="form-text text-muted">Target perencanaan: <font id="target_fisik" style="bold"></font></small>
 												</div>
 												<div class="form-group">
 													<label class=" form-control-label">Keluaran</label>
@@ -567,8 +789,9 @@
 												</div>
 												<div class="form-group" id="kendalaL" style="display:block">
 													<label class=" form-control-label">Kendala</label>
+													<small class="form-text text-muted">Uraikan secara singkat kendala yang terjadi, form ini muncul jika masa pengisian terlambat, atau (biaya pengeluaran atau fisik) lebih kecil dari 90% nilai perencanaan</small>
 													<div class="input-group">
-														<textarea class="form-control" name="kendala" value="-" rows=7 required>-</textarea>
+														<textarea class="form-control" name="kendala" id="kendalaText" value="-" rows=7 required>-</textarea>
 													</div>
 													<div class="input-group">
 														<input name="tingkat_kendala" required type="radio" class="form-control" value=1 >sangat rendah</input>
@@ -580,7 +803,7 @@
 												</div>
 												<div class="form-group" style="display:none">
 													<div class="input-group" style="font-size:8pt;">
-														<input name="tingkat_kendala" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														<input name="tingkat_kendala" id="kendalaZero" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
 														
 													</div>
 												</div>
@@ -593,10 +816,12 @@
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
 										<input type="hidden" name="id_kegiatan" value="<?=$idk; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
-										<input type="hidden" name="minggu" id="minggu" value="0">
+										<input type="hidden" name="month" id="month" value="">
+										<input type="hidden" name="kendala_id" id="kendala_id" value="0">
 										<input type="hidden" name="type" id="type" value="0">
 										<input type="hidden" name="id_refer" id="id_refer" value="0">
-										<input type="hidden" name="fisik_real" id="fisik_real" value="0">
+										<input type="hidden" name="fisik_acuan" id="fisik_acuan" value="0">
+										<input type="hidden" name="biaya_acuan" id="biaya_acuan" value="0">
 										<input type="hidden" name="submit" value="0"/>
 										<button type="submit" class="btn btn-primary"
 											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
@@ -622,133 +847,83 @@
 										<?php echo form_open('Monev/submit_fisik'); ?>
 										<div class="row">
 											<div class="col-sm-8">
-												<h5>Bulan: <b><i id="bulanItemF" style="font-style: normal;"> </i></b></h5>
-											</div>
-											<div class="col-sm-4">
-												<h5>Minggu ke-<i id="mingguItemF" style="font-style: normal;"> </i></b></h5>
+												<h5>Bulan: <b><i id="bulanItemU" style="font-style: normal;"> </i></b></h5>
 											</div>
 											<div class="col-md-12" style="margin-top: 20px;">
 												<div class="form-group">
+													<label class=" form-control-label">Biaya yang dikeluarkan</label>
+													<div class="input-group">
+														<input name="biaya" id="biayaU" type="number" min="0" step="any" onchange="setBiayaPU()" class="form-control" required>
+														<input name="biayaP" id="biayaPU" type="hidden" min="0" step="any" class="form-control" required>
+														<button type="button" class="btn btn-info" onclick="setMaxBiayaU()">Set Sesuai Perencanaan</button>
+													</div>
+													<small class="form-text text-muted">Target perencanaan: <font id="target_biayaU" style="bold"></font></small>
+												</div>
+												<div class="form-group">
 													<label class=" form-control-label">Presentase Fisik</label>
 													<div class="input-group">
-														<input name="fisikF" id="fisikF" type="number" class="form-control" placeholder="50">
+														<input name="fisik" id="fisikU" type="number" step="any" onchange="checkRealFU()" class="form-control">
 													</div>
-													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
+													<small class="form-text text-muted">Skala kumulatif 0 - 100 untuk kegiatan <font id="subkegiatanU" style="bold"></font>, konversi persentase sesungguhnya yaitu:</small>
+													<div class="input-group">
+														<input name="fisik_real" id="fisik_realU" type="number" step="any" class="form-control" required readonly>
+														<button type="button" class="btn btn-info" onclick="setMaxFisikU()">Set Sesuai Perencanaan</button>
+													</div>
+													<small class="form-text text-muted">Target perencanaan: <font id="target_fisikU" style="bold"></font></small>
 												</div>
 												<div class="form-group">
 													<label class=" form-control-label">Keluaran</label>
 													<div class="input-group">
-														<input name="outputF" type="text" id="outputF" class="form-control">
+														<input name="output" id="outputU" type="text" class="form-control">
 													</div>
 													<small class="form-text text-muted">Output merupakan luaran dari tahapan</small>
 												</div>												
 												<div class="form-group">
 													<label class=" form-control-label">Deskripsi</label>
 													<div class="input-group">
-														<textarea class="form-control" name="deskripsiF" id="deskripsiF" rows=10></textarea>
+														<textarea class="form-control" name="deskripsi" id="deskripsiU" rows=10></textarea>
 													</div>
 													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
 												</div>
-											</div>
-										</div>
-								</div>
-								<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
-										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
-										<input type="hidden" name="mingguF" id="mingguF" value="0">
-										<input type="hidden" name="typeF" id="typeF" value="0">
-										<input type="hidden" name="id_referF" id="id_referF" value="0">
-										
-										<input type="hidden" name="id_mnv_fisik" id="id_mnv_fisik" value="0">
-										<input type="hidden" name="fisik_realF" id="fisik_realF" value="0">
-										<input type="hidden" name="update" value="0"/>
-										<button type="submit" class="btn btn-primary"
-											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
-										</button>
-								</div>
-								<?php echo form_close(); ?>
-						</div>
-				</div>
-
-				</div>
-
-				<div class="modal fade" id="updateKendala" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-md" role="document">
-						<div class="modal-content">
-								<div class="modal-header">
-										<h5 class="modal-title text-center" id="largeModalLabel">Rincian Perkembangan</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-										</button>
-								</div>
-								<div class="modal-body">
-										<?php echo form_open('Monev/submit_fisik'); ?>
-										<div class="row">
-											<div class="col-sm-8">
-												<h5>Bulan: <b><i id="bulanItemKk" style="font-style: normal;"> </i></b></h5>
-											</div>
-											<div class="col-sm-4">
-												<h5>Minggu ke-<i id="mingguItemKk" style="font-style: normal;"> </i></b></h5>
-											</div>
-											<div class="col-md-12" style="margin-top: 20px;">
-												<div class="form-group">
-													<label class=" form-control-label">Presentase Fisik</label>
-													<div class="input-group">
-														<input name="fisikF" id="fisikKk" type="number" class="form-control" placeholder="50">
-													</div>
-													<small class="form-text text-muted">Skala kumulatif 0 - 100</small>
-												</div>
-												<div class="form-group">
-													<label class=" form-control-label">Keluaran</label>
-													<div class="input-group">
-														<input name="outputF" type="text" id="outputKk" class="form-control">
-													</div>
-													<small class="form-text text-muted">Output merupakan luaran dari tahapan</small>
-												</div>												
-												<div class="form-group">
-													<label class=" form-control-label">Deskripsi</label>
-													<div class="input-group">
-														<textarea class="form-control" name="deskripsiF" id="deskripsiKk" rows=10></textarea>
-													</div>
-													<small class="form-text text-muted">Uraikan secara singkat luaran yang dihasilkan pada tahapan ini</small>
-												</div>
-												<div class="form-group">
+												<div class="form-group" id="kendalaU" style="display:block">
 													<label class=" form-control-label">Kendala</label>
+													<small class="form-text text-muted">Uraikan secara singkat kendala yang terjadi, form ini muncul jika masa pengisian terlambat, atau (biaya pengeluaran atau fisik) lebih kecil dari 90% nilai perencanaan</small>
 													<div class="input-group">
-														<textarea class="form-control" name="kendalaF" id="kendalaKk" rows=7></textarea>
+														<textarea class="form-control" name="kendala" id="kendalaTextU" value="-" rows=7 required>-</textarea>
 													</div>
-													
+													<div class="input-group">
+														<input name="tingkat_kendala" required type="radio" class="form-control" value=1 >sangat rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=2>rendah</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=3>sedang</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=4>tinggi</input>
+														<input name="tingkat_kendala" type="radio" class="form-control" value=5>sangat tinggi</input>
+													</div>
 												</div>
-												<div class="form-group">
+												<div class="form-group" style="display:none">
 													<div class="input-group" style="font-size:8pt;">
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=1>sangat rendah</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=2>rendah</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=3>sedang</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=4>tinggi</input>
-														<input name="tingkat_kendalaF" id="tingkat_kendalaKk" type="radio" class="form-control" value=5>sangat tinggi</input>
+														<input name="tingkat_kendala" id="kendalaZeroU" type="radio" class="form-control" value=0 checked>tidak ada kendala</input>
+														
 													</div>
-													<small class="form-text text-muted">Isi hanya jika terdapat kendala dalam satu pekan</small>
 												</div>
 											</div>
 										</div>
+
 								</div>
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 										<input type="hidden" name="user_id" value="<?=$this->session->userdata('id'); ?>">
-										<input type="hidden" name="id_kegiatan" value="<?=$id_kegiatan; ?>">
+										<input type="hidden" name="id_kegiatan" value="<?=$idk; ?>">
 										<input type="hidden" name="id_rmp" value="<?=$row['id']; ?>">
-										<input type="hidden" name="minggu" id="mingguKk" value="0">
-										<input type="hidden" name="typeF" id="typeKk" value="0">
-										<input type="hidden" name="id_referF" id="id_referKk" value="0">
-										
-										<input type="hidden" name="id_mnv_fisik" id="id_mnv_fisikKk" value="0">
-										<input type="hidden" name="fisik_realF" id="fisik_realKk" value="0">
+										<input type="hidden" name="month" id="monthU" value="">
+										<input type="hidden" name="kendala_id" id="kendala_idU" value="0">
+										<input type="hidden" name="type" id="typeU" value="0">
+										<input type="hidden" name="id_refer" id="id_referU" value="0">
+										<input type="hidden" name="fisik_acuan" id="fisik_acuanU" value="0">
+										<input type="hidden" name="biaya_acuan" id="biaya_acuanU" value="0">
+										<input type="hidden" name="id_mnv_fisik" id="id_mnv_fisik" value="0"/>
 										<input type="hidden" name="update" value="0"/>
 										<button type="submit" class="btn btn-primary"
-											<i class="fa fa-fw fa-dot-circle-o"></i> Edit
+											<i class="fa fa-fw fa-dot-circle-o"></i> Update
 										</button>
 								</div>
 								<?php echo form_close(); ?>
