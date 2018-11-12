@@ -53,7 +53,7 @@ class ModelMnvKeuangan extends CI_Model {
 	}
 
 	public function getSisaOther($id_refer, $month, $type, $id_kegiatan){
-		$this->db->select('jml_uang');
+		$this->db->select('SUM(jml_uang) as jml_uang');
 		$this->db->from($this->tableName);
 		$this->db->where('month='.$month.' and id_kegiatan='.$id_kegiatan);
 		$temp = $this->db->get()->result_array();
