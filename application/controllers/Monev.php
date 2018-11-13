@@ -302,118 +302,233 @@ class Monev extends CI_Controller {
 	public function view_progres($idk = NULL){
 		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($idk)->row_array();
-		$this->data['id_kegiatan'] = $idk;
-		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
-		// $this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();	
+		$this->data['sisaFisik'] = 100;
+		$this->data['sisaMoneysP'] = 100;
+		$this->data['sisa'] = $this->data['row']['pagu'];
 
-		$this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();	
+		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
+		$this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();			
 		$this->data['moneys'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
-		$this->data['sdktitles'] = $this->ModelRMPSDKTitle->selectAll()->result_array();		
-		$this->data['moneysWeeks'] = array();
-		$this->data['moneysWeeksKumulatif'] = array();
-		$this->data['moneysWeeksKumulatifP'] = array();
-		$this->data['actWeeks'] = array();
-		$this->data['fisikWeeks'] = array();
-		$this->data['fisikWeeksKumulatif'] = array();
-		$this->data['stageWeeks'] = array();
+		$this->data['sdktitles'] = $this->ModelRMPSDKTitle->selectAll()->result_array();
+		$this->data['idk'] = $idk;	//add ahmad 
+		$this->data['actTotal'] = array();
+		$this->data['stageTotal'] = array();
+		$this->data['moneysTotalP'] = 0;
+		$this->data['moneysTotalK'] = 0;
+
+		$this->data['moneysMonths'] = array();
+		$this->data['moneysMonthsKend'] = array();
+		$this->data['moneysMonthsId'] = array();
+		$this->data['moneysMonthsP'] = array();
+		$this->data['moneysMonthsKumulatif'] = array();
+		$this->data['moneysMonthsKumulatifP'] = array();
+		$this->data['actMonths'] = array();
+		$this->data['fisikMonths'] = array();
+		$this->data['fisikMonthsR'] = array();
+		$this->data['fisikMonthsKumulatif'] = array();
+		$this->data['stageMonths'] = array();
+		$this->data['moneysKumulatif'] = 0;
+		$this->data['moneysP'] = 0;
+		$this->data['fisikP'] = 0;
 		$fisik_kumulatif = 0;
-		
-		
+		$moneys_kumulatif = 0;
+		$moneys_kumulatifP = 0;
+
+		$this->data['actMonthsR'] = array();
+		$this->data['stageMonthsR'] = array();
+		$this->data['moneysMonthsR'] = array();
+		$this->data['moneysMonthsPR'] = array();
+		$this->data['moneysMonthsKumulatifR'] = array();
+		$this->data['moneysMonthsKumulatifPR'] = array();
+		$this->data['fisikMonthsKumulatifR'] = array();
+		$fisik_kumulatifR = 0;
+		$moneys_kumulatifR = 0;
+		$moneys_kumulatifPR = 0;
+
 		$month = (int)date("m");
-		
-		$this->data['this_months'] = ($month-1);
-		
+		$this->data['this_month'] = ($month+1);
+
 		for ($i=0; $i < 12; $i++) {
-			$temp2 = 0;
-			$temp = $this->ModelMnvFisik->getByWeeksRMPKumulatif($this->data['row']['id'],($i+1));
-			if($temp->num_rows() != 0){
-				$temp = $temp->result_array()[0]['persentase_real'];
-				if($temp != 0){
-					$fisik_kumulatif += $temp;
-					$temp2 = $fisik_kumulatif;
-				}
-			}else{
-				$temp = 0;
-			}
-			array_push($this->data['fisikWeeks'],round($temp,3));
-			array_push($this->data['fisikWeeksKumulatif'],round($temp2,3));
-			
-			$temp = $this->ModelMnvKeuanganTotal->getByWeeksRMP($this->data['row']['id'],($i+1));
-			$temp2 = 0;
-			$temp3 = 0;
+			$temp = $this->ModelMnvKeuangan->getByMonthRMP($idk,($i+1));
 			if($temp->num_rows() != 0){
 				$temp = $temp->result_array();
-				$temp2 = $temp[0]['jml_kumulatif'];
-				$temp3 = $temp[0]['persentase_kumulatif'];
-				$temp = $temp[0]['jml'];
+				$this->data['moneysMonths'][$i] = $temp[0]['jml_uang'];
+				$this->data['moneysTotalK'] += $temp[0]['jml_uang'];
+				$this->data['moneysTotalP'] += $temp[0]['jml_uangP'];
+				$this->data['moneysMonthsP'][$i] = $temp[0]['jml_uangP'];
+				$this->data['moneysMonthsKend'][$i] = $temp[0]['kendala'];
+				$this->data['moneysMonthsId'][$i] = $temp[0]['id_mnv_keuangan'];
 			}else{
-				$temp = 0;
+				$this->data['moneysMonths'][$i] = 'x';
+				$this->data['moneysMonthsP'][$i] = 0;
+				$this->data['moneysMonthsKend'][$i] = '-';
 			}
 
-			array_push($this->data['moneysWeeks'],$temp);
-			array_push($this->data['moneysWeeksKumulatif'],$temp2);
-			array_push($this->data['moneysWeeksKumulatifP'],round($temp3,3));
-			foreach($this->data['allAct'] as $act){
-				$this->data['actWeeks'][$act['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($act['id'],($i+1),"act");
+			$this->data['fisikMonths'][$i] = 0;
 
-				if($this->data['actWeeks'][$act['id']][$i]->num_rows() != 0){
-					$tempArr = $this->data['actWeeks'][$act['id']][$i]->result_array();
-					$tempWeeks = array(
-						'persentase' => $tempArr[0]['persentase_real'],
-						'tingkat_kendala' => $tempArr[0]['tingkat_kendala'],
-						);
-					$this->data['actWeeks'][$act['id']][$i] = $tempWeeks;
-					// $this->data['actWeeks'][$act['id']][$i] = $this->data['actWeeks'][$act['id']][$i]->result_array()[0]['tingkat_kendala'];
+			$this->data['fisikMonthsR'][$i] = 0;
+			$this->data['moneysMonthsR'][$i] = 0;
+			$this->data['moneysMonthsPR'][$i] = 0;
+			foreach($this->data['allAct'] as $act){
+				$temp = $this->ModelRMPSDKPlanAct->getByMonthRMP($act['id'],($i+1)); //Model Edited
+				if($temp->num_rows() == 0){
+					$this->data['actMonthsR'][$act['id']][$i]['biaya'] = 0;
+					$this->data['actMonthsR'][$act['id']][$i]['fisik'] = 0;
 				}else{
-					$this->data['actWeeks'][$act['id']][$i] = 0;
+					$temp = $temp->result_array();
+					$this->data['actMonthsR'][$act['id']][$i]['biaya'] = 0;
+					$this->data['actMonthsR'][$act['id']][$i]['fisik'] = 0;
+					foreach ($temp as $value) {
+						$this->data['actMonthsR'][$act['id']][$i]['biaya'] += $value['biaya'];
+						$this->data['actMonthsR'][$act['id']][$i]['fisik'] += $value['fisik'];
+						$this->data['moneysMonthsR'][$i] += $value['biaya'];
+						$this->data['moneysMonthsPR'][$i] += $value['biayaP'];
+						$this->data['fisikMonthsR'][$i] += $value['fisik'];
+						$fisik_kumulatifR+= $value['fisik'];
+						$moneys_kumulatifR+= $value['biaya'];
+						$moneys_kumulatifPR+= $value['biayaP'];
+					}
+					
 				}
+
+				$temp = $this->ModelMnvFisik->getByMonthRMP($act['id'],($i+1),'act'); //Model Edited
+				if($temp->num_rows() == 0){
+					$this->data['actMonths'][$act['id']][$i]['biaya'] = "x";
+					
+				}else{
+					$temp = $temp->result_array();
+					$this->data['actMonths'][$act['id']][$i]['biaya'] = 0;
+					$this->data['actMonths'][$act['id']][$i]['fisik'] = 0;
+					foreach ($temp as $value) {
+						$this->data['actMonths'][$act['id']][$i]['biaya'] += $value['biaya'];
+						$this->data['actMonths'][$act['id']][$i]['fisik'] += $value['fisik_real'];
+						$this->data['actMonths'][$act['id']][$i]['tingkat_kendala'] = $value['tingkat_kendala'];
+						$this->data['actMonths'][$act['id']][$i]['id_mnv_fisik'] = $value['id_mnv_fisik'];
+						$this->data['actMonths'][$act['id']][$i]['biayaP'] = $value['biayaP'];
+						$this->data['actMonths'][$act['id']][$i]['fisik_P'] = $value['fisik'];
+						$this->data['actMonths'][$act['id']][$i]['output'] = $value['output'];
+						$this->data['actMonths'][$act['id']][$i]['deskripsi'] = $value['deskripsi'];
+						$this->data['actMonths'][$act['id']][$i]['kendala'] = $value['kendala'];
+						
+						$this->data['fisikMonths'][$i] += $value['fisik_real'];
+						$fisik_kumulatif+= $value['fisik_real'];
+						$moneys_kumulatif+= $value['biaya'];
+						$moneys_kumulatifP+= $value['biayaP'];
+					}
+					
+				}
+
 			}
 			foreach($this->data['allStages'] as $stage){
-				$this->data['stageWeeks'][$stage['id']][$i] = $this->ModelMnvFisik->getByWeeksRMP($stage['id'],($i+1),"stage");
-				
-				if($this->data['stageWeeks'][$stage['id']][$i]->num_rows() != 0){
-					$tempArr = $this->data['stageWeeks'][$stage['id']][$i]->result_array();
-					$tempWeeks = array(
-						'persentase' => $tempArr[0]['persentase_real'],
-						'tingkat_kendala' => $tempArr[0]['tingkat_kendala'],
-						);
-					$this->data['stageWeeks'][$stage['id']][$i] = $tempWeeks;
-					// $this->data['stageWeeks'][$stage['id']][$i]['tingkat_kendala'] = $this->data['stageWeeks'][$stage['id']][$i]->result_array()[0]['tingkat_kendala'];
-				}else{
-					$this->data['stageWeeks'][$stage['id']][$i] = 0;
-				}
-				// $temp = array(
-				// 	array( $stage['id'] => array(
-				// 			$i => $this->ModelMnvFisik->cekByWeeksRMP($stage['id'],($i+1),"act"),
-				// 			) 
-				// 		)
-				// 	);
-				// array_push($this->data['stageWeeks'],$temp);
-			}
-		}
-		// echo "<pre>";
-		// print_r($this->data['moneysWeeks']);
-		// echo "</pre>";
 
-		/*Counting Total Every Step*/
+				$temp = $this->ModelRMPSDKPlanStage->getByMonthRMP($stage['id'],($i+1)); //Model Edited
+				
+				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
+					$this->data['stageMonthsR'][$stage['id']][$i]['biaya'] = 0;
+					$this->data['stageMonthsR'][$stage['id']][$i]['fisik'] = 0;
+					foreach ($temp as $value) {
+						$this->data['stageMonthsR'][$stage['id']][$i]['biaya'] += $value['biaya'];
+						$this->data['stageMonthsR'][$stage['id']][$i]['fisik'] += $value['fisik'];
+						$this->data['moneysMonthsR'][$i] += $value['biaya'];
+						$this->data['moneysMonthsPR'][$i] += $value['biayaP'];
+						$this->data['fisikMonthsR'][$i] += $value['fisik'];
+						$fisik_kumulatifR+= $value['fisik'];
+						$moneys_kumulatifR+= $value['biaya'];
+						$moneys_kumulatifPR+= $value['biayaP'];
+					}
+				}else{
+					$this->data['stageMonthsR'][$stage['id']][$i]['biaya'] = 0;
+					$this->data['stageMonthsR'][$stage['id']][$i]['fisik'] = 0;
+				}
+
+				$temp = $this->ModelMnvFisik->getByMonthRMP($stage['id'],($i+1),'stage'); //Model Edited
+				
+				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
+					$this->data['stageMonths'][$stage['id']][$i]['biaya'] = 0;
+					$this->data['stageMonths'][$stage['id']][$i]['fisik'] = 0;
+					foreach ($temp as $value) {
+						$this->data['stageMonths'][$stage['id']][$i]['biaya'] += $value['biaya'];
+						$this->data['stageMonths'][$stage['id']][$i]['fisik'] += $value['fisik_real'];
+						$this->data['stageMonths'][$stage['id']][$i]['tingkat_kendala'] = $value['tingkat_kendala'];
+						$this->data['stageMonths'][$stage['id']][$i]['id_mnv_fisik'] = $value['id_mnv_fisik'];
+						$this->data['stageMonths'][$stage['id']][$i]['biayaP'] = $value['biayaP'];
+						$this->data['stageMonths'][$stage['id']][$i]['fisik_P'] = $value['fisik'];
+						$this->data['stageMonths'][$stage['id']][$i]['output'] = $value['output'];
+						$this->data['stageMonths'][$stage['id']][$i]['deskripsi'] = $value['deskripsi'];
+						$this->data['stageMonths'][$stage['id']][$i]['kendala'] = $value['kendala'];
+						
+						$this->data['fisikMonths'][$i] += $value['fisik_real'];
+						$fisik_kumulatif+= $value['fisik_real'];
+						$moneys_kumulatif+= $value['biaya'];
+						$moneys_kumulatifP+= $value['biayaP'];
+					}
+				}else{
+					$this->data['stageMonths'][$stage['id']][$i]['biaya'] = "x";
+					
+				}
+			}
+
+			$this->data['moneysMonthsKumulatif'][$i] = $moneys_kumulatif;
+			$this->data['fisikMonthsKumulatif'][$i] = $fisik_kumulatif;
+			$this->data['moneysMonthsKumulatifP'][$i] = $moneys_kumulatifP;
+
+			$this->data['moneysMonthsKumulatifR'][$i] = $moneys_kumulatifR;
+			$this->data['fisikMonthsKumulatifR'][$i] = $fisik_kumulatifR;
+			$this->data['moneysMonthsKumulatifPR'][$i] = $moneys_kumulatifPR;
+		}
+		$this->data['moneysP'] = $moneys_kumulatifP;
+		$this->data['fisikP'] = $fisik_kumulatif;
+		$this->data['sisaMoneysP'] -= $moneys_kumulatifP;
+		$this->data['sisaFisik'] -= $fisik_kumulatif;
+		$this->data['moneysKumulatif'] = $moneys_kumulatif;
+		$this->data['sisa'] -= $moneys_kumulatif;
 		$convert = array('A'=>0,'B'=>1,'C'=>2);
 		for($i=0;$i<3;$i++){
 			$this->data['total'][$i] = 0;
+			$this->data['totalP'][$i] = 0;
+			$this->data['totalF'][$i] = 0;
+			$kk=0;
 			foreach($this->data['allAct'] as $act){
+				
 				if($convert[$act['parent']] == $i){
+					$temp = $this->ModelMnvFisik->getByReferTotal($act['id'],'act'); //edited model
+					if($temp->num_rows() != 0){
+						$temp = $temp->result_array();
+						$this->data['actTotal'][$act['id']]['biaya'] = $temp[0]['biaya'];
+						$this->data['actTotal'][$act['id']]['biayaP'] = $temp[0]['biayaP'];
+						$this->data['actTotal'][$act['id']]['fisik'] = $temp[0]['fisik'];
+						$this->data['actTotal'][$act['id']]['hchild'] = 0;
+						$this->data['total'][$i] += $temp[0]['biaya'];
+						$this->data['totalP'][$i] += $temp[0]['biayaP'];
+						$this->data['totalF'][$i] += $temp[0]['fisik'];
+					}
 					foreach($this->data['allStages'] as $stage){
 						if($stage['act_id'] == $act['id']){
-							$this->data['total'][$i] += $stage['anggaran'];
+							$this->data['actTotal'][$act['id']]['hchild'] = 1;
+							$temp = $this->ModelMnvFisik->getByReferTotal($stage['id'],'stage'); //edited model
+							if($temp->num_rows() != 0){
+
+								$temp = $temp->result_array();
+								$this->data['actTotal'][$stage['act_id']]['biaya'] += $temp[0]['biaya'];
+								$this->data['actTotal'][$stage['act_id']]['biayaP'] += $temp[0]['biayaP'];
+								$this->data['actTotal'][$stage['act_id']]['fisik'] += $temp[0]['fisik'];
+								$this->data['stageTotal'][$stage['id']]['biaya'] = $temp[0]['biaya'];
+								$this->data['stageTotal'][$stage['id']]['biayaP'] = $temp[0]['biayaP'];
+								$this->data['stageTotal'][$stage['id']]['fisik'] = $temp[0]['fisik'];
+								$this->data['total'][$i] += $temp[0]['biaya'];
+								$this->data['totalP'][$i] += $temp[0]['biayaP'];
+								$this->data['totalF'][$i] += $temp[0]['fisik'];
+							}
 						}
 					}
-					if($act['anggaran'] != 0){
-						$this->data['total'][$i] += $act['anggaran'];
-					}
 				}
+				$kk++;
 			}
-		}		
+		}			
 		// echo "<pre>";
-		// print_r($this->data['moneysWeeks']);
+		// print_r($this->data);
 		// echo "</pre>";
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');

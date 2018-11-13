@@ -254,13 +254,13 @@
 														<?php
 															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
 														?>
-														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
 														}else{
 															?>
-															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="1.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
@@ -438,13 +438,13 @@
 														<?php
 															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
 														?>
-														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
 														}else{
 															?>
-															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="2.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
@@ -621,13 +621,13 @@
 														<?php
 															}else if(($stageMonthsR[$stage['id']][($i)]['fisik'] !=0 || $stageMonthsR[$stage['id']][($i)]['biaya'] != 0)){
 														?>
-														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
+														<a href="#" class="text-danger" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
 														}else{
 															?>
-															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="1" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
+															<a href="#" class="text-secondary" data-toggle="modal" data-target="#addLaporan" data-moneyAc="<?=$moneysMonths[$i];?>" data-money="<?=$stageMonthsR[$stage['id']][($i)]['biaya']; ?>" data-refer="<?=$stage['id']; ?>" data-month="<?=($i+1); ?>" data-type="stage" data-fisik="<?= $stageMonthsR[$stage['id']][($i)]['fisik'];?>" data-kendala="0" data-sub="3.<?=($no-1); ?>.<?=($no3-1); ?>">
 																<i class="fa fa-fw fa-edit"></i>
 															</a>
 															<?php
@@ -1056,4 +1056,3 @@
 				</div>
 
 				</div>
-		</div><!-- /#right-panel -->
