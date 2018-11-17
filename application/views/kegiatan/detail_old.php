@@ -189,6 +189,9 @@
   subtitle: {
     text: ''
   },
+  xAxis: {
+    categories: ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
 
   yAxis: {
     title: {
@@ -201,14 +204,6 @@
     verticalAlign: 'middle'
   },
 
-  plotOptions: {
-    series: {
-      label: {
-        connectorAllowed: false
-      },
-      pointStart: 2010
-    }
-  },
 
   series: [{
     name: 'Target Keuangan',
