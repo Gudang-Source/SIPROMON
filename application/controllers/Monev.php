@@ -288,7 +288,16 @@ class Monev extends CI_Controller {
 				}
 				$kk++;
 			}
-		}			
+		}
+		$temp = $this->ModelKegiatan->selectProgres($idk);
+
+		if($temp[0]['r_keuangan'] != $this->data['moneysP'] || $temp[0]['r_fisik'] != $this->data['fisikP']){
+			$data_temp = array(
+				'r_keuangan' => $this->data['moneysP'], 
+				'r_fisik' => $this->data['fisikP'], 
+				);
+			$this->ModelKegiatan->update($idk,$data_temp);
+		}
 		// echo "<pre>";
 		// print_r($this->data);
 		// echo "</pre>";
@@ -526,9 +535,12 @@ class Monev extends CI_Controller {
 				}
 				$kk++;
 			}
-		}			
+		}
+
+		
+
 		// echo "<pre>";
-		// print_r($this->data);
+		// print_r($temp);
 		// echo "</pre>";
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
