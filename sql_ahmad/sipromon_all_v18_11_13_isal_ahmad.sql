@@ -35,7 +35,7 @@ CREATE TABLE `employee` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `employee`
@@ -80,7 +80,7 @@ CREATE TABLE `kegiatan` (
   `att4` varchar(255) DEFAULT NULL,
   `att5` varchar(255) DEFAULT NULL,
   `rmp_stats` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kegiatan`
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `mnv_fisik` (
   `kendala` text NOT NULL,
   `tingkat_kendala` int(11) NOT NULL DEFAULT '0',
   `type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 -- --------------------------------------------------------
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `mnv_keuangan` (
   `id_rmp_sdk` int(11) NOT NULL,
   `id_kegiatan` int(11) NOT NULL,
   `kendala` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `mnv_keuangan`
@@ -170,7 +170,7 @@ CREATE TABLE `rmp` (
   `baganalir` varchar(255) DEFAULT NULL,
   `cek` longtext,
   `evaluatorId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp`
@@ -203,7 +203,7 @@ CREATE TABLE `rmp_activity` (
   `pj` varchar(255) DEFAULT NULL,
   `waktu` varchar(255) DEFAULT NULL,
   `bobot` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_activity`
@@ -240,7 +240,7 @@ CREATE TABLE `rmp_activity_executor` (
   `id` int(11) NOT NULL,
   `rmp_activity_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_activity_executor`
@@ -271,7 +271,7 @@ CREATE TABLE `rmp_bibliography` (
   `bib_title` varchar(255) NOT NULL,
   `bib_publisher` varchar(255) NOT NULL,
   `bib_city` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_bibliography`
@@ -292,7 +292,7 @@ CREATE TABLE `rmp_document` (
   `rmp_id` int(11) NOT NULL,
   `document_name` varchar(255) NOT NULL,
   `document_num` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_document`
@@ -394,7 +394,7 @@ CREATE TABLE `rmp_evaluator` (
   `fullname` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_evaluator`
@@ -417,7 +417,7 @@ CREATE TABLE `rmp_position` (
   `tugas` text NOT NULL,
   `tanggungjawab` text NOT NULL,
   `wewenang` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_position`
@@ -438,7 +438,7 @@ CREATE TABLE `rmp_rab_activity` (
   `fisik` int(11) NOT NULL,
   `keuangan` int(11) NOT NULL,
   `json` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -452,7 +452,7 @@ CREATE TABLE `rmp_record_list` (
   `record_name` text NOT NULL,
   `location` varchar(255) NOT NULL,
   `period` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_record_list`
@@ -474,7 +474,7 @@ CREATE TABLE `rmp_revisi` (
   `id` int(11) NOT NULL,
   `rmpId` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_revisi`
@@ -498,7 +498,7 @@ CREATE TABLE `rmp_revisi_detail` (
   `keterangan` text,
   `kesesuaian` tinyint(4) DEFAULT NULL,
   `catatan` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_revisi_detail`
@@ -520,7 +520,7 @@ CREATE TABLE `rmp_roles` (
   `tugas` text NOT NULL,
   `tanggungjawab` text NOT NULL,
   `wewenang` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_roles`
@@ -565,7 +565,7 @@ CREATE TABLE `rmp_sdk` (
   `akun` varchar(255) NOT NULL,
   `jenis` varchar(255) NOT NULL,
   `biaya` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_sdk`
@@ -603,7 +603,7 @@ CREATE TABLE `rmp_sdk_list` (
   `jml` int(11) NOT NULL,
   `satuan` int(11) NOT NULL,
   `total` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -621,7 +621,7 @@ CREATE TABLE `rmp_sdk_plan_act` (
   `biaya` int(11) NOT NULL,
   `biayaP` float NOT NULL DEFAULT '0',
   `fisik` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_sdk_plan_act`
@@ -644,7 +644,7 @@ CREATE TABLE `rmp_sdk_plan_stage` (
   `biaya` int(11) NOT NULL,
   `biayaP` float NOT NULL DEFAULT '0',
   `fisik` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 
@@ -662,7 +662,7 @@ CREATE TABLE `rmp_sdk_title` (
   `jml` int(11) NOT NULL,
   `satuan` int(11) NOT NULL,
   `total` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_sdk_title`
@@ -689,7 +689,7 @@ CREATE TABLE `rmp_sdm` (
   `id` int(11) NOT NULL,
   `rmp_id` int(11) NOT NULL,
   `rmp_position` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_sdm`
@@ -722,7 +722,7 @@ CREATE TABLE `rmp_stages` (
   `pj` varchar(255) DEFAULT NULL,
   `waktu` varchar(255) DEFAULT NULL,
   `bobot` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_stages`
@@ -753,7 +753,7 @@ CREATE TABLE `rmp_stages_executor` (
   `id` int(11) NOT NULL,
   `rmp_stages_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rmp_stages_executor`
@@ -782,7 +782,7 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `position` varchar(255) NOT NULL,
   `employee_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `roles`
@@ -837,7 +837,7 @@ CREATE TABLE `satker` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL COMMENT 'Nama Satker',
   `roles_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `satker`
@@ -869,7 +869,7 @@ CREATE TABLE `structure_organization` (
   `name` varchar(255) NOT NULL,
   `position` varchar(255) NOT NULL,
   `id_satker` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `structure_organization`
@@ -907,7 +907,7 @@ CREATE TABLE `user` (
   `hp` varchar(255) DEFAULT NULL COMMENT 'Tanggal Lahir',
   `email` varchar(255) NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
@@ -1121,11 +1121,6 @@ ALTER TABLE `mnv_fisik`
 ALTER TABLE `mnv_keuangan`
   MODIFY `id_mnv_keuangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
---
--- AUTO_INCREMENT untuk tabel `mnv_keuangan_total`
---
-ALTER TABLE `mnv_keuangan_total`
-  MODIFY `id_mnv_k_t` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `rmp`
