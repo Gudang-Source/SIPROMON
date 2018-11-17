@@ -79,7 +79,12 @@ CREATE TABLE `kegiatan` (
   `rabtitle` varchar(255) DEFAULT NULL,
   `att4` varchar(255) DEFAULT NULL,
   `att5` varchar(255) DEFAULT NULL,
-  `rmp_stats` tinyint(1) DEFAULT NULL
+  `rmp_stats` tinyint(1) DEFAULT NULL,
+  `t_keuangan` float NOT NULL DEFAULT '0',
+  `t_fisik` float NOT NULL DEFAULT '0',
+  `r_keuangan` float NOT NULL DEFAULT '0',
+  `r_fisik` float NOT NULL DEFAULT '0',
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
