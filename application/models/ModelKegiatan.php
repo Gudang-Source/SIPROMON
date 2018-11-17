@@ -85,6 +85,14 @@ class ModelKegiatan extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	public function selectProgres($id){
+		$this->db->select('t_keuangan, r_keuangan, t_fisik, r_fisik');
+		$this->db->from($this->tableName);
+		$this->db->where('id',$id);
+		
+		return $this->db->get()->result_array();
+	}
+
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 

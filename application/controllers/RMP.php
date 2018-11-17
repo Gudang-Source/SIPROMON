@@ -635,7 +635,19 @@ class RMP extends CI_Controller {
 				}
 				$kk++;
 			}
-		}		
+		}	
+		$temp = $this->ModelKegiatan->selectProgres($idk);
+
+		if($temp[0]['t_keuangan'] != $this->data['moneysP'] || $temp[0]['t_fisik'] != $this->data['fisikP']){
+			$data_temp = array(
+				't_keuangan' => $this->data['moneysP'], 
+				't_fisik' => $this->data['fisikP'], 
+				);
+			$this->ModelKegiatan->update($idk,$data_temp);
+		}
+		// echo "<pre>";
+		// print_r($temp);
+		// echo "</pre>";
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);
 		$this->load->view('rmp/lampiran3',$this->data);
