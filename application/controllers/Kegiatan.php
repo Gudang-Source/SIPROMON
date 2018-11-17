@@ -79,6 +79,7 @@ class Kegiatan extends CI_Controller {
 
 				$temp = $this->ModelMnvFisik->getByMonthRMP($act['id'],($i+1),'act'); //Model Edited
 				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
 					foreach ($temp as $value) {
 						
 						$fisik_kumulatif+= $value['fisik_real'];
