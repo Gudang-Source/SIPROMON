@@ -182,6 +182,7 @@
      var biaya = document.getElementById("biayaActAdd").value;
      var pagu = document.getElementById("pagu").value;
       $('#biayaPact').val((biaya/pagu)*100);
+      setMaxFAct();
   }
   function setMaxFAct(){
     $('#fisikAct').val($('#fisikAct').attr("max"));
@@ -191,6 +192,7 @@
      var biaya = document.getElementById("biayaStageAdd").value;
     var pagu = document.getElementById("pagu").value;
     $('#biayaPstage').val((biaya/pagu)*100);  
+    setMaxFStage();
   }
   function setMaxFStage(){
     $('#fisikStage').val($('#fisikStage').attr("max"));   
@@ -213,6 +215,7 @@
           $('#biayaActAdd').attr("max",data['sisa']);    
           $('#fisikAct').attr("placeholder","maximum = "+data['fisik']);    
           $('#fisikAct').attr("max",data['fisik']);    
+          
         }
       });
   }
@@ -244,7 +247,7 @@
           $('#biayaStageAdd').attr("max",data['sisa']);
           $('#fisikStage').attr("placeholder","maximum = "+data['fisik']);    
           $('#fisikStage').attr("max",data['fisik']);    
-
+          
         }
       });
   }

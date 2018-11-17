@@ -83,7 +83,7 @@ CREATE TABLE `kegiatan` (
   `t_keuangan` float NOT NULL DEFAULT '0',
   `t_fisik` float NOT NULL DEFAULT '0',
   `r_keuangan` float NOT NULL DEFAULT '0',
-  `r_fisik` float NOT NULL DEFAULT '0',
+  `r_fisik` float NOT NULL DEFAULT '0'
   
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
