@@ -123,15 +123,121 @@
 									</tbody>
 								</table>
 									<br>
+								<div id="chartProgres">
+								</div>
 									<br>
 									<br><br>
 									<br>
 								</div>
 								</div>
 						</div><!-- .animated -->
+
+
 				</div><!-- .content -->
 
 
 		</div><!-- /#right-panel -->
 
 		<!-- Right Panel -->
+
+
+<script src="<?=base_url();?>assets/js/highcharts/highcharts.js"></script>  
+<style type="text/css">
+	#chartProgres {
+	  height: 400px;
+	  margin: 0 auto
+	}
+</style>
+
+<script type="text/javascript">
+
+  t_keuangan = [];
+  t_fisik = [];
+
+  r_keuangan = [];
+  r_fisik = [];
+
+  <?php
+  	for($i = (-1); $i < 12; $i++){
+  		if($i == -1){
+  			?>
+		t_keuangan.push(<?= 0?>);
+  		r_keuangan.push(<?= 0?>);
+  		t_fisik.push(<?= 0?>);
+  		r_fisik.push(<?= 0?>);
+  			<?php
+  		}else{
+
+  		?>
+  		t_keuangan.push(<?= round($moneysMonthsKumulatifPR[$i],2);?>);
+  		r_keuangan.push(<?= round($moneysMonthsKumulatifP[$i],2);?>);
+  		t_fisik.push(<?= round($fisikMonthsKumulatifR[$i],2);?>);
+  		r_fisik.push(<?= round($fisikMonthsKumulatif[$i],2);?>);
+  		<?php
+  		}
+  	}
+  ?>
+
+  // alert(t_keuangan);
+
+	Highcharts.chart('chartProgres', {
+
+  title: {
+    text: 'Grafik Fisik dan Keuangan'
+  },
+
+  subtitle: {
+    text: ''
+  },
+
+  yAxis: {
+    title: {
+      text: 'Persentase'
+    }
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle'
+  },
+
+  plotOptions: {
+    series: {
+      label: {
+        connectorAllowed: false
+      },
+      pointStart: 2010
+    }
+  },
+
+  series: [{
+    name: 'Target Keuangan',
+    data: t_keuangan
+  }, {
+    name: 'Target Fisik',
+    data: t_fisik
+  }, {
+    name: 'Realisasi Keuangan',
+    data: r_keuangan
+  }, {
+    name: 'Realisasi Fisik',
+    data: r_fisik
+  }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
+        }
+      }
+    }]
+  }
+
+});
+</script>

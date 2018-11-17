@@ -39,8 +39,100 @@ class Kegiatan extends CI_Controller {
 		redirect('Kegiatan');
 	}
 	public function show($id){
+		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
+		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+
+		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
+		$this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();			
+		$this->data['moneys'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
+		$this->data['idk'] = $id;	//add ahmad 
+	
+		$this->data['moneysMonthsKumulatif'] = array();
+		$this->data['moneysMonthsKumulatifP'] = array();
+		$this->data['fisikMonthsKumulatif'] = array();
+	
+		$fisik_kumulatif = 0;
+		$moneys_kumulatif = 0;
+		$moneys_kumulatifP = 0;
+
+		$this->data['moneysMonthsKumulatifR'] = array();
+		$this->data['moneysMonthsKumulatifPR'] = array();
+		$this->data['fisikMonthsKumulatifR'] = array();
+		$fisik_kumulatifR = 0;
+		$moneys_kumulatifR = 0;
+		$moneys_kumulatifPR = 0;
+
+		for ($i=0; $i < 12; $i++) {
+			
+			foreach($this->data['allAct'] as $act){
+				$temp = $this->ModelRMPSDKPlanAct->getByMonthRMP($act['id'],($i+1)); //Model Edited
+				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
+					foreach ($temp as $value) {
+						
+						$fisik_kumulatifR+= $value['fisik'];
+						$moneys_kumulatifR+= $value['biaya'];
+						$moneys_kumulatifPR+= $value['biayaP'];
+					}
+					
+				}
+
+				$temp = $this->ModelMnvFisik->getByMonthRMP($act['id'],($i+1),'act'); //Model Edited
+				if($temp->num_rows() == 0){
+					$this->data['actMonths'][$act['id']][$i]['biaya'] = "x";
+					
+				}else{
+					foreach ($temp as $value) {
+						
+						$fisik_kumulatif+= $value['fisik_real'];
+						$moneys_kumulatif+= $value['biaya'];
+						$moneys_kumulatifP+= $value['biayaP'];
+					}
+					
+				}
+
+			}
+			foreach($this->data['allStages'] as $stage){
+
+				$temp = $this->ModelRMPSDKPlanStage->getByMonthRMP($stage['id'],($i+1)); //Model Edited
+				
+				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
+					
+					foreach ($temp as $value) {
+						
+						$fisik_kumulatifR+= $value['fisik'];
+						$moneys_kumulatifR+= $value['biaya'];
+						$moneys_kumulatifPR+= $value['biayaP'];
+					}
+				}
+				$temp = $this->ModelMnvFisik->getByMonthRMP($stage['id'],($i+1),'stage'); //Model Edited
+				
+				if($temp->num_rows() != 0){
+					$temp = $temp->result_array();
+				
+					foreach ($temp as $value) {
+						
+						$fisik_kumulatif+= $value['fisik_real'];
+						$moneys_kumulatif+= $value['biaya'];
+						$moneys_kumulatifP+= $value['biayaP'];
+					}
+				}
+			}
+
+			$this->data['moneysMonthsKumulatif'][$i] = $moneys_kumulatif;
+			$this->data['fisikMonthsKumulatif'][$i] = $fisik_kumulatif;
+			$this->data['moneysMonthsKumulatifP'][$i] = $moneys_kumulatifP;
+
+			$this->data['moneysMonthsKumulatifR'][$i] = $moneys_kumulatifR;
+			$this->data['fisikMonthsKumulatifR'][$i] = $fisik_kumulatifR;
+			$this->data['moneysMonthsKumulatifPR'][$i] = $moneys_kumulatifPR;
+		}
+		
+
 		$this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
 		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
+
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);
 		$this->load->view('kegiatan/detail_old',$this->data);
