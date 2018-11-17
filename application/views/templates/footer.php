@@ -515,6 +515,7 @@
     var biaya_acuan = document.getElementById("biaya_acuan").value;
     var pagu = document.getElementById("pagu").value;
     $('#biayaA').val(biaya_acuan);
+    biaya = biaya_acuan;
     $('#biayaPA').val((biaya_acuan/pagu)*100);
     var kendala_id = document.getElementById("kendala_id").value;
     var fisik_P = document.getElementById("fisikA").value;
@@ -700,6 +701,7 @@
     var pagu = document.getElementById("pagu").value;
     $('#biayaU').val(biaya_acuan);
     $('#biayaPU').val((biaya_acuan/pagu)*100);
+    biaya = biaya_acuan;
     var kendala_id = document.getElementById("kendala_idU").value;
     var fisik_P = document.getElementById("fisikU").value;
     
