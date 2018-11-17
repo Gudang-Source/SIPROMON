@@ -47,7 +47,7 @@
 											<a href="#" type="button" class="btn btn-labeled btn-secondary" onclick="printLamp3()">
 													<span class="btn-label"><i class="fa fa-fw fa-print"></i></span> Print
 											</a>												
-											<a href="#" type="button" class="btn btn-labeled btn-success" onclick="checkSisa()">
+											<a href="<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>" type="button" class="btn btn-labeled btn-success" onclick="checkSisa()">
 													<span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> End
 											</a>												
 										</div>
