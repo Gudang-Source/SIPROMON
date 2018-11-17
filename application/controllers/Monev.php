@@ -18,7 +18,7 @@ class Monev extends CI_Controller {
 	public function index(){
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('Monev/grafik');
+		$this->load->view('monev/grafik');
 		$this->load->view('templates/footer');
 	}
 	
@@ -26,7 +26,7 @@ class Monev extends CI_Controller {
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('Monev/grafik',$this->data);
+		$this->load->view('monev/grafik',$this->data);
 		$this->load->view('templates/footer');
 	}
 	
@@ -57,7 +57,7 @@ class Monev extends CI_Controller {
 		}		
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('Monev/tabel',$this->data);
+		$this->load->view('monev/tabel',$this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -303,7 +303,7 @@ class Monev extends CI_Controller {
 		// echo "</pre>";
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('Monev/tabel_progres',$this->data);
+		$this->load->view('monev/tabel_progres',$this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -544,7 +544,7 @@ class Monev extends CI_Controller {
 		// echo "</pre>";
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('Monev/tabel_progres_view',$this->data);
+		$this->load->view('monev/tabel_progres_view',$this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -568,7 +568,7 @@ class Monev extends CI_Controller {
 			
 			$kumulatif = $this->ModelMnvKeuangan->insert($data);
 			// print_r($pagu);
-			redirect('Monev/tabel_progres/'.$_POST['id_kegiatan']);
+			redirect('monev/tabel_progres/'.$_POST['id_kegiatan']);
 		}else if(isset($_POST['update'])){
 			
 			$jml_uangP = ($_POST['jml_uang']/$_POST['pagu'])*100;
@@ -584,7 +584,7 @@ class Monev extends CI_Controller {
 
 			$kumulatif = $this->ModelMnvKeuangan->update($_POST['id_mnv_keuangan'],$data);
 
-			redirect('Monev/tabel_progres/'.$_POST['id_kegiatan']);
+			redirect('monev/tabel_progres/'.$_POST['id_kegiatan']);
 		}else{
 			redirect('Home');
 		}
@@ -609,7 +609,7 @@ class Monev extends CI_Controller {
 					'type' => $_POST['type'],
 					);
 			$id_new = $this->ModelMnvFisik->insert($data);
-			redirect('Monev/tabel_progres/'.$_POST['id_kegiatan']);
+			redirect('monev/tabel_progres/'.$_POST['id_kegiatan']);
 			// echo '<pre>' . print_r($data) . '</pre>';
 			// echo '<pre>' . $id_new. '</pre>';
 		}else if(isset($_POST['update'])){
@@ -624,7 +624,7 @@ class Monev extends CI_Controller {
 					'tingkat_kendala' => $_POST['tingkat_kendala'],
 					);
 			$result = $this->ModelMnvFisik->update($_POST['id_mnv_fisik'],$data);
-			redirect('Monev/tabel_progres/'.$_POST['id_kegiatan']);
+			redirect('monev/tabel_progres/'.$_POST['id_kegiatan']);
 		}else{
 			redirect('Home');
 		}
