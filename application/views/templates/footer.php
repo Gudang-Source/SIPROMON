@@ -403,29 +403,29 @@
         var id_kegiatan = document.getElementById("id_kegiatan").value;
 
 
-        $.ajax({
-          type:"POST",
-          url:"<?=site_url('Monev/getSisaOther/')?>"+id_refer+"/"+month+"/"+type+"/"+id_kegiatan,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success:function(data)
-          {
-            // alert(data['sisaM']);
-            if(data['sisaM'] == 0){
-              moneyMax = -1;
-            }else{
-              moneyMax = data['sisaM'];
-            }
-            if(moneyMax == -1){
-              $('#biayaA').attr("placeholder","Tidak ada dana untuk digunakan");
-            }else{
-              $('#biayaA').attr("placeholder","Maksimal = "+moneyMax);
-            }
-            $('#biayaA').attr("min",0);
-            $('#biayaA').attr("max",moneyMax);
+        // $.ajax({
+        //   type:"POST",
+        //   url:"<?=site_url('Monev/getSisaOther/')?>"+id_refer+"/"+month+"/"+type+"/"+id_kegiatan,
+        //   contentType: "application/json; charset=utf-8",
+        //   dataType: "json",
+        //   success:function(data)
+        //   {
+        //     // alert(data['sisaM']);
+        //     if(data['sisaM'] == 0){
+        //       moneyMax = -1;
+        //     }else{
+        //       moneyMax = data['sisaM'];
+        //     }
+        //     if(moneyMax == -1){
+        //       $('#biayaA').attr("placeholder","Tidak ada dana untuk digunakan");
+        //     }else{
+        //       $('#biayaA').attr("placeholder","Maksimal = "+moneyMax);
+        //     }
+        //     $('#biayaA').attr("min",0);
+        //     $('#biayaA').attr("max",moneyMax);
 
-          }
-        });
+        //   }
+        // });
         bulan = [
           "Jan",
           "Feb",
@@ -576,29 +576,29 @@
         var id_kegiatan = document.getElementById("id_kegiatanU").value;
 
 
-        $.ajax({
-          type:"POST",
-          url:"<?=site_url('Monev/getSisaOther/')?>"+id_refer+"/"+month+"/"+type+"/"+id_kegiatan,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success:function(data)
-          {
-            // alert(data['sisaM']);
-            if(data['sisaM'] == 0){
-              moneyMax = -1;
-            }else{
-              moneyMax = data['sisaM'];
-            }
-            if(moneyMax == -1){
-              $('#biayaU').attr("placeholder","Tidak ada dana untuk digunakan");
-            }else{
-              $('#biayaU').attr("placeholder","Maksimal = "+moneyMax);
-            }
-            $('#biayaU').attr("min",0);
-            $('#biayaU').attr("max",moneyMax);
+        // $.ajax({
+        //   type:"POST",
+        //   url:"<?=site_url('Monev/getSisaOther/')?>"+id_refer+"/"+month+"/"+type+"/"+id_kegiatan,
+        //   contentType: "application/json; charset=utf-8",
+        //   dataType: "json",
+        //   success:function(data)
+        //   {
+        //     // alert(data['sisaM']);
+        //     if(data['sisaM'] == 0){
+        //       moneyMax = -1;
+        //     }else{
+        //       moneyMax = data['sisaM'];
+        //     }
+        //     if(moneyMax == -1){
+        //       $('#biayaU').attr("placeholder","Tidak ada dana untuk digunakan");
+        //     }else{
+        //       $('#biayaU').attr("placeholder","Maksimal = "+moneyMax);
+        //     }
+        //     $('#biayaU').attr("min",0);
+        //     $('#biayaU').attr("max",moneyMax);
 
-          }
-        });
+        //   }
+        // });
         
 
         bulan = [
