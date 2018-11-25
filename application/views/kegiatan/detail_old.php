@@ -116,7 +116,7 @@
 											<td><a href="<?=base_url();?>Monev/view_progres/<?=$row['id']; ?>"><?=$row['judul']; ?></a></td>
 											<td align="right"><?=number_format($row['pagu'],0,',','.'); ?></td>
 											<td><?=round($row['t_keuangan'],3); ?>%</td>
-											<td class="text-danger"><?=round($row['r_keuangan'],3); ?>%</td>
+											<td class="text-danger"><?=round($moneysMonthsKumulatifP[11],3); ?>%</td>
 											<td><?=round($row['t_fisik'],3); ?>%</td>
 											<td class="text-danger"><?=round($row['r_fisik'],3); ?>%</td>
 										</tr>
