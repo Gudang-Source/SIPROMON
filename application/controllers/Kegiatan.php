@@ -63,7 +63,13 @@ class Kegiatan extends CI_Controller {
 		$moneys_kumulatifPR = 0;
 
 		for ($i=0; $i < 12; $i++) {
-			
+			$temp = $this->ModelMnvKeuangan->getByMonthRMP($id,($i+1));
+			if($temp->num_rows() != 0){
+				$temp = $temp->result_array();
+				
+				$moneys_kumulatif += $temp[0]['jml_uang'];
+				$moneys_kumulatifP += ($temp[0]['jml_uang']/$this->data['row']['pagu'])*100;	
+			}
 			foreach($this->data['allAct'] as $act){
 				$temp = $this->ModelRMPSDKPlanAct->getByMonthRMP($act['id'],($i+1)); //Model Edited
 				if($temp->num_rows() != 0){
@@ -83,8 +89,6 @@ class Kegiatan extends CI_Controller {
 					foreach ($temp as $value) {
 						
 						$fisik_kumulatif+= $value['fisik_real'];
-						$moneys_kumulatif+= $value['biaya'];
-						$moneys_kumulatifP+= $value['biayaP'];
 					}
 					
 				}
@@ -112,8 +116,8 @@ class Kegiatan extends CI_Controller {
 					foreach ($temp as $value) {
 						
 						$fisik_kumulatif+= $value['fisik_real'];
-						$moneys_kumulatif+= $value['biaya'];
-						$moneys_kumulatifP+= $value['biayaP'];
+						// $moneys_kumulatif+= $value['biaya'];
+						// $moneys_kumulatifP+= $value['biayaP'];
 					}
 				}
 			}
