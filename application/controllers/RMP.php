@@ -37,6 +37,22 @@ class RMP extends CI_Controller {
 		$this->ModelKegiatan->update($id,['rmp_stats' => $stats]);
 		redirect('RMP/Status/'.$id);
 	}
+	public function judul($id = NULL){
+		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
+		$this->data['row']['pengesah'] = $this->ModelEmployee->selectById(1)->row_array()['name'];
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('rmp/judul',$this->data);
+		$this->load->view('templates/footer');
+	}
+	public function rekap($id = NULL){
+		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
+		$this->data['row']['pengesah'] = $this->ModelEmployee->selectById(1)->row_array()['name'];
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('rmp/rekap',$this->data);
+		$this->load->view('templates/footer');
+	}
 	public function satu($id = NULL){
 		if($this->input->post() != NULL){
 			$post = $this->input->post();

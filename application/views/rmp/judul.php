@@ -1,26 +1,54 @@
 				<div class="breadcrumbs">
-						<div class="col-sm-4">
-								<div class="page-header float-left">
+						<div class="col-sm-6">
+								<div class="page-header ">
 										<div class="page-title">
-												<h1>Status RMP <br><?=$row['judul']; ?></h1>
+												<h1>Penyusunan RMP</h1>
 										</div>
 								</div>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-6">
 								<div class="page-header float-right">
 										<div class="page-title">
 												<ol class="breadcrumb text-right">
-														<li><a href="#">RMP</a></li>
-														<li class="active">Status</li>
+														<li><a href="#">Kegiatan</a></li>
+														<li class="active">Penyusunan RMP</li>
 												</ol>
 										</div>
 								</div>
 						</div>
 				</div>
 
-				<div class="content mt-3" style="background-color: white;">
+				<div class="content mt-3" >
 						<div class="animated fadeIn">
 								<div class="row">
+									<div class="col-md-12">
+										<div>
+											<center><h2><?=$row['judul'] ?></h2>Halaman Judul</center>
+										</div>
+										<div>
+											<div class="form-group col-md-2">
+									      <select id="navigate" class="form-control" style="margin-left:-15px; background-color:#ffd700;">
+									        <option disabled><b>-Navigasi-</b></option>
+									        <option value="satu" <?php if($this->uri->segment(2) == "satu") echo "selected"; ?> >Bab I</option>
+									        <option value="dua" <?php if($this->uri->segment(2) == "dua") echo "selected"; ?>>Bab II</option>
+									        <option value="tiga" <?php if($this->uri->segment(2) == "tiga") echo "selected"; ?>>Bab III</option>
+									        <option value="empat" <?php if($this->uri->segment(2) == "empat") echo "selected"; ?>>Bab IV</option>
+									        <option value="limabelas" <?php if($this->uri->segment(2) == "limabelas") echo "selected"; ?>>Daftar Pustaka</option>
+									        <option value="att1" <?php if($this->uri->segment(2) == "att1") echo "selected"; ?>>Lampiran 1</option>
+									        <option value="att2" <?php if($this->uri->segment(2) == "att2") echo "selected"; ?>>Lampiran 2</option>
+									        <option value="att3" <?php if($this->uri->segment(2) == "att3") echo "selected"; ?>>Lampiran 3</option>
+									      </select>
+									    </div>											
+											<div class="pull-right" style="margin-bottom: 15px;">
+												<a href="<?=base_url(); ?>RMP/dua/<?=$this->uri->segment(3)?>"  class="btn btn-labeled btn-success">
+														 Bab 2 <span class="btn-label btn-label-right"><i class="fa fa-fw fa-arrow-right"></i></span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<?php echo form_open('RMP/satu/'.$this->uri->segment(3)); ?>
+								<div class="row" style="background-color: white;">
 									<div class="col-md-8 offset-md-2">
 										<table class="table table-bordered"  style="background-color: white;">
 											<tbody>
@@ -29,12 +57,23 @@
 												</tr>
 											</tbody>
 										</table>
+										<style>
+											h3{
+												font-size:16pt;
+											}
+											h4{
+												font-size: 14pt;
+											}
+											h5{
+												font-size:14pt;
+											}
+										</style>
 										<div style="text-align: center;">
 											<h3 style="font-weight: bold;">RENCANA MUTU PELAKSANAAN</h3>
 											<h3 style="font-weight: bold;"><?=strtoupper($row['judul']);  ?></h3>
 											<!-- <h3>....</h3> -->
 											<h4 style="font-weight: bold;">TAHUN ANGGARAN <?=$row['tahun_anggaran'] ?></h4>
-											<h4 style="font-weight: bold;">SATUAN KERJA <?=$row['satuankerja']; ?></h4>
+											<h4 style="font-weight: bold;">SATUAN KERJA <?=strtoupper($row['satuankerja']); ?></h4>
 											<h5 style="color:red;">No.Dok. : RMP/PUSAIR/BLSUNGAI/??   tanggal .... Januari 2019 Rev. 00</h5><br>
 											<h5 style="font-weight: bold;">Pengesahan</h5><br><br>
 										</div>
@@ -49,52 +88,19 @@
 												<td><b>Konseptor</b></td>
 												<td><?=$row['konseptor']; ?><br>Ketua Tim Kegiatan</td>
 												<td class="text-center">
-<!-- 													<?php if($row['rmp_stats'] == 1 ){ ?>
-													<a href="javascript:void(0);" onclick="sign(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm <?php if($this->session->userdata('position') != NULL) echo "disabled"; ?>" data-toggle="tooltip" data-placement="bottom" title="Terbitkan RMP" >
-														<i class="fa fa-fw fa-exclamation-circle"></i> Sign
-													</a>
-													<?php }else if($row['rmp_stats'] > 1){ ?>
-													<a href="#"  class="btn btn-success btn-sm disabled">
-														<i class="fa fa-fw fa-check"></i> Approved
-													</a>
-													<?php } ?> -->
 												</td>
 											</tr>										
 											<tr>
 												<td><b>Diperiksa Oleh</b></td>
 												<td><?=$row['pemeriksa']; ?><br>Kepala <?=$row['satuankerja'] ?></td>
 												<td class="text-center" >
-<!-- 													<?php if($row['rmp_stats'] == 2){ ?>
-													<a href="<?=base_url(); ?>Review/form"  class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom" title="Periksa RMP">
-														<i class="fa fa-fw fa-pencil"></i> Review
-													</a>
-													<a href="javascript:void(0);" onclick="check(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Periksa RMP">
-														<i class="fa fa-fw fa-exclamation-circle"></i> Sign
-													</a>
-													<?php }else if($row['rmp_stats'] > 2){ ?>
-													<a href="" class="btn btn-success btn-sm disabled" >
-														<i class="fa fa-fw fa-check"></i> Approved
-													</a>
-													<?php }else{ ?>
-														<i style="color:red;">(belum di periksa)</i>
-													<?php } ?> -->
+
 												</td>
 											</tr>										
 											<tr>
 												<td><b>Disahkan Oleh</b></td>
 												<td><?=$row['pengesah']; ?><br>Kepala Pusat Litbang SDA</td>
 												<td class="text-center" >
-<!-- 													<?php if($row['rmp_stats'] == 3){ ?>
-													<a href="javascript:void(0);" onclick="pas(<?php echo $row['id'];?>);" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Periksa RMP">
-														<i class="fa fa-fw fa-exclamation-circle"></i> Sign
-													</a>
-													<?php }else if($row['rmp_stats'] > 3){ ?>
-													<a href="" class="btn btn-success btn-sm disabled" >
-														<i class="fa fa-fw fa-check"></i> Approved
-													</a>
-													<?php }else{ ?>
-														<i style="color:red;">(belum di periksa)</i>
-													<?php } ?>												 -->
 												</td>
 											</tr>
 											</tbody>
@@ -168,10 +174,11 @@
 										<br>
 										<br>
 									</div>
-
 								</div>
 						</div><!-- .animated -->
 				</div><!-- .content -->
+
+
 		</div><!-- /#right-panel -->
 
 		<!-- Right Panel -->
