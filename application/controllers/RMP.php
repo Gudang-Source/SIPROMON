@@ -112,8 +112,8 @@ class RMP extends CI_Controller {
 			// redirect('RMP/tiga/'.$id);
 		}else{
 			$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-			$this->data['documents'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
-			$this->data['records'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['swots'] = $this->ModelRMPSwot->selectByIdRMP($this->data['row']['id'])->result_array();
+			$this->data['anals'] = $this->ModelRMPAnalisis->selectByIdRMP($this->data['row']['id'])->result_array();
 			$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
 			$this->data['allStages'] = $this->ModelRMPStages->selectAll()->result_array();
 			// var_dump($this->data['row']);
@@ -381,15 +381,39 @@ class RMP extends CI_Controller {
 		$this->ModelRMPDocument->delete($deleted);
 		redirect('RMP/tiga/'.$idk.'/doc');
 	}		
-	// public function empatbelas($id= NULL){
-	// 	$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-	// 	$this->data['records'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
-	// 	// var_dump($this->data['documents']);
-	// 	$this->load->view('templates/header',$this->head);
-	// 	$this->load->view('templates/sidebar',$this->side);
-	// 	$this->load->view('rmp/empatbelas',$this->data);
-	// 	$this->load->view('templates/footer',$this->foot);		
-	// }
+	public function addSwot($idk){
+		$post = $this->input->post();
+		if($post['swot_id'] != ""){
+			$id = $post['swot_id'];
+			unset($post['swot_id']);
+			$this->ModelRMPSwot->update($id,$post);
+		}else{
+			unset($post['swot_id']);
+			$this->ModelRMPSwot->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk.'/swot');
+	}
+	public function deleteSwot($deleted,$idk){
+		$this->ModelRMPSwot->delete($deleted);
+		redirect('RMP/tiga/'.$idk.'/peta');
+	}			
+	public function addAnalisis($idk){
+		$post = $this->input->post();
+		if($post['anal_id'] != ""){
+			$id = $post['anal_id'];
+			unset($post['anal_id']);
+			$this->ModelRMPAnalisis->update($id,$post);
+		}else{
+			unset($post['anal_id']);
+			$this->ModelRMPAnalisis->insert($post);
+		}
+		redirect('RMP/tiga/'.$idk.'/anal');
+	}
+	public function deleteAnalisis($deleted,$idk){
+		$this->ModelRMPAnalisis->delete($deleted);
+		redirect('RMP/tiga/'.$idk.'/peta');
+	}				
+
 	public function addRecord($idk){
 		$temppost = $this->input->post();
 		$post['record_name'] = $temppost['record_name'];

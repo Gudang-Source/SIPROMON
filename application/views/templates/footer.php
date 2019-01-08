@@ -26,10 +26,9 @@
    $(document).ready(function(){
     if(x == 'sdk') $('.nav-pills a[href="#sdk"]').tab('show');
     if(x == 'sdm') $('.nav-pills a[href="#sdm"]').tab('show');
-    if(x == 'rec') $('.nav-pills a[href="#rekaman"]').tab('show');
-    if(x == 'doc') $('.nav-pills a[href="#dokumen"]').tab('show');
+    if(x == 'anal') $('.nav-pills a[href="#analisis"]').tab('show');
+    if(x == 'swot') $('.nav-pills a[href="#peta"]').tab('show');
     if(x == 'keg') $('.nav-pills a[href="#kegiatan"]').tab('show');
-
    });
    <?php } ?>
   $('#navigate').change(function(){ 
@@ -262,18 +261,40 @@
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   }); 
-  $('#tambahdoc').on('show.bs.modal', function(e) {
+  $('#tambahswot').on('show.bs.modal', function(e) {
       var $modal = $(this),
-        name = $(e.relatedTarget).attr("data-name"),
-        num = $(e.relatedTarget).attr("data-num");
-        console.log($(e.relatedTarget).attr("data-id"));
-        $("input[name='document_name'").val(name);
-        $("input[name='document_num'").val(num);
-        $("input[name='document_id'").val($(e.relatedTarget).attr("data-id"));
+        factor = $(e.relatedTarget).attr("data-factor"),
+        parent = $(e.relatedTarget).attr("data-parent"),
+        swot_u = $(e.relatedTarget).attr("data-swot-u");
+        swot_s = $(e.relatedTarget).attr("data-swot-s");
+        swot_g = $(e.relatedTarget).attr("data-swot-g");
+        $("input[name='swot_factor'").val(name);
+        $("input[name='swot_u'").val(swot_u);
+        $("input[name='swot_s'").val(swot_s);
+        $("input[name='swot_g'").val(swot_g);
+        $("input[name='swot_id'").val($(e.relatedTarget).attr("data-id"));
+        $("input[name='swot_parent'").val(parent);
       // $('#actkeustage').val(actkeu);
       // $('#monthkeustage').val(month);
       // $('#fisikstage').text(''+fisik+',-');
   });  
+  $('#tambahanalisis').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+        factor = $(e.relatedTarget).attr("data-factor"),
+        parent = $(e.relatedTarget).attr("data-parent"),
+        swot_u = $(e.relatedTarget).attr("data-swot-u");
+        swot_s = $(e.relatedTarget).attr("data-swot-s");
+        swot_g = $(e.relatedTarget).attr("data-swot-g");
+        $("input[name='swot_factor'").val(name);
+        $("input[name='swot_u'").val(swot_u);
+        $("input[name='swot_s'").val(swot_s);
+        $("input[name='swot_g'").val(swot_g);
+        $("input[name='swot_id'").val($(e.relatedTarget).attr("data-id"));
+        $("input[name='swot_parent'").val(parent);
+      // $('#actkeustage').val(actkeu);
+      // $('#monthkeustage').val(month);
+      // $('#fisikstage').text(''+fisik+',-');
+  });    
   $('#tambahrec').on('show.bs.modal', function(e) {
       var $modal = $(this),
         name = $(e.relatedTarget).attr("data-name"),

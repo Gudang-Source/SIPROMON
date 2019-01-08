@@ -65,12 +65,12 @@
                             <p>Belum mempunyai akun ? Ketua tim silahkan<a href="<?php echo site_url(); ?>Auth/register"> daftar disini</a></p>
                         </div>
                         <a href="<?=base_url(); ?>Auth/es3" class="btn btn-info btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Eselon 3</a>
+<!--                         <br>
                         <br>
+                        <a href="Auth/ka" type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Kepala Pusair</a> -->
+<!--                         <br>
                         <br>
-                        <a href="Auth/ka" type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Kepala Pusair</a>
-                        <br>
-                        <br>
-                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-eye"></i></span> Evaluator</a>
+                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-eye"></i></span> Evaluator</a> -->
                         <!-- <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Masuk</button> -->
 
                     </form>

@@ -61,19 +61,19 @@
                         </div>
                         <button type="submit" class="btn btn-info btn-flat m-b-30 m-t-30">Masuk</button>
                         <!-- <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Masuk</button> -->
-                        <br>
+                        <br><!-- 
                         <br>
                         <a href="<?=base_url(); ?>Auth/ka" type="button" class="btn btn-labeled btn-primary">
                                 <span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Kepala Pusair
-                        </a>                                                
+                        </a> -->                                                
                         <br>
                         <br>
                         <a href="<?=base_url(); ?>Auth" type="button" class="btn btn-labeled btn-success">
                                 <span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Ketua Tim
                         </a>                                                
+<!--                         <br>
                         <br>
-                        <br>
-                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-eye"></i></span> Evaluator</a>                        
+                        <a href="<?=base_url(); ?>Auth/evaluator" type="submit" class="btn btn-warning btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-eye"></i></span> Evaluator</a>                         -->
                     </form>
                 </div>
             </div>

@@ -26,6 +26,8 @@ class Home extends CI_Controller {
 	public function beranda(){
 		$this->data['numkegiatan'] = $this->ModelKegiatan->selectByUserId($this->session->userdata('id'))->num_rows();
 		$this->data['kegiatans'] = $this->ModelKegiatan->selectAllKegiatanByUserId($this->session->userdata('id'))->result_array();
+		$this->data['user'] = $this->ModelUser->selectById2($_SESSION['id'])->row_array();
+		
 		// var_dump($this->data);
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);
