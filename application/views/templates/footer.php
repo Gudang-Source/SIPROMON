@@ -351,7 +351,22 @@
         $("input[name='biaya'").val(biaya);
         // $(e.currentTarget).find('input[name="act_id"]').val(parent);
         $("input[name='sdk_id'").val($(e.relatedTarget).attr("data-id"));
-  });        
+  });
+
+  $('#tambahakun').on('show.bs.modal', function(e) {
+       
+      var $modal = $(this),
+        akun = $(e.relatedTarget).attr("data-akun"),
+        jenis = $(e.relatedTarget).attr("data-jenis");
+        biaya = $(e.relatedTarget).attr("data-biaya");
+
+        $("input[name='akun'").val(akun);
+        $("input[name='jenis'").val(jenis);
+        $("input[name='biaya'").val(biaya);
+        // $(e.currentTarget).find('input[name="act_id"]').val(parent);
+        $("input[name='sdk_id'").val($(e.relatedTarget).attr("data-id"));
+  });
+
   $('#lengkapi').on('show.bs.modal', function(e) {
        
       var $modal = $(this),

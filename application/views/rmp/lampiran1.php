@@ -143,7 +143,10 @@
 											<tr class="font-weight-bold">
 												<td></td>
 												<td><?=$money['akun']; ?></td>
-												<td><?=$money['jenis']; ?></td>
+												<td><?=$money['jenis']; ?>
+													<a href="#" class="text-warning" data-toggle="modal" data-target="#tambahakun" data-akun="<?=$money['akun']; ?>" data-jenis="<?=$money['jenis']; ?>" data-biaya="<?=$money['biaya']?>" data-id="<?=$money['id'];?>"><span class="fa fa-fw fa-pencil"></span></a>
+													<a class="text-danger" href="<?=base_url(); ?>RMP/deleteSDK/<?=$money['id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Jabatan"><span class="fa fa-fw fa-trash"></span></a>
+												</td>
 												<td></td>
 												<td></td>
 												<td></td>
@@ -331,4 +334,4 @@
 								<?php echo form_close(); ?>
 						</div>
 				</div>
-		</div>		
+		</div>

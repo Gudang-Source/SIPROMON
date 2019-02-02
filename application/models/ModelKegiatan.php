@@ -104,6 +104,11 @@ class ModelKegiatan extends CI_Model {
 		$this->db->where('id',$id);
 		return $this->db->update($this->tableName);
 	}
+
+	public function updatePagu($id,$kurang,$tambah){
+		$this->db->query('UPDATE `kegiatan` SET `pagu`=`pagu`-'.$kurang.' WHERE id='.$id);
+		return $this->db->query('UPDATE `kegiatan` SET `pagu`=`pagu`+'.$tambah.' WHERE id='.$id);
+	}
 	
 	public function delete($id){
 		$this->db->where('id',$id);

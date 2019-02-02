@@ -251,14 +251,28 @@ class RMP extends CI_Controller {
 		if($post['sdk_id'] != ""){
 			$id = $post['sdk_id'];
 			unset($post['sdk_id']);
+			
+			$data = $this->ModelRMPSDK->selectById($id)->result();
+			$kurang = $data[0]->biaya;
+			$data = $this->ModelRMP->selectById($data[0]->rmp_id)->result();
+			$tambah = $post['biaya'];
+			$this->ModelKegiatan->updatePagu($data[0]->kegiatan_id,$kurang, $tambah);
+			
 			$this->ModelRMPSDK->update($id,$post);
 		}else{
 			unset($post['sdk_id']);
+			$data = $this->ModelRMP->selectById($post['rmp_id'])->result();
+			$this->ModelKegiatan->updatePagu($data[0]->kegiatan_id,0, $post['biaya']);
 			$this->ModelRMPSDK->insert($post);
 		}
 		redirect('RMP/att1/'.$idk.'/sdk');
 	}
 	public function deleteSDK($deleted,$idk){
+		$data = $this->ModelRMPSDK->selectById($deleted)->result();
+		$kurang = $data[0]->biaya;
+		$data = $this->ModelRMP->selectById($data[0]->rmp_id)->result();
+		$this->ModelKegiatan->updatePagu($data[0]->kegiatan_id,$kurang, 0);
+
 		$this->ModelRMPSDK->delete($deleted);
 		redirect('RMP/att1/'.$idk.'/sdk');
 	}

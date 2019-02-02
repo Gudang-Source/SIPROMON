@@ -17,11 +17,11 @@
 							<tr style="text-align: center; background-color: grey;">
 								<td style="text-align: center;">No</td>
 								<td style="text-align: center;" colspan="3">Tahapan Kegiatan</td>
-								<td style="text-align: center;">Prasarana dan Sarana</td>
-								<td style="text-align: center;">Output yang dicapai</td>
-								<td style="text-align: center;">Metode Pemeriksaan</td>
+								<td style="text-align: center;">Output yang akan dicapai</td>
 								<td style="text-align: center;">Kriteria Penerimaan</td>
-								<td style="text-align: center;">Waktu</td>
+								<td style="text-align: center;">Acuan Pemeriksaan</td>
+								<td style="text-align: center;">Target Penyelesaian</td>
+								<td style="text-align: center;">Prasarana dan Sarana</td>
 								<td style="text-align: center;">Pelaksana</td>
 								<td style="text-align: center;">Penanggung Jawab</td>
 							</tr>	
@@ -59,11 +59,22 @@
 							<td nowrap="" colspan="2">
 								<?php echo $act['kegiatan'];?>
 							</td>
-							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?=$act['hasil']; ?></td>
-							<td nowrap=""><?=$act['metode']; ?></td>
 							<td nowrap=""><?=$act['kriteria']; ?></td>
-							<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$act['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($act['waktu'] != ""){
+										$temp = explode("-",$act['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 							<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 						</tr>
@@ -73,11 +84,22 @@
 							<td></td>
 							<td>1.<?=($no-1).".".$no3++; ?></td>
 							<td><?php echo $stage['kegiatan'];?> </td>
-							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?=$stage['hasil']; ?></td>
-							<td nowrap=""><?=$stage['metode']; ?></td>
 							<td nowrap=""><?=$stage['kriteria']; ?></td>
-							<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$stage['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($stage['waktu'] != ""){
+										$temp = explode("-",$stage['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name'].", "; }}?></td>
 							<td nowrap=""><?=$stage['pj']; ?></td>
 						</tr>
@@ -102,11 +124,22 @@
 							<td nowrap="" colspan="2">
 								<?php echo $act['kegiatan'];?>
 							</td>
-							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?=$act['hasil']; ?></td>
-							<td nowrap=""><?=$act['metode']; ?></td>
 							<td nowrap=""><?=$act['kriteria']; ?></td>
-							<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$act['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($act['waktu'] != ""){
+										$temp = explode("-",$act['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 							<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 						</tr>
@@ -116,11 +149,22 @@
 							<td></td>
 							<td>2.<?=($no-1).".".$no3++; ?></td>
 							<td><?php echo $stage['kegiatan'];?> </td>
-							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?=$stage['hasil']; ?></td>
-							<td nowrap=""><?=$stage['metode']; ?></td>
 							<td nowrap=""><?=$stage['kriteria']; ?></td>
-							<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$stage['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($stage['waktu'] != ""){
+										$temp = explode("-",$stage['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
 							<td nowrap=""><?=$stage['pj']; ?></td>
 						</tr>
@@ -145,11 +189,22 @@
 							<td nowrap="" colspan="2">
 								<?php echo $act['kegiatan'];?>
 							</td>
-							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?=$act['hasil']; ?></td>
-							<td nowrap=""><?=$act['metode']; ?></td>
 							<td nowrap=""><?=$act['kriteria']; ?></td>
-							<td nowrap=""><?php if($act['waktu'] != ""){$temp = explode("-",$act['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$act['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($act['waktu'] != ""){
+										$temp = explode("-",$act['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$act['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allActExe as $key=>$actexe){ if($actexe['rmp_activity_id'] == $act['id']){ echo $actexe['name']." "; }}?></td>
 							<td class="text-center" nowrap=""><?=$act['pj']; ?></td>
 						</tr>
@@ -159,11 +214,22 @@
 							<td></td>
 							<td>3.<?=($no-1).".".$no3++; ?></td>
 							<td><?php echo $stage['kegiatan'];?> </td>
-							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?=$stage['hasil']; ?></td>
-							<td nowrap=""><?=$stage['metode']; ?></td>
 							<td nowrap=""><?=$stage['kriteria']; ?></td>
-							<td nowrap=""><?php if($stage['waktu'] != ""){$temp = explode("-",$stage['waktu']); echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";} ?></td>
+							<td nowrap=""><?=$stage['metode']; ?></td>
+							<td nowrap="">
+								<?php
+									if($stage['waktu'] != ""){
+										$temp = explode("-",$stage['waktu']);
+										if($temp[0] != $temp[1]){
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+										}else{
+											echo $bulan[$temp[0]-1]." 2018";
+										}
+									}
+								?>
+							</td>
+							<td nowrap=""><?=$stage['sarpras']; ?></td>
 							<td nowrap=""><?php 	foreach($allStageExe as $key=>$stageexe){ if($stageexe['rmp_stages_id'] == $stage['id']){ echo $stageexe['name']." "; }}?></td>
 							<td nowrap=""><?=$stage['pj']; ?></td>
 
