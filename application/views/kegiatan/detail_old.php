@@ -157,7 +157,46 @@
   r_keuangan = [];
   r_fisik = [];
 
+  r_k_api = [];
+  r_f_api = [];
+
+  id_array = [];
+
   <?php
+  	$stat = 0;
+  	$array = [];
+  	if(isset($_SESSION['url_api'])){
+
+  		$url = $_SESSION['url_api'];
+  		$csvData = file_get_contents($url);
+
+		$rangekeg = count($csvData);
+		
+
+		$lines = explode("\n", $csvData);
+		$header = null;
+		$separator = ';';
+		foreach ($lines as $line) {
+			if ($header === null) {
+				$header = str_getcsv($line,$separator);
+				continue;
+			}
+			
+			
+			$array[] = array_combine(array_intersect_key($header, str_getcsv($line,$separator)), array_intersect_key(str_getcsv($line,$separator),$header));
+			// print_r(array_intersect_key($header, str_getcsv($line,$separator)));
+		}
+		$stat = 1;
+		?>
+		id_array.push(<?= (sizeof($array) - 10);?>);
+		<?php
+  	}
+  	if($stat == 0){
+  		?>
+		id_array.push('none');
+  		<?php
+  	}
+
   	for($i = (-1); $i < 12; $i++){
   		if($i == -1){
   			?>
@@ -165,9 +204,21 @@
   		r_keuangan.push(<?= 0?>);
   		t_fisik.push(<?= 0?>);
   		r_fisik.push(<?= 0?>);
+  		r_k_api.push(<?= 0?>);
+  		r_f_api.push(<?= 0?>);	
   			<?php
   		}else{
-
+  			if($stat == 1){
+  				?>
+	  		r_k_api.push(<?= round($array[(sizeof($array) - 10)]['b'.($i+1)]/$array[(sizeof($array) - 10)]['pagu']*100,2);?>);
+	  		r_f_api.push(<?= round($array[(sizeof($array) - 10)]['rf'.($i+1)],2);?>);	
+  				<?php
+  			}else{
+	  			?>
+	  			r_k_api.push(<?= 0?>);
+		  		r_f_api.push(<?= 0?>);	
+	  			<?php
+  			}
   		?>
   		t_keuangan.push(<?= round($moneysMonthsKumulatifPR[$i],2);?>);
   		r_keuangan.push(<?= round($moneysMonthsKumulatifP[$i],2);?>);
@@ -187,7 +238,7 @@
   },
 
   subtitle: {
-    text: ''
+    text: 'array api ke '+id_array[0]
   },
   xAxis: {
     categories: ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -217,6 +268,12 @@
   }, {
     name: 'Realisasi Fisik',
     data: r_fisik
+  }, {
+    name: 'Sample API Keuangan',
+    data: r_k_api
+  }, {
+    name: 'Sample API Fisik',
+    data: r_f_api
   }],
 
   responsive: {

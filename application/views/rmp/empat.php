@@ -56,7 +56,7 @@
 										<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#strukturorg" role="tab" aria-selected="true">Struktur Organisasi</a>
 											<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#sdm" role="tab" aria-selected="true">Sumber Daya Manusia</a>
-											<!-- <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#sdk" role="tab" aria-selected="true">Sumber Daya Keuangan</a> -->
+											<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#sdk" role="tab" aria-selected="true">Sumber Daya Keuangan</a>
 
 											<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#lingkungan" role="tab" aria-selected="true">Kondisi Lingkungan</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">

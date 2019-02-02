@@ -105,6 +105,10 @@
 											echo '<td class="text-center">';
 														if($moneysMonths[$bulan] < (9/10)*$moneysMonthsR[$bulan]){
 														?>
+														
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $moneysMonthsKend[$bulan];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 														<font color ="red"><?= number_format($moneysMonths[$bulan],0,',','.'); ?></font>
 														<?php
 															}else{
@@ -157,9 +161,13 @@
 												if($actTotal[$act['id']]['hchild']==0){
 													if(isset($actMonths[$act['id']][($i-1)]['fisik'])){
 														if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] > 0){ 
+															?>
+															
+															<?php
 															if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] == 1){
 																?>
 														<td class='text-center' bgcolor='#8cffef'>
+															
 																<?php
 															}else if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] == 2){
 																?>
@@ -168,6 +176,7 @@
 															}else if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] == 3){
 																?>
 														<td class='text-center' bgcolor='#fff200'>
+																<i class="fa fa-fw fa-eye"></i>
 																<?php
 															}else if($actMonths[$act['id']][($i-1)]['tingkat_kendala'] == 4){
 																?>
@@ -179,6 +188,9 @@
 																<?php
 															}
 														?>
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -269,6 +281,10 @@
 																<?php
 															}
 														?>
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
+
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -373,6 +389,10 @@
 																<?php
 															}
 														?>
+
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -463,6 +483,9 @@
 																<?php
 															}
 														?>
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -566,6 +589,9 @@
 																<?php
 															}
 														?>
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $actMonths[$act['id']][($i-1)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -656,6 +682,9 @@
 																<?php
 															}
 														?>
+														<a href="#" data-toggle="modal" data-target="#viewKendala" data-kendala="<?= $stageMonths[$stage['id']][($i)]['kendala'];?>" >
+															<i class="fa fa-fw fa-eye"></i>
+														</a>
 													<?php }else{ ?>
 														<td class='text-center'>
 													
@@ -802,3 +831,78 @@
 
 
 		<!-- Right Panel -->
+		<div class="modal fade" id="viewKendala" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+						<div class="modal-header">
+								<h5 class="modal-title text-center" id="largeModalLabel">Rincian Kendala</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+								<div class="form-group">
+									<div class="input-group">
+								    	
+									    <textarea class="form-control" name="kendala" id="kendalaView" value="-" rows=7 readonly>-</textarea>
+									    
+								    <!-- Hidden Here -->
+	    
+								  </div>											
+								</div>
+						</div>
+				</div>
+			</div>
+
+		</div>
+
+<?php
+	// $url = 'http://emonitoring.pu.go.id/pusair/';
+	// // $url = 'data_2018121212.csv';
+	// $separator = ';';
+	// $csvData = file_get_contents($url);
+	
+	// $rangekeg = count($csvData);
+	// // print_r($csvData);
+	// echo ($rangekeg);
+
+	// $lines = explode("\n", $csvData);
+	// $array = [];
+	// $header = null;
+	// print_r($lines);
+	// foreach ($lines as $line) {
+	// 	if ($header === null) {
+	// 		$header = str_getcsv($line,$separator);
+	// 		continue;
+	// 	}
+		
+		
+	// 	$array[] = array_combine(array_intersect_key($header, str_getcsv($line,$separator)), array_intersect_key(str_getcsv($line,$separator),$header));
+	// 	// print_r(array_intersect_key($header, str_getcsv($line,$separator)));
+	// }
+
+
+
+	// // $lines = explode(PHP_EOL, $csvData);
+	// // $array = array();
+	// // foreach ($lines as $line) {
+	// //     $array[] = str_getcsv($line);
+	// // }
+	// echo "<pre>";
+	// print_r($array);
+	// echo "</pre>";
+	
+	if(!isset($_SESSION['url_api'])){
+		/*API CSV*/
+		
+		$url = 'http://emonitoring.pu.go.id/pusair/';
+		// // $url = 'data_2018121212.csv';
+		// $separator = ';';
+		// $csvData = file_get_contents($url);
+		// $temp = fopen("http://emonitoring.pu.go.id/pusair/", 'r');
+		// print_r($csvData);
+		file_put_contents("application/views/monev/temp_api.php", fopen("http://emonitoring.pu.go.id/pusair/", 'r'));
+
+		include "temp_api.php";
+	}
+?>

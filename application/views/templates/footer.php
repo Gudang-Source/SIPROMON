@@ -832,6 +832,13 @@
       // $('#fisikstage').text(''+fisik+',-');
   });
 
+  $('#viewKendala').on('show.bs.modal', function(e) {
+      var $modal = $(this),
+          kendala = $(e.relatedTarget).attr("data-kendala");
+      $('#kendalaView').text(kendala);
+      // $('#fisik').val(fisik);
+  });
+
   function setMaxRencana(){
 
     var max_rencanaAK = document.getElementById("max_rencanaAK").value;

@@ -59,10 +59,10 @@
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#kegiatan" role="tab" aria-controls="masalah" aria-selected="false">Tahapan Kegiatan</a>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#baganalir" role="tab" aria-controls="masalah" aria-selected="false">Bagan Alir Pelaksanaan Kegiatan</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
-											<button type="submit" class="btn btn-success">
+<!-- 											<button type="submit" class="btn btn-success">
 													<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
 											</button>
-											<!-- <button type="submit" class="btn btn-outline-dark">
+ -->											<!-- <button type="submit" class="btn btn-outline-dark">
 													<span class=""><i class="fa fa-fw fa-eye"></i></span> Preview
 											</button> -->
 										</div>

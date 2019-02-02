@@ -256,15 +256,15 @@ class RMP extends CI_Controller {
 			unset($post['sdk_id']);
 			$this->ModelRMPSDK->insert($post);
 		}
-		redirect('RMP/empat/'.$idk.'/sdk');
+		redirect('RMP/att1/'.$idk.'/sdk');
 	}
 	public function deleteSDK($deleted,$idk){
 		$this->ModelRMPSDK->delete($deleted);
-		redirect('RMP/empat/'.$idk.'/sdk');
+		redirect('RMP/att1/'.$idk.'/sdk');
 	}
 	public function fulfillSDK($idk){
 		$this->ModelKegiatan->update($idk,$this->input->post());
-		redirect('RMP/empat/'.$idk.'/sdk');
+		redirect('RMP/att1/'.$idk.'/sdk');
 	}	
 	public function addAct($idk){
 		$post = $this->input->post();

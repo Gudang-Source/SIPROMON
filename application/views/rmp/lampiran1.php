@@ -100,6 +100,9 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="text-right">
+										<button type="button" class=" btn-sm btn-labeled btn-success" data-toggle="modal" data-target="#tambahakun">
+											<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah RAB
+										</button>										
 										<button type="button" class=" btn-sm btn-labeled btn-success" data-toggle="modal" data-target="#tambahsdk">
 												<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah Rincian
 										</button>
@@ -283,4 +286,49 @@
 								<?php echo form_close(); ?>
 						</div>
 				</div>
-		</div>				
+		</div>
+		<div class="modal fade" id="tambahakun" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="largeModalLabel">Tambah Akun</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+								<?php echo form_open('RMP/addSDK/'.$this->uri->segment(3)); ?>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class=" form-control-label">Akun</label>
+												<div class="input-group">
+														<input type="text" name="akun" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Jenis</label>
+												<div class="input-group">
+														<input type="text" name="jenis" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Biaya <a href="#" data-toggle="tooltip" data-placement="bottom"  title="Mohon masukan nominal tanpa titik"><i class="fa fa-info-circle"></i></a></label>
+												<div class="input-group">
+														<input type="number" name="biaya" class="form-control">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="sdk_id">
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										<input type="hidden" name="rmp_id" value="<?=$row['id']; ?>">
+										<button type="submit" class="btn btn-primary"
+											<i class="fa fa-fw fa-dot-circle-o"></i> Submit
+								</div>
+								<?php echo form_close(); ?>
+						</div>
+				</div>
+		</div>		
