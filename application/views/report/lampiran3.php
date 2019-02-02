@@ -185,7 +185,7 @@
 					for($i=0;$i<12;$i++){ 
 						if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
 							echo "<td>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.')."</td>";
-							echo "<td>".round($stageMonths[$stage['id']][$i]['fisik'],0,',','.')."</td>";
+							echo "<td>".round($stageMonths[$stage['id']][$i]['fisik'],0)."</td>";
 						}else{
 							echo "<td></td>";
 							echo "<td></td>";
@@ -251,7 +251,7 @@
 					for($i=0;$i<12;$i++){ 
 						if($stageMonths[$stage['id']][$i]['biaya'] != "x"){
 							echo "<td>".number_format($stageMonths[$stage['id']][$i]['biaya'],0,',','.')."</td>";
-							echo "<td>".round($stageMonths[$stage['id']][$i]['fisik'],0,',','.')."</td>";
+							echo "<td>".round($stageMonths[$stage['id']][$i]['fisik'],0)."</td>";
 						}else{
 							echo "<td></td>";
 							echo "<td></td>";
