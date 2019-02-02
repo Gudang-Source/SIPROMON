@@ -158,7 +158,7 @@
     var sisaFisik = document.getElementById("sisaFisik").value;
 
 
-    if(sisaPagu == 0 && sisaFisik == 0){
+    if(sisaPagu == 0){
       window.location.href = "<?=base_url(); ?>Report/lampiran3/<?=$this->uri->segment(3)?>";
     }else{
       swal({
