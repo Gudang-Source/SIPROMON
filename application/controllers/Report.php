@@ -770,7 +770,7 @@ class Report extends CI_Controller{
     // print_r($this->data['actMonths']);
     // $this->load->view('Report/lampiran3',$this->data);
 
-    $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A3-L', 'default_font' => 'Calibri']);
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A3-L', 'default_font' => 'Calibri']);
       $mpdf->SetTitle("Lampiran 3");
       $mpdf->SetAuthor("Ahmad Zainal Abiddin");
       $mpdf->SetDisplayMode('fullpage');// Isi
@@ -779,16 +779,18 @@ class Report extends CI_Controller{
       #$mpdf->WriteHTML($style);
       $mpdf->SetLineWidth(2);
       $mpdf->SetDrawColor(249, 0, 0);
-      $xPastF = 185;
+      $xPastF = 160;
       $yPastF = 225;
-      $xPastM = 185;
+      $xPastM = 160;
       $yPastM = 225;
       $yText = 225;
       $pText = 0;
-    $mpdf->Circle($xPastF,$yPastF,1);
+      $x= 0;
+      $y= 0;
+      $mpdf->Circle($xPastF,$yPastF,1);
       $mpdf->Text(405,$yText,$pText);
       for ($i=0; $i < 12; $i++) {
-        $x = $xPastM + 18;;
+        $x = $xPastM + 20;;
         $mpdf->SetDrawColor(0, 83, 249);
         // $mpdf->SetDrawColor(249, 0, 0);
         $y = 225-($this->data['moneysMonthsKumulatifP'][$i]/100 * 175);
@@ -797,7 +799,7 @@ class Report extends CI_Controller{
         $xPastM = $x;
         $yPastM = $y;
 
-        $x = $xPastF + 18;;
+        $x = $xPastF + 20;;
         $mpdf->SetDrawColor(249, 0, 0);
         $y = 225-($this->data['fisikMonthsKumulatif'][$i]/100 * 175);
         $mpdf->Line($xPastF, $yPastF, $x, $y);

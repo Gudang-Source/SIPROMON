@@ -66,22 +66,23 @@
 											<td rowspan="2">Jumlah Biaya<br>[Rp.]</td>
 											<td rowspan="2">Bobot Keuangan<br>[%]</td>
 											<td rowspan="2">Bobot Fisik<br>[%]</td>
-											<td colspan="1">Jan</td>
-											<td colspan="1">Feb</td>
-											<td colspan="1">Mar</td>
-											<td colspan="1">Apr</td>
-											<td colspan="1">Mei</td>
-											<td colspan="1">Jun</td>
-											<td colspan="1">Jul</td>
-											<td colspan="1">Agt</td>
-											<td colspan="1">Sep</td>
-											<td colspan="1">Okt</td>
-											<td colspan="1">Nov</td>
-											<td colspan="1">Des</td>
+											<td colspan="2">Jan</td>
+											<td colspan="2">Feb</td>
+											<td colspan="2">Mar</td>
+											<td colspan="2">Apr</td>
+											<td colspan="2">Mei</td>
+											<td colspan="2">Jun</td>
+											<td colspan="2">Jul</td>
+											<td colspan="2">Agt</td>
+											<td colspan="2">Sep</td>
+											<td colspan="2">Okt</td>
+											<td colspan="2">Nov</td>
+											<td colspan="2">Des</td>
 										</tr>
 										<tr class="" style="background-color: #90a4ae;border-color: #90a4ae;color:#fff; font-weight: 400;">
 											<?php for($bulan=0;$bulan<12;$bulan++){ ?>
 											<td>Keuangan<br>[Rp.]</td>
+											<td>Fisik<br>[%]</td>
 											<?php } ?>
 										</tr>
 									</thead>			
@@ -89,8 +90,9 @@
 										<tr>
 											<td colspan="4"><?=$row['judul']; ?></td>
 											<td><?=number_format($row['pagu'],0,',','.'); ?> <input type="hidden" id="pagu" value="<?= $row['pagu']; ?>"/></td>
-											<td></td>
+											
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
+											<td></td>
 											<td></td>
 											<?php } ?>
 										</tr>
@@ -102,6 +104,7 @@
 											<td class="text-center"><?=round($totalP[0],2); ?></td>
 											<td class="text-center"><?=round($totalF[0],2); ?></td>
 											<?php for($i=0;$i<12;$i++){ ?>
+												<td></td>
 												<td></td>
 											<?php } ?>
 																				
@@ -131,13 +134,13 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td> -->
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
 
 														<?php
 													}else{
 													
 												?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 														
 															<i class="fa fa-fw fa-edit"></i>
@@ -172,11 +175,11 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td> -->
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
 													<?php
 												}else{
 													?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
@@ -224,13 +227,13 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td> -->
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
 
 														<?php
 													}else{
 													
 												?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
@@ -264,11 +267,11 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td> -->
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
 													<?php
 												}else{
 													?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
@@ -315,13 +318,13 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td> -->
+												<td class='text-center'><?= round($actMonths[$act['id']][($i-1)]['fisik'],2);?></td>
 
 														<?php
 													}else{
 													
 												?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeu" data-money="<?=$actTotal[$act['id']]['biaya']; ?>" data-act="<?=$act['id']; ?>" data-month="<?=$i; ?>" data-fisik="<?=$actTotal[$act['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
@@ -355,11 +358,11 @@
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
 												</td>
-												<!-- <td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td> -->
+												<td><?= round($stageMonths[$stage['id']][$i]['fisik'],2);?></td>
 													<?php
 												}else{
 													?>
-												<td class="text-center">
+												<td colspan="2" class="text-center">
 													<a href="#" class="text-secondary" data-toggle="modal" data-target="#tambahrencanakeustage" data-money="<?=$stageTotal[$stage['id']]['biaya']; ?>" data-act="<?=$stage['id']; ?>" data-month="<?=$i+1; ?>" data-fisik="<?=$stageTotal[$stage['id']]['fisik']; ?>">
 															<i class="fa fa-fw fa-edit"></i>
 														</a>
@@ -381,6 +384,7 @@
 											</td>
 											<?php for($bulan=0;$bulan<13;$bulan++){ ?>
 											<td></td>
+											<td></td>
 											<?php } ?>
 										</tr>
 										<tr style="background-color: #d67c00;border-color: #ffb74d;color:#fff; font-weight: 400;">
@@ -390,10 +394,9 @@
 											<td class='text-center'><?= round($fisikP,2); ?></td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonths[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".number_format($moneysMonths[$i],0,',','.')."</td>";
-													
+													echo "<td colspan='1' class='text-center'>".number_format($moneysMonths[$i],0,',','.')."</td><td colspan='1' class='text-center'></td>";
 												}
 											 } ?>	
 										</tr>	
@@ -401,9 +404,9 @@
 											<td colspan="7">Jumlah Kumulatif Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsKumulatif[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".number_format($moneysMonthsKumulatif[$i],0,',','.')."</td>";
+													echo "<td colspan='1' class='text-center'>".number_format($moneysMonthsKumulatif[$i],0,',','.')."</td><td colspan='1' class='text-center'></td>";
 													
 												}
 											 } ?>											
@@ -412,9 +415,9 @@
 											<td colspan="7">Persentase Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsP[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".round($moneysMonthsP[$i],2)."</td>";
+													echo "<td colspan='1' class='text-center'>".round($moneysMonthsP[$i],2)."</td><td colspan='1' class='text-center'></td>";
 													
 												}
 											 } ?>										
@@ -423,9 +426,9 @@
 											<td colspan="7">Persentase Kumulatif Rencana Keuangan</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($moneysMonthsKumulatifP[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".round($moneysMonthsKumulatifP[$i],2)."</td>";
+													echo "<td colspan='1' class='text-center'>".round($moneysMonthsKumulatifP[$i],2)."</td><td colspan='1' class='text-center'></td>";
 													
 												}
 											 } ?>											
@@ -434,9 +437,9 @@
 											<td colspan="7">Persentase Rencana Fisik</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($fisikMonths[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".round($fisikMonths[$i],2)."</td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'>".round($fisikMonths[$i],2)."</td>";
 													
 												}
 											 } ?>											
@@ -445,9 +448,9 @@
 											<td colspan="7">Persentase Kumulatif Rencana Fisik</td>
 											<?php for($i=0;$i<12;$i++){ 
 												if($fisikMonthsKumulatif[($i)] == 0){
-													echo "<td colspan='1' class='text-center'></td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'></td>";
 												}else{
-													echo "<td colspan='1' class='text-center'>".round($fisikMonthsKumulatif[$i],2)."</td>";
+													echo "<td colspan='1' class='text-center'></td><td colspan='1' class='text-center'>".round($fisikMonthsKumulatif[$i],2)."</td>";
 													
 												}
 											 } ?>											
@@ -491,7 +494,7 @@
 											</div>											
 											
 											<div class="form-group">
-												<label class=" form-control-label">Anggaran Biaya</label>
+												<label class=" form-control-label">Anggaran Keuangan</label>
 												<div class="input-group">
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
@@ -512,8 +515,8 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" step="any" min=0 class="form-control" name="fisik" id="fisikAct" required>
-											    <button type="button" class="btn btn-info" onclick="setMaxFAct()">Set Max Fisik</button>
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" readonly placeholder="otomatis terisi berdasarkan nilai keuangan" id="fisikAct" required>
+											    
 											  </div>											
 											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikkeu" style="font-style: normal;color:green;"> </i> </small>
 											</div>											
@@ -558,7 +561,7 @@
 												</table>
 											</div>
 											<div class="form-group">
-												<label class=" form-control-label">Anggaran Biaya</label>
+												<label class=" form-control-label">Anggaran Keuangan</label>
 												<div class="input-group">
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
@@ -579,7 +582,7 @@
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
 											    <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage" required>
-											    <input type="number" step="any" min=0 class="form-control" name="fisik" id="fisikStage" required>
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" readonly placeholder="otomatis terisi berdasarkan nilai keuangan" id="fisikStage" required>
 											    <button type="button" class="btn btn-info" onclick="setMaxFStage()">Set Max Fisik</button>
 											  </div>											
 											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikstage" style="font-style: normal;color:green;"> </i> </small>

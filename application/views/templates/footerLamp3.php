@@ -212,8 +212,7 @@
         success:function(data)
         {
           $('#biayaActAdd').attr("placeholder","maximum = "+data['sisa']);    
-          $('#biayaActAdd').attr("max",data['sisa']);    
-          $('#fisikAct').attr("placeholder","maximum = "+data['fisik']);    
+          $('#biayaActAdd').attr("max",data['sisa']); 
           $('#fisikAct').attr("max",data['fisik']);    
           
         }
@@ -244,8 +243,7 @@
         success:function(data)
         {
           $('#biayaStageAdd').attr("placeholder","maximum = "+data['sisa']);    
-          $('#biayaStageAdd').attr("max",data['sisa']);
-          $('#fisikStage').attr("placeholder","maximum = "+data['fisik']);    
+          $('#biayaStageAdd').attr("max",data['sisa']);   
           $('#fisikStage').attr("max",data['fisik']);    
           
         }
