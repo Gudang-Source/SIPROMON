@@ -58,7 +58,7 @@
 												<td>
 													<div class="muted">Penyusunan RMP <br> <!-- <i style="color:orange;">(Testing Phase)</i> -->
 
-														<a href="<?=base_url();?>RMP/satu/<?=$row['id']; ?>" class="btn btn-labeled btn-danger btn-sm" >
+														<a href="<?=base_url();?>RMP/judul/<?=$row['id']; ?>" class="btn btn-labeled btn-danger btn-sm" >
 																<span class="btn-label"><i class="fa fa-fw fa-pencil-square-o"></i></span> Edit RMP
 														</a>
 														<?php if($row['rmp_stats'] != 0){ ?>

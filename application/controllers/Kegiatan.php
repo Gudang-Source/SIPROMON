@@ -35,7 +35,7 @@ class Kegiatan extends CI_Controller {
 		$dummy = $this->ModelKegiatan->selectAllKegiatanById($iid)->row_array();		
 		$rmp_iid = $this->ModelRMP->insert(['kegiatan_id' => $iid]);
 		// $this->ModelRMPDocument->preDocument($rmp_iid);
-		$this->ModelRMPRoles->preRoles($dummy['satuankerja'],$dummy['tahun_anggaran'],$rmp_iid);
+		// $this->ModelRMPRoles->preRoles($dummy['satuankerja'],$dummy['tahun_anggaran'],$rmp_iid);
 
 		redirect('Kegiatan');
 	}
@@ -140,5 +140,10 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('templates/sidebar',$this->side);
 		$this->load->view('kegiatan/detail_old',$this->data);
 		$this->load->view('templates/footer',$this->foot);
+	}
+	public function delKegiatan($id){
+		$this->ModelKegiatan->delete($id);
+		redirect('Kegiatan');
+
 	}
 }

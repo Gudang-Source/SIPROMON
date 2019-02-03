@@ -53,6 +53,9 @@
 																	<a href="<?=base_url();?>Kegiatan/show/<?=$row['id']; ?>" type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Detail">
 																		<i class="fa fa-fw fa-arrow-circle-right"></i> Proses
 																	</a>
+																	<a href="#" onclick="del(<?=$row['id'] ;?>,'Kegiatan/delKegiatan/')" type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Hapus Kegiatan">
+																		<i class="fa fa-fw fa-trash"></i> Hapus
+																	</a>
 																</td>
 															</tr>
 															<?php }}else{ ?>

@@ -48,39 +48,25 @@ class Report extends CI_Controller{
   public function printRMP($id){
     $this->data['user'] = $this->ModelUser->selectById2($this->session->userdata('id'))->row_array();
     $this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
-    $data = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
+    $this->data['row']['pengesah'] = $this->ModelEmployee->selectById(1)->row_array()['name'];   
+    // $data = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
     $this->data['acts'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
     $this->data['stages'] = $this->ModelRMPStages->selectAll()->result_array();
     $this->data['bibs'] = $this->ModelRMPBib->selectByIdRMP($this->data['row']['id'])->result_array();
     $this->data['terbilang'] = $this->terbilang($this->data['row']['pagu']);
     $this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
-
+    $this->data['swots'] = $this->ModelRMPSwot->selectByIdRMP($this->data['row']['id'])->result_array();
+    $this->data['anals'] = $this->ModelRMPAnalisis->selectByIdRMP($this->data['row']['id'])->result_array();
+      $this->data['allsdm'] = $this->ModelRMPSDM->selectByIdRMP($this->data['row']['id'])->result_array();    
     // $docs = $this->ModelRMPDocument->selectByIdRMP($row['id'])->result_array();
     // $roles = $this->ModelRMPRoles->selectByIdRMP($row['id'])->result_array();
     // $sdms = $this->ModelRMPSDM->selectByIdRMP($row['id'])->result_array();
-    $this->data['sdks'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
-    $this->data['docs'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
-    $this->data['recs'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
+    // $this->data['sdks'] = $this->ModelRMPSDK->selectByIdRMP($this->data['row']['id'])->result_array();
+    // $this->data['docs'] = $this->ModelRMPDocument->selectByIdRMP($this->data['row']['id'])->result_array();
+    // $this->data['recs'] = $this->ModelRMPRec->selectByIdRMP($this->data['row']['id'])->result_array();
     // var_dump($row);
 
-    $headfoot = '<html>
-        <head>
-        <style>
-        body {
-          font-family: Calibri;
-        }
-        table {
-            border-collapse: collapse;
-        }
-
-        table, td, th {
-            border: 1px solid black;
-            vertical-align: text-top;
-            padding: 5px;
-        }
-        </style>
-        </head>
-        <body>
+    $headfoot = '
     <htmlpageheader name="MyHeader1">
         <img src="' . base_url() . 'assets/images/header-pdf.jpg"/>
     </htmlpageheader>
@@ -99,26 +85,22 @@ class Report extends CI_Controller{
 
     <htmlpagefooter name="MyFooter2">
 
-        <table border="1" style="font-size: 9pt;" width=100%>
-          <tbody style="vertical-align: text-top;">
-          <tr>
-            <td width=40%>No. Dok.: DSM/PUSAIR/RMP-01/.../...<br>No. Rev. : 00</td>
-            <td style="text-align: top" width=40%>Tgl. Diterbitkan : .............</td>
-            <td>Hal : {PAGENO}/{nbpg}<br>Paraf :</td>
-          </tr>
-          </tbody>
-        </table>  
-           
+        <div width="100%" style="text-align:right;">
+          <i>Hal : {PAGENO}/{nbpg}</i>
+        </div>  
     </htmlpagefooter>
+    <htmlpagefooter name="MyFooter3">
 
+        <div width="100%" style="text-align:right;">
+          <i>Hal : {PAGENO}/{nbpg}</i>
+        </div>  
+    </htmlpagefooter>
     <sethtmlpageheader name="MyHeader1" value="on" show-this-page="1" />
-    <sethtmlpageheader name="MyHeader2" value="on" />
     <sethtmlpagefooter name="MyFooter1" value="on" show-this-page="1"/>
-
-
+    <sethtmlpageheader name="MyHeader2" value="on" />
     <sethtmlpagefooter name="MyFooter2" value="on" />
-    </body>
-    </html>';
+    <sethtmlpagefooter name="MyFooter3" value="on" />
+';
 
      $cover='
          <html>
@@ -146,18 +128,6 @@ class Report extends CI_Controller{
             </style>
             </head>
             <body style="font-family: Calibri;">
-              <div style="text-align: center; font-family: Calibri; font-size: 14; line-height: 2.0">
-                <b>SATUAN KERJA '. strtoupper($this->data['row']['satuankerja']).' </b>
-              </div>
-              <table border="1" style="font-size: 10;" width=100%>
-                    <tbody style="vertical-align: text-top;">
-                    <tr>
-                      <td width=35%>No. Dok.: DSM/PUSAIR/RMP-01/.../...<br>No. Rev. : 00</td>
-                      <td style="text-align: top" width=50%>Tgl. Diterbitkan : ................</td>
-                      <td>Hal : 1<br>Paraf :</td>
-                    </tr>
-                    </tbody>
-                </table>  
                 <br>
                 <div style="text-align: center; font-family: Calibri; font-size: 14; line-height: 1.5">
                 <b>RENCANA MUTU PELAKSANA<br>
@@ -166,88 +136,181 @@ class Report extends CI_Controller{
                   <div style="text-align: center; font-family: Calibri; font-size: 12;">
                     <b>TAHUN ANGGARAN '. $this->data['row']['tahun_anggaran'].'</b>
                   </div>      
+                  <div style="text-align: center; font-family: Calibri; font-size: 12;">
+                    <b>SATUAN KERJA '. strtoupper($this->data['row']['satuankerja']).'</b>
+                  </div>                        
+                  <div style="text-align: center; font-family: Calibri; font-size: 12; font-weight:500;">
+                    No.Dok '. $this->data['row']['nodokumen'].';'.date("d M Y").' Rev. 00
+                  </div>                                          
               </div>
               <br><br>
-              <div style="text-align: center; font-family: Calibri; font-size: 12; line-height: 1.5">
+              <div style="text-align: center; font-family: Calibri; font-size: 14; line-height: 1.5">
                 <b>PENGESAHAN</b>
               </div>  <br>
 
-              <table border="1" style="font-size: 10; border-collapse: collapse; empty-cells: hide; border: none; font-family: Calibri; font-size: 12; padding-bottom: 10px;
-                padding-top: 7px;" width=100% align="center">
-                    <tbody style="vertical-align: text-top;">
-                <tr>
-                  <td style="border: none"></td>
-                  <th ><b>NAMA & JABATAN</b></th>
-                  <th width=20%><b>TANDA TANGAN</b></th>
-                </tr>
-                <tr>
-                  <td style="background-color: #e3ece4; width: 25%"><b>Konseptor</b></td>
-                  <td>'.$data['konseptor'].'</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td style="background-color: #e3ece4;"><b>Diperiksa Oleh</b></td>
-                  <td>'.$data['pemeriksa'].'</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td style="background-color: #e3ece4;"><b>Disahkan Oleh</b></td>
-                  <td>'.$this->data['kapus']['name'].'</td>
-                  <td></td>
-                </tr>
-                </tbody>
-              </table>
-              <br>
-              <div style="text-align: left; font-family: Calibri; font-size: 12; line-height: 2.5">
-                <b>Status Dokumen :</b> <br>
-                <table width=100% height=100px>
-                  <tr>
-                    <td style="height: 100px"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </table>
-              </div>  <br>
-
-              <div style="text-align: left; font-family: Calibri; font-size: 12; line-height: 2.5">
-                <b>Tanggal Distribusi :</b><br>
-                <table width=100%>
-                  <tr>
-                    <td style="height: 50px"></td>
-                    <td></td>
-                  </tr>
-                </table>
-
-              </div>  <br>
+                  <table width="100%">
+                      <col width="20%">
+                      <col width="40%">
+                      <col width="40%">
+                      <tbody>
+                      <tr height="50px">
+                        <td style="font-weight: bold;" width="33%">Status Dokumen</td>
+                        <td width="33%"> </td>
+                        <td width="33%"> </td>
+                      </tr>
+                      <tr height="50px">
+                        <td style="font-weight: bold;">Tanggal Distribusi</td>
+                        <td> </td>
+                        <td> </td>
+                      </tr>                     
+                      </tbody>
+                    </table>                  
+                    <h5 class="pull-left" style="font-weight: bold;">Distribusi Ke</h5>
+                    <table class="table table-bordered table-sm">
+                      <tbody>
+                      <tr>
+                        <td align="center">No. Urut</td>
+                        <td align="center">Nama Jabatan</td>
+                        <td align="center">No. Urut</td>
+                        <td align="center" width="40%">Nama Jabatan</td>
+                      </tr>
+                      <tr>
+                        <td align="center">1</td>
+                        <td>Kepala Pusat Litbang SDA</td>
+                        <td align="center">7</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td align="center">2</td>
+                        <td>Kepala Bidang Program dan Evaluasi</td>
+                        <td align="center">8</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td align="center">3</td>
+                        <td>Kepala '.$this->data['row']['satuankerja'].'</td>
+                        <td align="center">9</td>
+                        <td></td>
+                      </tr>                     
+                      <tr>
+                        <td align="center">4</td>
+                        <td>PPK '.$this->data['row']['satuankerja'].'</td>
+                        <td align="center">10</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td align="center">5</td>
+                        <td>Deputi Pengendali Dokumen</td>
+                        <td align="center">11</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td align="center">6</td>
+                        <td>Sekretariat SMM (Dokumen Asli)</td>
+                        <td align="center">12</td>
+                        <td></td>
+                      </tr>                     
+                      </tbody>
+                    </table>      
             </body>
             </html>';
 
-  $page2 = '<div style="text-align: left; font-family: Calibri; font-size: 12pt; line-height: 2.5">
-    <b>DISTRIBUSI KE :</b><br>
-    <table width=100% style="page-break-inside:avoid; text-align: center;">
+  // $page2 = '<div style="text-align: left; font-family: Calibri; font-size: 12pt; line-height: 2.5">
+  //   <b>DISTRIBUSI KE :</b><br>
+  //   <table width=100% style="page-break-inside:avoid; text-align: center;">
+  //     <tr>
+  //       <td width=10%>No. Urut</td>
+  //       <td>Nama Jabatan</td>
+  //     </tr>
+  //   </table>
+
+  //  </div>';
+
+  $page2 = '<div style="text-align: center; font-family: Calibri; font-size: 12pt; line-height: 2.5">
+     <b>HALAMAN REKAP KEGIATAN</b>
+        <table style="page-break-inside:avoid;" width="100%">
+      <col>
+      <col width="25%">
       <tr>
-        <td width=10%>No. Urut</td>
-        <td>Nama Jabatan</td>
+        <td colspan="3" align="center" style="font-weight: bold;">'.strtoupper($this->data['row']['judul']) .'</td>
+      </tr>
+      <tr>
+        <td colspan=2>No. Dokumen<br>'.strtoupper($this->data['row']['judul']).'
+         </td>
+        <td>Nomor DIPA <br>033.11.1.576981/2018</td>
+      </tr>
+      <tr>
+        <td colspan=2>Nama Satker<br>'.strtoupper($this->data['row']['satuankerja']).'</td>
+        <td>Tanggal Pengesahan DIPA<br>5 Desember 2018</td>
+      </tr>                       
+      <tr>
+        <td>Tanggal Terbit <br>'.date("d M Y").'</td>
+        <td>Rev: 00</td>
+        <td>Besaran Anggaran: <br> 
+            Rp.'.number_format($this->data['row']['besaran'],0,',','.').'
+        </td>
+      </tr>
+      <tr>
+        <td colspan=3 align="justify">Ringkasan Kegiatan <br> '.$this->data['row']['ringkasan'].'
+        </td>
+      </tr>
+      <tr>
+        <td colspan=3 align="justify">Lokasi Kegiatan <br>'.$this->data['row']['lokasi'].'</td>
+      </tr>
+      <tr>
+        <td align="justify">Sasaran Output <br> '.$this->data['row']['sasarankeluaran'].'</td>  
+        <td colspan=2 align="justify">Sasaran Mutu: <br> '.$this->data['row']['sasaranmutu'].'</td> 
+      </tr>
+      <tr>
+        <td>Konseptor: <br>'.$this->data['row']['konseptor'].'</td>
+        <td>Diperiksa: <br>'.$this->data['row']['pemeriksa'].'</td>
+        <td>Disahkan: <br>'.$this->data['row']['pengesah'].'</td>
       </tr>
     </table>
 
-   </div>';
+   </div>';   
 
-  $page3 = '<div style="text-align: center; font-family: Calibri; font-size: 12pt; line-height: 2.5">
-    <b>Sejarah Dokumen</b><br>
-    <table width=100% style="page-break-inside:avoid; text-align: center;">
-      <tr>
-        <td>TANGGAL</td>
-        <td>CATATAN PERUBAHAN</td>
-        <td>KETERANGAN</td>
-      </tr>
-      <tr>
-        <td style="height:1000px"></td>
-        <td></td>
-        <td></td>
-      </tr>
+  $page3 = '<div style="text-align: center; font-family: Calibri; font-size: 11pt; line-height: 2.5">
+  <b>SEJARAH DOKUMEN</b><br>
+    <table style="page-break-inside:avoid;" width="100%" style="font-size: 10pt;">
+      <thead>
+        <tr>
+          <td  align="center" style="font-weight:bold;">TANGGAL</td>
+          <td colspan=3  align="center" style="font-weight:bold;">CATATAN PERUBAHAN</td>
+          <td  align="center" style="font-weight:bold;">KETERANGAN</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <td style="height:200px;">'.Date('d M Y') .'</td>
+          <td colspan=3>Rencana Mutu Pelaksanaan '.$this->data['row']['judul'] .' ini diterbitkan perdana</td>
+          <td>Pelaksanaan untuk Tahun Anggaran 2019</td>
+        </tr>
+        <tr>
+          <td  align="center" style="font-weight:bold;">Tanggal</td>
+          <td  align="center" style="font-weight:bold;">Semula</td>
+          <td  align="center" style="font-weight:bold;">Menjadi</td>
+          <td  align="center" style="font-weight:bold;">Paraf</td>
+          <td  align="center" style="font-weight:bold;">Keterangan</td>
+        </tr>
+        <tr>
+          <td style="height:300px;">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
     </table>
+    <div>
+    <b>Keterangan :</b>
+    <ol type="a" style="padding-left:15px; text-align:left; line-height:1.2;">
+      <li>Catatan revisi dapat ditulis tangan dengan disertai paraf Kepala Balai/Bidang/ Bagian;</li>
+      <li>Lembar revisi disisipkan di belakang halaman yang direvisi.</li>
+      <li>Jika perubahan mengakibatkan penambahan halaman, penomoran halaman tambahan disisipkan menggunakan notasi abjad (contoh :5a,5b,dst).</li>
+      <li>Perubahan (revisi) RMP yang sudah disetujui akan dibubuhkan cap oleh Sub Bidang Program.</li>
+    </ol>
+    </div>
 
     </div>';
 
@@ -314,12 +377,10 @@ class Report extends CI_Controller{
     </head>';
 
   $toc=' 
-    <body>
-      <h1 style="text-align: center">        
-      Daftar Isi</h1>
-
-    </body>
-    </html>';
+      <div style="text-align: center; font-family: Calibri; font-size: 12pt; line-height: 2.5">
+     <b>DAFTAR ISI</b>
+      </div> 
+    ';
 
     $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L', 'default_font' => 'Calibri']);
 
@@ -338,42 +399,37 @@ class Report extends CI_Controller{
     $mpdf->WriteHTML($cover);
     $mpdf->SetHTMLFooterByName('MyFooter1'); 
 
+
     $mpdf->SetHTMLHeaderByName('MyHeader2');
     $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
-    $mpdf->SetHTMLFooterByName('MyFooter2'); 
-
+    $mpdf->SetHTMLFooterByName('MyFooter3'); 
     
-    $mpdf->SetTitle("Rencana Mutu Pelaksanaan");
-    $mpdf->SetAuthor("Faisal Syaiful Anwar");
+    $mpdf->SetTitle("RMP - ".$this->data['row']['judul']);
+    $mpdf->SetAuthor("Ketua Kegiatan");
     $mpdf->SetDisplayMode('fullpage');
 
     $mpdf->WriteHTML($page2); 
-    $no=1;
-    for ($i=0; $i <27 ; $i++) { 
-      $mpdf->WriteHTML('<table width=100% style="page-break-inside:avoid">
-      <tr height=5%>
-        <td width=10%></td>
-        <td>&nbsp;</td>
-      </tr>
-    </table>');
-     $no++;
-    }
+    $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
     $mpdf->WriteHTML($page3); 
 
     //Daftar Isi
     $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
-    $mpdf->WriteHTML($style);
     $mpdf->WriteHTML($toc);
+    $mpdf->WriteHTML('<pagebreak resetpagenum="1" pagenumstyle="1" >');
 
+    $mpdf->SetHTMLHeaderByName('MyHeader2');
+    $mpdf->SetHTMLFooterByName('MyFooter2'); 
 
     // Isi
     $content = $this->load->view('report/content',$this->data,true);
     // $mpdf->autoPageBreak = false;
-    $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
+    // $mpdf->AddPage('P','','','','',30,25,30,30,15,10);
     $mpdf->WriteHTML($style); 
     $mpdf->WriteHTML($content);
     // print_r($this->data['row']);
-    $mpdf->Output();
+    $pdfFilePath = "RMP_".$this->data['row']['tahun_anggaran'].".pdf";    
+    // print_r($this->data['allsdm']);
+    $mpdf->Output($pdfFilePath,"D");
   }
 
   public function printAtt1($idk){
@@ -836,13 +892,11 @@ class Report extends CI_Controller{
 
       // $mpdf->AddPage('L','','','','',10,10,10,10,5,5);
       // A3 ~ 420mm 370mm
-      $pdfFilePath = "Lampiran_3".$this->session->userdata('id')."_".$idk."_".$this->data['row']['id'].".pdf";
+      $pdfFilePath = "Lampiran_3_".$this->session->userdata('id')."_".$idk."_".$this->data['row']['id'].".pdf";
       $mpdf->Output($pdfFilePath,"D");
-    
   }
 
-  public function tampil($id)
-  {
+  public function tampil($id){
     // $row = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
     // $data = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
     // $this->load->view('templates/header-tampil');

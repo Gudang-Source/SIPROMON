@@ -64,7 +64,7 @@
                         <div class="register-link m-t-15 text-center">
                             <p>Belum mempunyai akun ? Ketua tim silahkan<a href="<?php echo site_url(); ?>Auth/register"> daftar disini</a></p>
                         </div>
-                        <a href="<?=base_url(); ?>Auth/es3" class="btn btn-info btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Eselon 3</a>
+<!--                         <a href="<?=base_url(); ?>Auth/es3" class="btn btn-info btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-left"></i></span> Eselon 3</a> -->
 <!--                         <br>
                         <br>
                         <a href="Auth/ka" type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><span class="btn-label"><i class="fa fa-fw fa-arrow-right"></i></span> Kepala Pusair</a> -->

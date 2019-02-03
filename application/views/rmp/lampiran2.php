@@ -23,17 +23,22 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div>
-										<center><h2>Kerangka dan Rencana Kerja Kegiatan</h2><?=$row['judul']; ?><br>Tahun Anggaran <?=$row['tahun_anggaran']; ?></center>
+										<center><h2>Kerangka dan Rencana Kerja Kegiatan</h2><?=$row['judul']; ?><br>Tahun Anggaran <?=" ".$row['tahun_anggaran']; ?></center>
 									</div>
 									<div>
 										<div class="form-group col-sm-2">
 									      <select id="navigate" class="form-control" style="margin-left:-15px; background-color:#ffd700;">
 									        <option disabled><b>-Navigasi-</b></option>
+									        <option value="judul" <?php if($this->uri->segment(2) == "judul") echo "selected"; ?> >Judul</option>
+									        <option value="rekap" <?php if($this->uri->segment(2) == "rekap") echo "selected"; ?> >Rekap</option>
+									        <option value="sejarah" <?php if($this->uri->segment(2) == "sejarah") echo "selected"; ?> >Sejarah</option>
 									        <option value="satu" <?php if($this->uri->segment(2) == "satu") echo "selected"; ?> >Bab I</option>
 									        <option value="dua" <?php if($this->uri->segment(2) == "dua") echo "selected"; ?>>Bab II</option>
 									        <option value="tiga" <?php if($this->uri->segment(2) == "tiga") echo "selected"; ?>>Bab III</option>
 									        <option value="empat" <?php if($this->uri->segment(2) == "empat") echo "selected"; ?>>Bab IV</option>
+									        <?php if($row['jenis'] == "Litbang"){ ?>
 									        <option value="limabelas" <?php if($this->uri->segment(2) == "limabelas") echo "selected"; ?>>Daftar Pustaka</option>
+									        <?php } ?>
 									        <option value="att1" <?php if($this->uri->segment(2) == "att1") echo "selected"; ?>>Lampiran 1</option>
 									        <option value="att2" <?php if($this->uri->segment(2) == "att2") echo "selected"; ?>>Lampiran 2</option>
 									        <option value="att3" <?php if($this->uri->segment(2) == "att3") echo "selected"; ?>>Lampiran 3</option>
@@ -117,9 +122,9 @@
 													if($act['waktu'] != ""){
 														$temp = explode("-",$act['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													}
 												?>
@@ -142,9 +147,9 @@
 													if($stage['waktu'] != ""){
 														$temp = explode("-",$stage['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													} 
 												?>	
@@ -186,9 +191,9 @@
 													if($act['waktu'] != ""){
 														$temp = explode("-",$act['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													} 
 												?>	
@@ -211,9 +216,9 @@
 													if($stage['waktu'] != ""){
 														$temp = explode("-",$stage['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													} 
 												?>	
@@ -255,9 +260,9 @@
 													if($act['waktu'] != ""){
 														$temp = explode("-",$act['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													} 
 												?>	
@@ -280,9 +285,9 @@
 													if($stage['waktu'] != ""){
 														$temp = explode("-",$stage['waktu']);
 														if($temp[0] != $temp[1]){
-															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." 2018";
+															echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 														}else{
-															echo $bulan[$temp[0]-1]." 2018";
+															echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 														}
 													} 
 												?>	

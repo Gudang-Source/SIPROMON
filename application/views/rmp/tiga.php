@@ -29,11 +29,16 @@
 											<div class="form-group col-md-2">
 									      <select id="navigate" class="form-control" style="margin-left:-15px; background-color:#ffd700;">
 									        <option disabled><b>-Navigasi-</b></option>
+									        <option value="judul" <?php if($this->uri->segment(2) == "judul") echo "selected"; ?> >Judul</option>
+									        <option value="rekap" <?php if($this->uri->segment(2) == "rekap") echo "selected"; ?> >Rekap</option>
+									        <option value="sejarah" <?php if($this->uri->segment(2) == "sejarah") echo "selected"; ?> >Sejarah</option>
 									        <option value="satu" <?php if($this->uri->segment(2) == "satu") echo "selected"; ?> >Bab I</option>
 									        <option value="dua" <?php if($this->uri->segment(2) == "dua") echo "selected"; ?>>Bab II</option>
 									        <option value="tiga" <?php if($this->uri->segment(2) == "tiga") echo "selected"; ?>>Bab III</option>
 									        <option value="empat" <?php if($this->uri->segment(2) == "empat") echo "selected"; ?>>Bab IV</option>
+									        <?php if($row['jenis'] == "Litbang"){ ?>
 									        <option value="limabelas" <?php if($this->uri->segment(2) == "limabelas") echo "selected"; ?>>Daftar Pustaka</option>
+									        <?php } ?>
 									        <option value="att1" <?php if($this->uri->segment(2) == "att1") echo "selected"; ?>>Lampiran 1</option>
 									        <option value="att2" <?php if($this->uri->segment(2) == "att2") echo "selected"; ?>>Lampiran 2</option>
 									        <option value="att3" <?php if($this->uri->segment(2) == "att3") echo "selected"; ?>>Lampiran 3</option>
@@ -54,15 +59,15 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-											<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#peta" role="tab" aria-controls="latar" aria-selected="true">Pemetaan Risiko dan Mitigasi</a>
-											<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#analis" role="tab" aria-controls="latar" aria-selected="true">Analis Risiko/Peluang dan Mitigasi</a>
+											<a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#peta" role="tab" aria-controls="latar" aria-selected="true">Pemetaan Risiko dan Mitigasi</a>
+											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#an" role="tab" aria-controls="latar" aria-selected="true">Analis Risiko/Peluang dan Mitigasi</a>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#kegiatan" role="tab" aria-controls="masalah" aria-selected="false">Tahapan Kegiatan</a>
 											<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#baganalir" role="tab" aria-controls="masalah" aria-selected="false">Bagan Alir Pelaksanaan Kegiatan</a>
 											<input type="hidden" name="id" value="<?=$row['id']; ?>">
-<!-- 											<button type="submit" class="btn btn-success">
+											<button type="submit" class="btn btn-success">
 													<span class=""><i class="fa fa-fw fa-save"></i></span> Simpan Draf
 											</button>
- -->											<!-- <button type="submit" class="btn btn-outline-dark">
+											<!-- <button type="submit" class="btn btn-outline-dark">
 													<span class=""><i class="fa fa-fw fa-eye"></i></span> Preview
 											</button> -->
 										</div>
@@ -75,6 +80,10 @@
 													<hr>
 														<div class="text-right" style="margin-bottom: 15px;">
 														</div>
+														<p>Pemetaan Risiko dan Mitigasi menggunakan metode SWOT (Strengths, Weaknesses, Opportunities, Threats) dengan diisi masing-masing minimal 5 butir untuk setiap indikator seperti pada tabel 2. 
+														Masing-masing butir dinilai bobotnya menggunakan metode USG (Urgency, Seriousness, Growth).
+														Metode ini digunakan sebagai alat untuk menyusun urutan prioritas isu yang harus diselesaikan. Caranya dengan menentukan tingkat urgensi, keseriusan, dan perkembangan isu dengan menentukan skala nilai     1 – 5. Isu yang memiliki total skor tertinggi merupakan isu prioritas. 
+														</p>															
 													<table class="table table-sm table-bordered">
 														<col width="20px" align="center">
 														<col width="auto" align="center">
@@ -106,7 +115,7 @@
 																if($swot['swot_parent'] == 1){
 															?>
 															<tr>
-																<td align="center"><?=$no++ ?></td>
+																<td align="center">S<?=$no++ ?></td>
 																<td><?=$swot['swot_factor'] ?><a class="text-danger text-right" href="<?=base_url(); ?>RMP/deleteSwot/<?=$swot['swot_id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Tahapan"><span class="fa fa-fw fa-trash"></span></a></td>
 																<td><?=$swot['swot_u'] ?></td>
 																<td><?=$swot['swot_s'] ?></td>
@@ -129,7 +138,7 @@
 																if($swot['swot_parent'] == 2){
 															?>
 															<tr>
-																<td align="center"><?=$no++ ?></td>
+																<td align="center">W<?=$no++ ?></td>
 																<td><?=$swot['swot_factor'] ?><a class="text-danger text-right" href="<?=base_url(); ?>RMP/deleteSwot/<?=$swot['swot_id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Tahapan"><span class="fa fa-fw fa-trash"></span></a></td>
 																<td><?=$swot['swot_u'] ?></td>
 																<td><?=$swot['swot_s'] ?></td>
@@ -152,7 +161,7 @@
 																if($swot['swot_parent'] == 3){
 															?>
 															<tr>
-																<td align="center"><?=$no++ ?></td>
+																<td align="center">U<?=$no++ ?></td>
 																<td><?=$swot['swot_factor'] ?><a class="text-danger text-right" href="<?=base_url(); ?>RMP/deleteSwot/<?=$swot['swot_id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Tahapan"><span class="fa fa-fw fa-trash"></span></a></td>
 																<td><?=$swot['swot_u'] ?></td>
 																<td><?=$swot['swot_s'] ?></td>
@@ -175,7 +184,7 @@
 																if($swot['swot_parent'] == 4){
 															?>
 															<tr>
-																<td align="center"><?=$no++ ?></td>
+																<td align="center">T<?=$no++ ?></td>
 																<td><?=$swot['swot_factor'] ?><a class="text-danger text-right" href="<?=base_url(); ?>RMP/deleteSwot/<?=$swot['swot_id'];?>/<?=$this->uri->segment(3);?>" title="Hapus Tahapan"><span class="fa fa-fw fa-trash"></span></a></td>
 																<td><?=$swot['swot_u'] ?></td>
 																<td><?=$swot['swot_s'] ?></td>
@@ -190,15 +199,21 @@
 													</table>
 												</div>
 											</div>											
-											<div class="tab-pane fade" id="analis" role="tabpanel">
+											<div class="tab-pane fade" id="an" role="tabpanel">
 												<div class="card-title">
-													<h3 class="text-center">Analisis Risiko dan Mitigasi</h3>
+													<h3 class="text-center">Analisis Risiko dan Mitigasi <a href="#" data-toggle="tooltip" data-placement="bottom"  title="Isu diambil secara otomatis dari SWOT Tertinggi"><i class="fa fa-info-circle"></i></a> </h3> 
+
 													<hr>
 														<div class="text-right" style="margin-bottom: 15px;">
 															<button type="button" class=" btn-sm btn-labeled btn-success" data-toggle="modal" data-target="#tambahanalisis">
 																	<span class="btn-label"><i class="fa fa-fw fa-plus"></i></span> Tambah Analisis
 															</button>
-														</div>													
+														</div>		
+														<p>
+														Dari setiap isu, di analisis risiko/peluang serta tindakan mitigasi pengendalian risikonya. Tindakan mitigasi
+														pengendalian risiko diisi dengan antisipasi dari risiko/peluang yang akan muncul. Kolom Rencana
+														Pemantauan mengacu ke kriteria penerimaan dan Acuan Pemeriksaan pada lampiran 2.															
+														</p>														
 													<table class="table table-sm table-bordered">
 														<thead>
 															<tr align="middle">
@@ -367,7 +382,7 @@
 													<h3 class="text-center">Unggah Bagan Alir</h3>
 													<hr>
 													<?php if($row['baganalir'] != NULL){ ?>
-														<img src="<?=base_url(); ?>assets/uploads/baganalir/<?=$row['baganalir']?>" alt="" height="300" class="img">
+														<img src="<?=base_url(); ?>assets/uploads/baganalir/<?=$row['baganalir']?>" alt="" height="500px" class="img">
 													<?php } ?>															
 													<div class="input-group">
 														<div class="custom-file">
@@ -444,7 +459,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 							<div class="modal-header">
-									<h5 class="modal-title" id="largeModalLabel">Tambah Analisis SWOT</h5>
+									<h5 class="modal-title" id="largeModalLabel">Analisis Risik/Mitigasi dan Peluang o</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 									</button>
@@ -456,25 +471,30 @@
 										<div class="form-group">
 											<label class=" form-control-label">Isu</label>
 											<div class="input-group">
-													<input type="text" name="anal_isu" class="form-control">
+													<select name="anal_isu" class="form-control">
+														<?php foreach($isus as $isu){ foreach($isu as $x){ ?>
+														<option value="<?=$x; ?>"><?=$x; ?></option>
+														<?php }} ?>
+													</select>
+													<!-- <input type="text" name="anal_isu" class="form-control"> -->
 											</div>
 										</div>
 										<div class="form-group">
 											<label class=" form-control-label">Risiko/Peluang</label>
 											<div class="input-group">
-													<input type="text" name="anal_risiko" class="form-control" >
+													<textarea name="anal_risiko" class="form-control" rows=4></textarea>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class=" form-control-label">Tindakan Pengendalian Resiko</label>
 											<div class="input-group">
-													<input type="text" name="anal_tindakan" class="form-control" >
+													<textarea name="anal_tindakan" class="form-control" rows=4></textarea>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class=" form-control-label">Rencana Pemantauan</label>
 											<div class="input-group">
-													<input type="text" name="anal_rencana" class="form-control" >
+													<textarea name="anal_rencana" class="form-control" rows=4></textarea>
 											</div>
 										</div>																				
 										<input type="hidden" name="anal_id">
@@ -512,12 +532,6 @@
 														<input id="keg1" type="text" name="kegiatan" class="form-control">
 												</div>
 											</div>
-											<div class="form-group">
-												<label class=" form-control-label">Deskripsi (Opsional)</label>
-												<div class="input-group">
-														<textarea id="desc1" name="deskripsi" class="ckeditor" ></textarea>
-												</div>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -550,12 +564,6 @@
 												<label class=" form-control-label">Nama Tahapan</label>
 												<div class="input-group">
 														<input id="keg2" type="text" name="kegiatan" class="form-control">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class=" form-control-label">Deskripsi (Opsional)</label>
-												<div class="input-group">
-														<textarea id="desc2" name="deskripsi" class="ckeditor"></textarea>
 												</div>
 											</div>
 										</div>

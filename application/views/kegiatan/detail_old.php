@@ -57,7 +57,7 @@
 												<td class="left">Penyusunan RMP</td>
 												<td>
 													<div class="muted">Penyusunan RMP <br> <!-- <i style="color:orange;">(Testing Phase)</i> -->
-														<a href="<?=base_url();?>RMP/satu/<?=$row['id']; ?>" class="btn btn-labeled btn-danger btn-sm" >
+														<a href="<?=base_url();?>RMP/judul/<?=$row['id']; ?>" class="btn btn-labeled btn-danger btn-sm" >
 																<span class="btn-label"><i class="fa fa-fw fa-pencil-square-o"></i></span> Edit RMP
 														</a>
 														<?php if($row['rmp_stats'] != 0){ ?>
@@ -72,7 +72,7 @@
 																<a target="_blank" href="<?=base_url();?>Report/printRMP/<?=$row['id']; ?>" class="dropdown-item">
 																	<i class="fa fa-fw fa-file-pdf-o"></i>Rencana Mutu Pelaksanaan
 																</a>
-																<a target="_blank" href="<?=base_url();?>Report/printAtt1/<?=$row['id']; ?>" class="dropdown-item">
+																<a target="_blank" href="<?=base_url();?>assets/attachment/<?=$row['rabdocument']; ?>" class="dropdown-item">
 																	<i class="fa fa-fw fa-file-pdf-o"></i>Rancangan Anggaran Biaya
 																</a>
 																<a target="_blank" href="<?=base_url();?>Report/printAtt2/<?=$row['id']; ?>" class="dropdown-item">
@@ -91,9 +91,7 @@
 											</tr>
 										</tbody>
 									</table>
-									<a href="<?=base_url();?>Monev/realisasiAkun/<?=$row['id']; ?>" class="btn btn-labeled btn-info btn-sm" >
-											<span class="btn-label"><i class="fa fa-angle-double-right fa-fw"></i></span> Realisasi Per Akun
-									</a>&nbsp;&nbsp;&nbsp;
+								
 									<a href="<?=base_url();?>Monev/tabel_progres/<?=$row['id']; ?>" class="btn btn-labeled btn-primary btn-sm" >
 											<span class="btn-label"><i class="fa fa-plus fa-fw"></i></span> Progress Realisasi
 									</a>														

@@ -99,7 +99,7 @@
 				</div><!-- .content -->
 		</div><!-- /#right-panel -->
 		<div class="modal fade" id="formPosition" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-md" role="document">
+				<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 								<div class="modal-header">
 										<h5 class="modal-title" id="largeModalLabel">Tambah Jabatan</h5>
@@ -157,7 +157,7 @@
 		<!-- Right Panel -->
 
 		<div class="modal fade" id="formUpdateP" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-md" role="document">
+				<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 								<div class="modal-header">
 										<h5 class="modal-title" id="largeModalLabel">Edit Jabatan</h5>

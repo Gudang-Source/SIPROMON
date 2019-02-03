@@ -26,7 +26,7 @@
    $(document).ready(function(){
     if(x == 'sdk') $('.nav-pills a[href="#sdk"]').tab('show');
     if(x == 'sdm') $('.nav-pills a[href="#sdm"]').tab('show');
-    if(x == 'anal') $('.nav-pills a[href="#analisis"]').tab('show');
+    if(x == 'an') $('.nav-pills a[href="#an"]').tab('show');
     if(x == 'swot') $('.nav-pills a[href="#peta"]').tab('show');
     if(x == 'keg') $('.nav-pills a[href="#kegiatan"]').tab('show');
    });
