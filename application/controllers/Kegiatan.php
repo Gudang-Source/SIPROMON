@@ -42,6 +42,9 @@ class Kegiatan extends CI_Controller {
 	public function show($id){
 		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($id)->row_array();
+		// pagu from API
+		$this->data['row']['pagu'] = $this->ModelMnvKeuanganTotal->getPaguEmon($this->data['row']['kdsatker'],$this->data['row']['kdpaket'],$this->data['row']['tahun_anggaran'])->row_array()['pagu'];
+		$pagu = $this->data['row']['pagu'];
 
 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
 		$this->data['allStages'] = $this->ModelRMPStages->selectByRMP($this->data['row']['id'])->result_array();			
@@ -51,6 +54,10 @@ class Kegiatan extends CI_Controller {
 		$this->data['moneysMonthsKumulatif'] = array();
 		$this->data['moneysMonthsKumulatifP'] = array();
 		$this->data['fisikMonthsKumulatif'] = array();
+
+
+		$this->data['moneysMonthsKumulatifPEmon'] = $this->ModelMnvKeuangan->getKeuEmon($this->data['row']['kdsatker'],$this->data['row']['kdpaket'],$this->data['row']['tahun_anggaran'])->row_array();
+		$this->data['fisikMonthsKumulatifEmon'] = $this->ModelMnvFisik->getFisikEmon($this->data['row']['kdsatker'],$this->data['row']['kdpaket'],$this->data['row']['tahun_anggaran'])->row_array();
 	
 		$fisik_kumulatif = 0;
 		$moneys_kumulatif = 0;
@@ -59,11 +66,14 @@ class Kegiatan extends CI_Controller {
 		$this->data['moneysMonthsKumulatifR'] = array();
 		$this->data['moneysMonthsKumulatifPR'] = array();
 		$this->data['fisikMonthsKumulatifR'] = array();
+
+		
 		$fisik_kumulatifR = 0;
 		$moneys_kumulatifR = 0;
 		$moneys_kumulatifPR = 0;
 
 		for ($i=0; $i < 12; $i++) {
+			$this->data['moneysMonthsKumulatifPEmon']['b'.($i+1)] = ($this->data['moneysMonthsKumulatifPEmon']['b'.($i+1)]/$this->data['row']['pagu'])*100;
 			$temp = $this->ModelMnvKeuangan->getByMonthRMP($id,($i+1));
 			if($temp->num_rows() != 0){
 				$temp = $temp->result_array();
@@ -135,6 +145,7 @@ class Kegiatan extends CI_Controller {
 
 		$this->data['kapus'] = $this->ModelEmployee->selectById(1)->row_array(); 
 		$this->data['row'] = $this->ModelKegiatan->selectAllKegiatanById($id)->row_array();
+		$this->data['row']['pagu']= $pagu;
 
 		$this->load->view('templates/header',$this->head);
 		$this->load->view('templates/sidebar',$this->side);

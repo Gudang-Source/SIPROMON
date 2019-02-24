@@ -51,6 +51,20 @@ class ModelMnvKeuanganTotal extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getPaguEmon($kdsatker='', $kdpaket ='', $tahun = ''){
+		$this->db->select('pagu');
+		$this->db->from('emon_data_'.$tahun);
+		$this->db->where('kdsatker = '.$kdsatker.' AND kdpaket = '.$kdpaket);
+		return $this->db->get();
+	}
+
+	public function getAkunEmon($kdsatker='', $kdpaket ='', $tahun = ''){
+		$this->db->select('*');
+		$this->db->from('emon_akun_'.$tahun);
+		$this->db->where('kdsatker = '.$kdsatker.' AND kdpaket = '.$kdpaket);
+		return $this->db->get();
+	}
+
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 

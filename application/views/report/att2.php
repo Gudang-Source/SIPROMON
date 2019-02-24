@@ -67,9 +67,9 @@
 									if($act['waktu'] != ""){
 										$temp = explode("-",$act['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>
@@ -92,9 +92,9 @@
 									if($stage['waktu'] != ""){
 										$temp = explode("-",$stage['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>
@@ -132,9 +132,9 @@
 									if($act['waktu'] != ""){
 										$temp = explode("-",$act['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>
@@ -157,9 +157,9 @@
 									if($stage['waktu'] != ""){
 										$temp = explode("-",$stage['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>
@@ -197,9 +197,9 @@
 									if($act['waktu'] != ""){
 										$temp = explode("-",$act['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>
@@ -222,9 +222,9 @@
 									if($stage['waktu'] != ""){
 										$temp = explode("-",$stage['waktu']);
 										if($temp[0] != $temp[1]){
-											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." - ".$bulan[$temp[1]-1]." ".$row['tahun_anggaran'];
 										}else{
-											echo $bulan[$temp[0]-1].$row['tahun_anggaran'];
+											echo $bulan[$temp[0]-1]." ".$row['tahun_anggaran'];
 										}
 									}
 								?>

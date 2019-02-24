@@ -35,12 +35,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<style type="text/css" media="screen">
+		body { padding-right: 0 !important }
 		#header{
 			background-color: #ffd700;
 		}
 		.left{
 			font-weight: bold;
 		}
+
 
 		a{
 			color: #2780e3;
@@ -89,4 +91,6 @@
 	<script src="<?=base_url();?>assets/js/highcharts/modules/export-data.js"></script>
 
 </head>
-<body style="font-family: 'Source Sans Pro',Calibri,Candara,Arial" <?php 	if($this->uri->segment(2) == "att2" || $this->uri->segment(2) == "att3" || $this->uri->segment(1) == "Monev") echo 'class="open"'; ?>>
+<body style="font-family: 'Source Sans Pro',Calibri,Candara,Arial; " <?php 	if($this->uri->segment(2) == "att2" || $this->uri->segment(2) == "att3" || $this->uri->segment(1) == "Monev") echo 'class="open"'; ?>>
+	
+	<div>

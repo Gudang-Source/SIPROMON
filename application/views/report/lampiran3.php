@@ -112,7 +112,7 @@
 					</td>
 					<td></td>
 					<td></td>
-					<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+					<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 					<?php 
@@ -178,7 +178,7 @@
 					</td>
 					<td></td>
 					<td></td>
-					<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+					<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 					<?php 
@@ -244,7 +244,7 @@
 					</td>
 					<td></td>
 					<td></td>
-					<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+					<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 					<td><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 					<?php 

@@ -168,7 +168,7 @@
 											<td width="7px">1.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
@@ -260,7 +260,7 @@
 											<td width="7px">2.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
@@ -351,7 +351,7 @@
 											<td width="7px">3.<?=($no-1).".".$no3++; ?></td>
 											<td nowrap=""><?php echo $stage['kegiatan'];?> 
 											</td>
-											<td><?=round($stageTotal[$stage['id']]['biaya'],2); ?></td>
+											<td><?=number_format($stageTotal[$stage['id']]['biaya'],0,',','.'); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['biayaP'],2); ?></td>
 											<td class="text-center"><?=round($stageTotal[$stage['id']]['fisik'],2); ?></td>
 											<?php 
@@ -507,12 +507,21 @@
 											    <input type="number" min=0 class="form-control" name="biaya" id="biayaActAdd" onchange="setFisikAct()" required>
 											    <button type="button" class="btn btn-info" onclick="setMaxBAct()">Set Max Biaya</button>
 											    <!-- Hidden Here -->
+											    <!-- <input type="hidden" name="biayaP" id="biayaPact" value=""> -->
 											    <input type="hidden" name="act_id" id="actkeu" value="">
-											    <input type="hidden" name="biayaP" id="biayaPact" value="">
 											    <input type="hidden" name="month" id="monthkeu" value="">
 											    <input type="hidden" name="id_kegiatan" id="id_kegiatankeu" value="<?= $this->uri->segment(3);?>">
-											  </div>											
+											  </div>
 											  <small class="form-text text-muted">Total Anggaran Tahapan: Rp.<i id="paguanggaran" style="font-style: normal;color:green;"> </i> </small>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Persentase Anggaran</label>
+												<div class="input-group">
+											    <div class="input-group-prepend">
+											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
+											    </div>
+											    <input type="number" step="any" min=0 class="form-control" name="biayaP" placeholder="otomatis terisi berdasarkan nilai keuangan" id="biayaPact" readonly required>
+											  </div>
 											</div>
 											<div class="form-group">
 												<label class=" form-control-label">Bobot Fisik</label>
@@ -520,10 +529,10 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="number" step="any" min=0 class="form-control" name="fisik" readonly placeholder="otomatis terisi berdasarkan nilai keuangan" id="fisikAct" required>
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" placeholder="Nilai default berdasarkan persentase anggaran" id="fisikAct" required>
 											    
 											  </div>											
-											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikkeu" style="font-style: normal;color:green;"> </i> </small>
+											  <small class="form-text text-muted">Total Bobot Fisik Tahapan: <i id="fisikkeu" style="font-style: normal;color:green;"> </i> </small>
 											</div>											
 										</div>
 									</div>
@@ -575,10 +584,20 @@
 											    <button type="button" class="btn btn-info" onclick="setMaxBStage()">Set Max Biaya</button>
 											    <!-- Hidden Here -->
 											    <input type="hidden" name="stage_id" id="actkeustage" value="">
+											    <!-- <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage" required> -->
 											    <input type="hidden" name="month" id="monthkeustage" value="">	
 											    <input type="hidden" name="id_kegiatan" id="id_kegiatanstage" value="<?= $this->uri->segment(3);?>">										    
 											  </div>											
 											  <small class="form-text text-muted">Total Anggaran Tahapan: Rp.<i id="paguanggaranstage" style="font-style: normal;color:green;"> </i> </small>
+											</div>
+											<div class="form-group">
+												<label class=" form-control-label">Persentase Anggaran</label>
+												<div class="input-group">
+											    <div class="input-group-prepend">
+											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
+											    </div>
+											    <input type="number" step="any" min=0 class="form-control" name="biayaP" placeholder="otomatis terisi berdasarkan nilai keuangan" id="biayaPstage" readonly required>
+											  </div>
 											</div>
 											<div class="form-group">
 												<label class=" form-control-label">Bobot Fisik</label>
@@ -586,11 +605,10 @@
 											    <div class="input-group-prepend">
 											      <div class="input-group-text"><i class="fa fa-money fa-fw"></i></div>
 											    </div>
-											    <input type="hidden" min=0 class="form-control" name="biayaP" id="biayaPstage" required>
-											    <input type="number" step="any" min=0 class="form-control" name="fisik" readonly placeholder="otomatis terisi berdasarkan nilai keuangan" id="fisikStage" required>
+											    <input type="number" step="any" min=0 class="form-control" name="fisik" placeholder="Nilai default berdasarkan persentase anggaran" id="fisikStage" required>
 											    <button type="button" class="btn btn-info" onclick="setMaxFStage()">Set Max Fisik</button>
 											  </div>											
-											  <small class="form-text text-muted">Total Bobot Fisik: <i id="fisikstage" style="font-style: normal;color:green;"> </i> </small>
+											  <small class="form-text text-muted">Total Bobot Fisik Tahapan: <i id="fisikstage" style="font-style: normal;color:green;"> </i> </small>
 											</div>																						
 										</div>
 									</div>

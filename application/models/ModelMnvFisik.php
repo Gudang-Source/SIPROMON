@@ -81,6 +81,13 @@ class ModelMnvFisik extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getFisikEmon($kdsatker='', $kdpaket ='', $tahun = ''){
+		$this->db->select('*');
+		$this->db->from('emon_rencanafis_'.$tahun);
+		$this->db->where('kdsatker = '.$kdsatker.' AND kdpaket = '.$kdpaket);
+		return $this->db->get();
+	}
+
 	public function insert($data){
 		$this->db->insert($this->tableName,$data);
 		return $this->db->insert_id();

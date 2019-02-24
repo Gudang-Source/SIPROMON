@@ -64,8 +64,8 @@
       });
       $('#paguanggaran').text(''+money+',-');
       $('#actkeu').val(actkeu);
-      $('#monthkeu').val(month);
       $('#fisikkeu').text(''+fisik+'');
+      $('#monthkeu').val(month);
       setMaxBiaya();
       // $('#fisik').val(fisik);
   });
@@ -110,7 +110,7 @@
     var sisaFisik = document.getElementById("sisaFisik").value;
 
 
-    if(sisaPagu == 0 && sisaFisik == 0){
+    if(sisaPagu == 0 && sisaFisik < 0.5){
       window.location.href = "<?=base_url(); ?>RMP/end/<?=$this->uri->segment(3)?>";
     }else{
       if(sisaPagu > 0 && sisaFisik > 0){
@@ -158,7 +158,7 @@
     var sisaFisik = document.getElementById("sisaFisik").value;
 
 
-    if(sisaPagu == 0){
+    if(sisaPagu == 0 && sisaFisik < 0.5){
       window.location.href = "<?=base_url(); ?>Report/lampiran3/<?=$this->uri->segment(3)?>";
     }else{
       swal({
@@ -212,7 +212,7 @@
         success:function(data)
         {
           $('#biayaActAdd').attr("placeholder","maximum = "+data['sisa']);    
-          $('#biayaActAdd').attr("max",data['sisa']); 
+          $('#biayaActAdd').attr("max",data['sisa']);
           $('#fisikAct').attr("max",data['fisik']);    
           
         }
@@ -243,7 +243,7 @@
         success:function(data)
         {
           $('#biayaStageAdd').attr("placeholder","maximum = "+data['sisa']);    
-          $('#biayaStageAdd').attr("max",data['sisa']);   
+          $('#biayaStageAdd').attr("max",data['sisa']);  
           $('#fisikStage').attr("max",data['fisik']);    
           
         }

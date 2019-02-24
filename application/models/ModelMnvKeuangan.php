@@ -36,6 +36,14 @@ class ModelMnvKeuangan extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function selectByRmpSdkMonth($month, $id_rmp_sdk){
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+		$this->db->where('id_rmp_sdk ='.$id_rmp_sdk.' AND month = '.$month);
+		
+		return $this->db->get();
+	}
+
 	public function cekByWeeksRMP($rmp_sdk,$month){
 		$this->db->select('*');
 		$this->db->from($this->tableName);
@@ -86,6 +94,14 @@ class ModelMnvKeuangan extends CI_Model {
 		$biaya['sisaM'] = ($biaya_now+$biaya_self)-$biaya_kumulatif;
 
 		return $biaya;
+	}
+
+
+	public function getKeuEmon($kdsatker='', $kdpaket ='', $tahun = ''){
+		$this->db->select('*');
+		$this->db->from('emon_rencanakeu_'.$tahun);
+		$this->db->where('kdsatker = '.$kdsatker.' AND kdpaket = '.$kdpaket);
+		return $this->db->get();
 	}
 
 	public function insert($data){

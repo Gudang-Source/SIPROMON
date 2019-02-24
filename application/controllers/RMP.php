@@ -611,7 +611,9 @@ class RMP extends CI_Controller {
 	public function att3($idk){
 		$this->data['satker'] = $this->ModelSatker->selectByIdUser($this->session->userdata('id'))->row_array();
 		$this->data['row'] = $this->ModelRMP->selectByIdKegiatan($idk)->row_array();
-		$this->data['sisaFisik'] = 100;
+		$this->data['sisaFisik'] = 100.0;
+		$this->data['row']['pagu'] = $this->ModelMnvKeuanganTotal->getPaguEmon($this->data['row']['kdsatker'],$this->data['row']['kdpaket'],$this->data['row']['tahun_anggaran'])->row_array()['pagu'];
+
 		$this->data['sisa'] = $this->data['row']['pagu'];
 
 		$this->data['allAct'] = $this->ModelRMPAct->selectByIdRMP($this->data['row']['id'])->result_array();
